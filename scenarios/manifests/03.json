@@ -1,6 +1,6 @@
 {
   "id": "03",
-  "title": "Password spraying",
+  "title": "Password Spraying",
   "category": "Initial Access",
   "overview": "Look for repeated password failures across several different accounts from a common source.",
   "objective": "Low-rate account guessing.",

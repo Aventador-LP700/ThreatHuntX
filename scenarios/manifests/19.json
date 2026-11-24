@@ -1,7 +1,7 @@
 {
   "id": "19",
-  "title": "HTTPS / DNS C2",
-  "category": "Lateral / Evasion / C2",
+  "title": "HTTPS/DNS Command & Control",
+  "category": "Lateral Movement & Command",
   "overview": "Explore repeated DNS lookups classified as high entropy for an uncommon destination domain.",
   "objective": "Hidden command channels.",
   "platform": "Network",

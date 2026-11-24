@@ -1,7 +1,7 @@
 {
   "id": "16",
-  "title": "RDP / SMB / WinRM abuse",
-  "category": "Lateral / Evasion / C2",
+  "title": "RDP/SMB/WinRM Abuse",
+  "category": "Lateral Movement & Command",
   "overview": "Find repeated administrative sessions between a peer and multiple destinations outside a managed jump-host path.",
   "objective": "Unauthorized remote sessions.",
   "platform": "Windows",

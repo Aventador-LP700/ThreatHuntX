@@ -1,4 +1,4 @@
-// THX-08 Scheduled tasks / cron | Review-only. Custom normalized schema.
+// THX-08 Scheduled Tasks/Cron | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "linux"
 | where THXAction =~ "cron_change"

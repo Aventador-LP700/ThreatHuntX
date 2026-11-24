@@ -1,4 +1,4 @@
-// THX-12 Credential dumping | Review-only. Custom normalized schema.
+// THX-12 Credential Dumping | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "windows"
 | where THXEventId =~ "10"

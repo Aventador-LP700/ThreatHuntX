@@ -1,7 +1,7 @@
 {
   "id": "34",
-  "title": "Secrets in Git/artifacts",
-  "category": "Supply Chain / Ci-Cd",
+  "title": "Secrets in Git/Artifacts",
+  "category": "Supply Chain & CI/CD",
   "overview": "Triage a secret-scanner finding based on its classification and artifact exposure.",
   "objective": "Leak sensitive credentials.",
   "platform": "CI/CD",

@@ -1,4 +1,4 @@
-title: Ransomware-like activity observation
+title: Ransomware-Like Activity observation
 name: threathuntx_23
 id: 3841320c-81d1-5c22-a98e-74332bda05b6
 status: test
@@ -27,7 +27,7 @@ falsepositives:
 - Controlled migrations and testing can perform bulk renames on a mapped share.
 level: high
 ---
-title: Ransomware-like activity correlation
+title: Ransomware-Like Activity correlation
 id: 4299e670-965d-56fb-b120-847920cab135
 status: test
 description: Check distinct file identifiers, extension pattern, process lineage and

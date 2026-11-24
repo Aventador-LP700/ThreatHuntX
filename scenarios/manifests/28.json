@@ -1,7 +1,7 @@
 {
   "id": "28",
-  "title": "Browser cookie theft",
-  "category": "Modern Identity",
+  "title": "Browser Cookie Theft",
+  "category": "Identity & Phishing",
   "overview": "Investigate a sensitive browser session-store access by a non-browser process.",
   "objective": "Hijack web sessions.",
   "platform": "Windows",

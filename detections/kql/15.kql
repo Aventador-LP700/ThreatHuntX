@@ -1,4 +1,4 @@
-// THX-15 Privilege escalation | Review-only. Custom normalized schema.
+// THX-15 Privilege Escalation | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "linux"
 | where THXAction =~ "privilege_transition"

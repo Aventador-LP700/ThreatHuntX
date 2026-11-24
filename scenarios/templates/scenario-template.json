@@ -1,0 +1,17 @@
+{
+  "template_version": 1,
+  "proposal": {
+    "title": "Name the technique in the teaching taxonomy",
+    "category": "Choose one of the eight catalog sections",
+    "learning_outcome": "Explain what question a learner should be able to answer",
+    "attack_reference": "Give an official Enterprise ATT&CK technique link and explain mapping confidence",
+    "telemetry": "List the needed source fields and any enrichment",
+    "hypothesis": "Write a testable detection or triage hypothesis",
+    "fixture_plan": {
+      "baseline": "Describe expected benign activity",
+      "positive": "List the synthetic event conditions and expected evidence IDs",
+      "negative": "Describe a plausible noisy benign alternative"
+    },
+    "tuning_and_response": "Explain controls, false positives, decisions and limitations"
+  }
+}

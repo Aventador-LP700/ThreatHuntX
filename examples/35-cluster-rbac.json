@@ -71,7 +71,7 @@
       "id": "example-35-1",
       "rule_id": "THX-35",
       "scenario_id": "35",
-      "title": "Kubernetes RBAC abuse",
+      "title": "Kubernetes RBAC Abuse",
       "severity": "high",
       "group": "training-cluster",
       "first_seen": "2025-08-14T17:40:32Z",

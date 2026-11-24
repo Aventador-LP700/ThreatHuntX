@@ -30,11 +30,12 @@ async function simulate() {
 
 <template>
   <template v-if="page === 'progress'">
-    <PageHeading title="Learning progress" description="Your completed lessons are stored in this browser."><button class="button primary" @click="download('threathuntx-learning-report.json', report)"><Download :size="16" aria-hidden="true" /> Export learning report</button></PageHeading>
+    <PageHeading title="Reports" description="Review your learning progress and open recent case reports."><button class="button primary" @click="download('threathuntx-learning-report.json', report)"><Download :size="16" aria-hidden="true" /> Export learning report</button></PageHeading>
     <section class="panel"><h2>{{ report.completed.length }} of {{ scenarios.length }} lessons completed</h2><p v-if="!report.completed.length" class="muted">Complete a lesson to build your report.</p><ul v-else><li v-for="entry in report.completed" :key="entry.id"><RouterLink :to="`/lesson/${entry.id}`">{{ entry.title }}</RouterLink> · {{ entry.attack }}</li></ul><RouterLink class="button secondary" to="/learn">Browse learning tracks <ArrowRight :size="16" aria-hidden="true" /></RouterLink></section>
+    <section class="panel studio-panel"><h2>Recent case reports</h2><p v-if="!runs.length">Replay a lesson to create a case.</p><div v-else class="list-stack"><RouterLink v-for="run in runs" :key="run.id" class="list-row" :to="`/investigations/${run.id}/report`"><span>{{ scenarios.find(s => s.id === run.scenario_id)?.title ?? run.scenario_id }}<small>{{ titleCase(run.mode) }} · {{ run.id.slice(-6) }}</small></span><ArrowRight :size="16" aria-hidden="true" /></RouterLink></div></section>
   </template>
   <template v-else-if="page === 'simulate'">
-    <PageHeading title="Simulate" :description="showcase ? 'View a prerecorded synthetic sample.' : 'Ingest a bundled synthetic fixture and apply the local detection rule.'" />
+    <PageHeading title="Guided Hunt" :description="showcase ? 'View a prerecorded synthetic sample.' : 'Ingest a bundled synthetic fixture and apply the local detection rule.'" />
     <section class="panel"><form class="filters-grid" @submit.prevent="simulate"><label class="field">Technique<select v-model="selected"><option v-for="entry in scenarios" :key="entry.id" :value="entry.id">{{ entry.title }}</option></select></label><label class="field">Fixture<select v-model="mode"><option value="positive">Positive signal</option><option value="negative">Noisy / negative</option></select></label><button class="button primary" :disabled="running || !scenarios.length"><Play :size="16" aria-hidden="true" /> {{ showcase ? 'View sample' : 'Replay safe events' }}</button></form><p v-if="error" class="error-box" role="alert">{{ error }}</p><p v-if="replayed" role="status"><RouterLink :to="`/investigations/${replayed}`">Open evidence timeline</RouterLink></p></section>
   </template>
   <template v-else-if="page === 'alerts' || page === 'investigations'">

@@ -1,4 +1,4 @@
-// THX-02 MFA fatigue | Review-only. Custom normalized schema.
+// THX-02 MFA Fatigue | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "identity"
 | where THXAction =~ "mfa_challenge"

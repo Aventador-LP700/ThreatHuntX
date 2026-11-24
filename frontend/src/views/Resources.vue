@@ -12,6 +12,13 @@ const repo = 'https://github.com/Aventador-LP700/ThreatHuntX'
     <PageHeading title="Response playbooks" description="Practise making and documenting response decisions from the evidence you have." />
     <div class="playbook-grid"><section class="panel" v-for="book in playbooks" :key="book.title"><p class="inline-meta">{{ book.scope }}</p><h2>{{ book.title }}</h2><p>{{ book.trigger }}</p><ol><li v-for="action in book.actions" :key="action">{{ action }}</li></ol><h3>Recovery</h3><p>{{ book.recovery }}</p><div class="actions"><RouterLink class="button text-button" v-for="id in book.cases" :key="id" :to="`/lesson/${id}`">{{ scenarios.find(t => t.id === id)?.title ?? `Lesson ${id}` }} <ArrowRight :size="14" aria-hidden="true" /></RouterLink></div></section></div>
   </template>
+  <template v-else-if="props.page === 'architecture'">
+    <PageHeading title="Reference Architecture" description="Follow a synthetic record from the bundled source to the analyst report." />
+    <div class="playbook-grid">
+      <section class="panel"><h2>Local Lite workspace</h2><ol class="flow-list"><li>Vue runs in the learner’s browser.</li><li>Nginx serves the app and proxies the loopback API.</li><li>FastAPI parses the chosen fixture and runs its detection.</li><li>SQLite stores replay evidence and alert IDs.</li><li>The browser renders the timeline and stores optional analysis notes.</li></ol></section>
+      <section class="panel"><h2>Static showcase</h2><p>The build packages synthetic examples and fixture comparisons as JSON. The browser serves lessons, timelines and reports from those examples.</p><h2>Optional analyst lab</h2><p>Wazuh and vendor sensors use an independent disposable environment. Their checks are tracked separately from the Community Lab.</p><p><a :href="`${repo}/blob/main/docs/full-lab-setup.md`" target="_blank" rel="noopener noreferrer">Read the optional analyst setup <ExternalLink :size="15" aria-hidden="true" /></a></p></section>
+    </div>
+  </template>
   <template v-else-if="props.page === 'deployment'">
     <PageHeading title="Deployment help" description="Run the Community Lab on your own computer with Docker Compose." />
     <div class="playbook-grid"><section class="panel"><h2>Start the lab</h2><p>Install Docker Engine or Docker Desktop with Compose v2 and start Docker.</p><pre><code>git clone https://github.com/Aventador-LP700/ThreatHuntX.git

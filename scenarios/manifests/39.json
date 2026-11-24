@@ -1,7 +1,7 @@
 {
   "id": "39",
-  "title": "RMM tool abuse",
-  "category": "Cloud / Host / Saas",
+  "title": "RMM Tool Abuse",
+  "category": "Cloud, Host & SaaS",
   "overview": "Review a remote-support session for a tool absent from the organization’s approved inventory.",
   "objective": "Unauthorized remote control.",
   "platform": "Windows",

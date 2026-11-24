@@ -1,7 +1,7 @@
 {
   "id": "11",
-  "title": "Token theft",
-  "category": "Privilege & Credentials",
+  "title": "Token Theft",
+  "category": "Privilege Escalation & Credentials",
   "overview": "Investigate synthetic use of one application session fingerprint from different context and risk signals.",
   "objective": "Misuse captured sessions.",
   "platform": "Identity",

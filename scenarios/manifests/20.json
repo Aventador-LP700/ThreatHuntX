@@ -1,7 +1,7 @@
 {
   "id": "20",
-  "title": "Cloud IAM abuse",
-  "category": "Lateral / Evasion / C2",
+  "title": "Cloud IAM Abuse",
+  "category": "Lateral Movement & Command",
   "overview": "Inspect a cloud audit record that grants a privileged role to a principal outside a deployment identity.",
   "objective": "Misused cloud permissions.",
   "platform": "Cloud",

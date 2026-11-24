@@ -1,4 +1,4 @@
-title: RDP / SMB / WinRM abuse observation
+title: RDP/SMB/WinRM Abuse observation
 name: threathuntx_16
 id: 414964af-adb9-5500-833d-f5e9b8c5b75d
 status: test
@@ -30,7 +30,7 @@ falsepositives:
 - An approved desktop-support activity can touch several systems within minutes.
 level: medium
 ---
-title: RDP / SMB / WinRM abuse correlation
+title: RDP/SMB/WinRM Abuse correlation
 id: 120cf71a-bced-5255-a4c8-03d5c4470b7e
 status: test
 description: Compare the service, source zone and distinct target IDs. Review authorization

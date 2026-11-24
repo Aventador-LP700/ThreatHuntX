@@ -21,3 +21,26 @@ The build evaluates the same packaged records with the local engine and produces
 ## Optional analyst lab
 
 The analysts’ Wazuh examples share the normalized projection. Wazuh rules match event candidates. The local engine’s sliding distinct-value correlations have their own semantics. Vendor-native data requires a separately designed field map, ingestion, timing and approval context. Run advanced components independently. [Optional setup](full-lab-setup.md)
+
+## v2 network boundaries and case data
+
+![Community Lite network boundaries with one loopback Nginx listener, a private FastAPI service and SQLite volume, and a separate static build](media/lite-boundaries.png)
+
+The lab's internal network carries API traffic between Nginx and FastAPI. Fixture comparisons are calculated from allowlisted, packaged data and return temporary results. Case analysis is kept on the browser origin. Nginx bounds request sizes, Uvicorn limits concurrent work, and Docker rotates logs. The SQLite volume retains evidence until reset or explicit volume removal.
+
+The Pages build hosts static resources. Its fixture comparison reports come from the same engine that powers the local workspace. Browsers may download case reports and keep local notes from those prerecorded examples. [Editable source](lite-boundaries.mmd) · [Case report format](CASE_REPORTS.md) · [Static showcase](../public-demo/README.md)
+
+## Optional analyst topology
+
+```mermaid
+flowchart LR
+    Fixtures[Bundled synthetic input] --> Engine[Verified isolated Wazuh engine]
+    Win[Disposable Windows and Sysmon] -. live pending .-> Manager[Optional Wazuh manager and indexer]
+    Linux[Disposable Linux and auditd] -. live pending .-> Manager
+    Sensor[Offline capture with Zeek or Suricata] -. live pending .-> Analyst[Analyst evidence review]
+    Cloud[Cloud and Kubernetes audit] -. live pending .-> Analyst
+    Manager -. live pending .-> Analyst
+    Engine --> Analyst
+```
+
+Optional components run independently from Lite. [Advanced integration acceptance](INTEGRATION_ACCEPTANCE.md)

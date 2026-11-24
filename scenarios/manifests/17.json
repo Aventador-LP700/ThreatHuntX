@@ -1,7 +1,7 @@
 {
   "id": "17",
-  "title": "Living-off-the-land",
-  "category": "Lateral / Evasion / C2",
+  "title": "LOLBins/LOLBAS",
+  "category": "Lateral Movement & Command",
   "overview": "Triage a signed Windows binary invoked by an unusual parent and directed at an untrusted content location.",
   "objective": "Abuse trusted system tools.",
   "platform": "Windows",

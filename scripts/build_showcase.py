@@ -4,24 +4,22 @@ import argparse
 import json
 import shutil
 from pathlib import Path
-from tempfile import TemporaryDirectory
 
 from app.catalog import ROOT, Catalog
+from app.evaluation import MODES, evaluate_trial
+from app.exports import sample_run
 from app.portability import artifact, artifact_kinds, present_scenario
-from app.store import Store
 
 
-def snapshot(catalog: Catalog, db: Store):
+def snapshot(catalog: Catalog):
     assets = {}
     runs = {}
+    trials = {}
     for scenario in catalog.scenarios.values():
-        runs[f"baseline-{scenario.id}"] = db.get(f"baseline-{scenario.id}")
-        for mode in ("positive", "negative"):
-            name = f"sample-{scenario.id}-{mode}"
-            with db.connect() as connection:
-                run = db.insert(connection, catalog, scenario, mode, name)
-            # The sample timestamp is fixture provenance, independent of the build date.
-            runs[name] = run | {"created_at": run["events"][0]["event_timestamp"]}
+        trials[scenario.id] = evaluate_trial(scenario, catalog.fixtures)
+        for mode in MODES:
+            run = sample_run(scenario, mode, catalog.fixtures[scenario.id, mode])
+            runs[run["id"]] = run
         for kind in artifact_kinds(catalog.root, scenario.id):
             key = "wazuh" if kind == "wazuh" else f"{scenario.id}-{kind}"
             if key not in assets:
@@ -32,6 +30,7 @@ def snapshot(catalog: Catalog, db: Store):
             "scenarios": [present_scenario(catalog.root, s) for s in catalog.scenarios.values()],
         },
         "coverage": catalog.validation,
+        "trials": trials,
         "runs": runs,
         "artifacts": assets,
     }
@@ -43,12 +42,15 @@ def main():
     args = parser.parse_args()
     catalog = Catalog()
     args.directory.mkdir(parents=True, exist_ok=True)
-    with TemporaryDirectory(prefix="threathuntx-showcase-") as directory:
-        store = Store(Path(directory) / "showcase.db")
-        store.initialize(catalog)
-        content = snapshot(catalog, store)
+    content = snapshot(catalog)
     (args.directory / "snapshot.json").write_text(
-        json.dumps(content, ensure_ascii=False, separators=(",", ":")) + "\n"
+        json.dumps(
+            content,
+            ensure_ascii=False,
+            separators=(",", ":"),
+            default=lambda model: model.model_dump(mode="json"),
+        )
+        + "\n"
     )
     (args.directory / ".nojekyll").touch()
     licenses = args.directory / "licenses"

@@ -1,7 +1,7 @@
 {
   "id": "35",
-  "title": "Kubernetes RBAC abuse",
-  "category": "Supply Chain / Ci-Cd",
+  "title": "Kubernetes RBAC Abuse",
+  "category": "Supply Chain & CI/CD",
   "overview": "Review a Kubernetes audit record for an unexpected grant of cluster-wide administrative access.",
   "objective": "Elevate cluster permissions.",
   "platform": "Kubernetes",

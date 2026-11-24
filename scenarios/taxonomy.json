@@ -1,0 +1,82 @@
+[
+  {
+    "category": "Initial Access",
+    "lessons": [
+      "Phishing",
+      "MFA Fatigue",
+      "Password Spraying",
+      "Public-Facing Application Exploits",
+      "OAuth Consent Phishing"
+    ]
+  },
+  {
+    "category": "Execution & Persistence",
+    "lessons": [
+      "PowerShell Abuse",
+      "HTML Smuggling",
+      "Scheduled Tasks/Cron",
+      "Registry Autoruns",
+      "WMI Subscription"
+    ]
+  },
+  {
+    "category": "Privilege Escalation & Credentials",
+    "lessons": [
+      "Token Theft",
+      "Credential Dumping",
+      "Kerberoasting",
+      "Pass-the-Hash",
+      "Privilege Escalation"
+    ]
+  },
+  {
+    "category": "Lateral Movement & Command",
+    "lessons": [
+      "RDP/SMB/WinRM Abuse",
+      "LOLBins/LOLBAS",
+      "Disable Security Tools",
+      "HTTPS/DNS Command & Control",
+      "Cloud IAM Abuse"
+    ]
+  },
+  {
+    "category": "Discovery & Impact",
+    "lessons": [
+      "Active Directory Enumeration",
+      "Cloud Exfiltration",
+      "Ransomware-Like Activity",
+      "Data Staging",
+      "Wiper-Like Activity"
+    ]
+  },
+  {
+    "category": "Identity & Phishing",
+    "lessons": [
+      "Adversary-in-the-Middle Phishing",
+      "Device-Code Phishing",
+      "Browser Cookie Theft",
+      "Infostealers",
+      "QR-Code Phishing"
+    ]
+  },
+  {
+    "category": "Supply Chain & CI/CD",
+    "lessons": [
+      "Malicious Dependencies",
+      "CI/CD Token Compromise",
+      "GitHub Actions Tampering",
+      "Secrets in Git/Artifacts",
+      "Kubernetes RBAC Abuse"
+    ]
+  },
+  {
+    "category": "Cloud, Host & SaaS",
+    "lessons": [
+      "Container Escape",
+      "Cloud Metadata Credential Theft",
+      "BYOVD Driver Abuse",
+      "RMM Tool Abuse",
+      "SaaS Exfiltration"
+    ]
+  }
+]

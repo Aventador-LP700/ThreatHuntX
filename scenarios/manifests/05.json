@@ -1,6 +1,6 @@
 {
   "id": "05",
-  "title": "OAuth consent phishing",
+  "title": "OAuth Consent Phishing",
   "category": "Initial Access",
   "overview": "Review an OAuth consent audit event for an unverified publisher and durable mailbox access.",
   "objective": "Malicious app permissions.",

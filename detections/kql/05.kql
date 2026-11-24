@@ -1,4 +1,4 @@
-// THX-05 OAuth consent phishing | Review-only. Custom normalized schema.
+// THX-05 OAuth Consent Phishing | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "identity"
 | where THXAction =~ "consent_grant"

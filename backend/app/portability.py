@@ -1,3 +1,5 @@
+import hashlib
+import json
 from pathlib import Path
 from typing import Literal
 
@@ -19,13 +21,28 @@ def artifact_path(root: Path, scenario_id: str, kind: Kind) -> Path | None:
     return directory / f"{scenario_id}.{extensions[kind]}"
 
 
+def wazuh_engine_verified(root: Path) -> bool:
+    directory = root / "detections/wazuh"
+    try:
+        evidence = json.loads((directory / "engine-validation.json").read_text())
+        return evidence["matched_candidate_count"] == 20 and all(
+            hashlib.sha256((directory / name).read_bytes()).hexdigest() == evidence["sha256"][name]
+            for name in ("decoders.xml", "rules.xml", "synthetic.log")
+        )
+    except (OSError, KeyError, TypeError, ValueError):
+        return False
+
+
 def artifact(root: Path, scenario_id: str, kind: Kind) -> dict | None:
     path = artifact_path(root, scenario_id, kind)
     if path and path.is_file():
+        status = STATUS[kind]
+        if kind == "wazuh" and wazuh_engine_verified(root):
+            status = "Wazuh 4.14.10 engine verified on synthetic records · live collector verification pending"
         return {
             "kind": kind,
             "label": LABELS[kind],
-            "status": STATUS[kind],
+            "status": status,
             "code": path.read_text(),
         }
     return None

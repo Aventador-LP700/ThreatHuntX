@@ -1,7 +1,7 @@
 {
   "id": "37",
-  "title": "Cloud metadata theft",
-  "category": "Cloud / Host / Saas",
+  "title": "Cloud Metadata Credential Theft",
+  "category": "Cloud, Host & SaaS",
   "overview": "Find a network classification showing an unexpected workload requesting the cloud metadata credential service.",
   "objective": "Access instance credentials.",
   "platform": "Cloud",

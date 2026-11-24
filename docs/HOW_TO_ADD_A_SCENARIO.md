@@ -8,3 +8,5 @@ Start with an issue that identifies the defensive learning goal and its supporti
 4. Verify the rule triggers from the required observations, and explain why a similar benign batch does not trigger. Link matched events and the downstream decision. Rebuild portable artifacts and lessons.
 
 [Fixture schema](../scenarios/schema/fixture-record-v1.json) · [Scenario schema](../scenarios/schema/scenario-v1.json) · [MFA manifest](../scenarios/manifests/02.json) · [Contributing](../CONTRIBUTING.md)
+
+Use the [scenario proposal template](../scenarios/templates/scenario-template.json) when opening a change. The template captures review context, and the accepted manifest follows the linked scenario schema. Keep IDs and taxonomy order stable. Include lesson-level fixture output and field provenance in the review.

@@ -1,6 +1,6 @@
 # Optional analyst lab
 
-The Community Lab is self-contained. The components below are independent, opt-in setups for disposable machines. Live collection and end-to-end provider integrations are **manual pending** for the alpha. The versions and release links were checked against their publishers. Use current patched builds of the listed compatibility lines if a security update supersedes a pin, and record the exact versions you use.
+The Community Lab is self-contained. The components below are independent, opt-in setups for disposable machines. Live collector and provider integrations are **manual pending**. The optional bounded check below validates the Wazuh 4.14.10 event engine on synthetic inputs. The versions and release links were checked against their publishers. Use current patched builds of the listed compatibility lines if a security update supersedes a pin, and record the exact versions you use.
 
 ## Wazuh 4.14.10
 
@@ -33,3 +33,15 @@ Use an independent [Velociraptor 0.77.4](https://github.com/Velocidex/velocirapt
 Start cloud and Kubernetes work with packaged projections for [IAM](../scenarios/fixtures/20.positive.json), [Entra-style sign-in](../scenarios/fixtures/02.positive.json), [GitHub audit review](../scenarios/fixtures/33.positive.json) and [cluster RBAC](../scenarios/fixtures/35.positive.json). Map provider-native fields and verify timestamp, subject, approval and data boundaries before enabling a live collector. For Kubernetes practice, use a separate [kind v0.33.0](https://github.com/kubernetes-sigs/kind/releases/tag/v0.33.0) cluster with [a minimal audit policy](../infra/kind/README.md). Keep the API private and delete only the named disposable cluster at teardown.
 
 [Validation status](../reports/validation-summary.md) · [Scope](SAFETY_AND_SCOPE.md) · [Upstream licenses and documentation](TOOLS_AND_LICENSES.md)
+
+## Bounded Wazuh engine check
+
+To verify the custom decoder and candidate IDs without the heavyweight full stack, build the Lite API image and run the pinned native analysis engine in a disposable Docker container with its network disabled. On Linux x86-64, obtain `wazuh-manager_4.14.10-1_amd64.deb` from the official package URL and pass its local path. The script verifies the SHA-256 before extracting the relevant binaries and base rules. It removes the container when the check ends. The download is 622,098,428 bytes. [Pinned package](https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-manager/wazuh-manager_4.14.10-1_amd64.deb)
+
+```bash
+uv sync --locked
+docker compose build api
+./scripts/check-wazuh-engine.sh /absolute/path/to/wazuh-manager_4.14.10-1_amd64.deb
+```
+
+The output records native `wazuh-analysisd -t` configuration validation and sanitized results from the packaged `wazuh-logtest-legacy` tool. Each bundled line is compared to the expected event candidates. This exercises Wazuh's decoder and rule engine using synthetic input. Verify the full stack, agent event delivery, and dashboard separately. [Recorded engine evidence](../detections/wazuh/engine-validation.json) · [Integration matrix](INTEGRATION_ACCEPTANCE.md)

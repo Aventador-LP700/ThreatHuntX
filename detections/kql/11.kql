@@ -1,4 +1,4 @@
-// THX-11 Token theft | Review-only. Custom normalized schema.
+// THX-11 Token Theft | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "identity"
 | where THXAction =~ "token_use"

@@ -1,4 +1,4 @@
-// THX-07 HTML smuggling | Review-only. Custom normalized schema.
+// THX-07 HTML Smuggling | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "mail"
 | where THXAction =~ "attachment_scan"

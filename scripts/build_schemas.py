@@ -5,7 +5,7 @@ import json
 
 from app.catalog import ROOT
 from app.ingest import Raw
-from app.models import Event, Scenario
+from app.models import CaseReport, Event, Scenario
 
 
 def main():
@@ -14,6 +14,7 @@ def main():
     args = parser.parse_args()
     for name, model in {
         "event-v1": Event,
+        "case-report-v1": CaseReport,
         "scenario-v1": Scenario,
         "fixture-record-v1": Raw,
     }.items():

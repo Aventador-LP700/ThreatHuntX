@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 
 from .detect import correlate
+from .evaluation import fixture_result, summarize
 from .ingest import parse
 from .models import Event, Mode, Scenario
 
@@ -37,34 +38,16 @@ class Catalog:
         for scenario in self.scenarios.values():
             for mode in ["positive", "negative", "baseline"]:
                 alerts = correlate(scenario, self.fixtures[scenario.id, mode], "check")
-                expected = mode == "positive"
-                actual = bool(alerts)
+                result = fixture_result(scenario, mode, self.fixtures[scenario.id, mode], alerts)
                 cases.append(
                     {
-                        "scenario_id": scenario.id,
-                        "mode": mode,
-                        "expected": expected,
-                        "actual": actual,
-                        "alerts": len(alerts),
-                        "passed": actual == expected,
+                        key: value
+                        for key, value in result.items()
+                        if key not in {"event_count", "matched_records"}
                     }
                 )
-        tp = sum(case["expected"] and case["actual"] for case in cases)
-        fp = sum(not case["expected"] and case["actual"] for case in cases)
-        tn = sum(not case["expected"] and not case["actual"] for case in cases)
-        fn = sum(case["expected"] and not case["actual"] for case in cases)
         return {
             "dataset": "Bundled synthetic fixture batches",
             "cases": cases,
-            "metrics": {
-                "tp": tp,
-                "fp": fp,
-                "tn": tn,
-                "fn": fn,
-                "precision": tp / (tp + fp) if tp + fp else None,
-                "recall": tp / (tp + fn) if tp + fn else None,
-                "passed": tp + tn,
-                "total": len(cases),
-                "pass_rate": (tp + tn) / len(cases),
-            },
+            "metrics": summarize(cases),
         }

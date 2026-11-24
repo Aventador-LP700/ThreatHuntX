@@ -1,4 +1,4 @@
-title: Password spraying observation
+title: Password Spraying observation
 name: threathuntx_03
 id: 651394ac-25ee-5271-a294-cf03a147d13f
 status: test
@@ -27,7 +27,7 @@ falsepositives:
   source.
 level: medium
 ---
-title: Password spraying correlation
+title: Password Spraying correlation
 id: 144c9441-1451-5657-8dfe-75b9e714bcb8
 status: test
 description: Group by source IP, count distinct usernames, and pivot to subsequent

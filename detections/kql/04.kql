@@ -1,4 +1,4 @@
-// THX-04 Public app exploitation | Review-only. Custom normalized schema.
+// THX-04 Public-Facing Application Exploits | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "network"
 | where THXAction =~ "waf_decision"

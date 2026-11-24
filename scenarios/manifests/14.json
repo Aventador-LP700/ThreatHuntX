@@ -1,7 +1,7 @@
 {
   "id": "14",
-  "title": "Pass-the-hash",
-  "category": "Privilege & Credentials",
+  "title": "Pass-the-Hash",
+  "category": "Privilege Escalation & Credentials",
   "overview": "Review an NTLM network logon on a host that typically receives traffic from managed services.",
   "objective": "Reused NTLM credentials.",
   "platform": "AD",

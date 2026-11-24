@@ -1,6 +1,6 @@
 {
   "id": "09",
-  "title": "Registry autoruns",
+  "title": "Registry Autoruns",
   "category": "Execution & Persistence",
   "overview": "Distinguish an unexpected Windows logon autorun change from an approved application update.",
   "objective": "Unexpected logon persistence.",

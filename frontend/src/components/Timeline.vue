@@ -2,9 +2,11 @@
 import { computed } from 'vue'
 import { ChevronDown, CircleDot } from 'lucide-vue-next'
 import { time, titleCase } from '../learning'
+import type { PivotField } from '../cases'
 import type { EventRecord } from '../types'
 
-const props = defineProps<{ events: EventRecord[] }>()
+const props = defineProps<{ events: EventRecord[]; pivots?: boolean }>()
+const emit = defineEmits<{ pivot: [field: PivotField, value: string] }>()
 const ordered = computed(() => [...props.events].sort((a, b) => Date.parse(a.event_timestamp) - Date.parse(b.event_timestamp)))
 const optional = ['process', 'parent_process', 'command_line', 'source_ip', 'destination_ip', 'domain', 'url'] as const
 </script>
@@ -31,7 +33,13 @@ const optional = ['process', 'parent_process', 'command_line', 'source_ip', 'des
           </template>
           <div v-for="(value, key) in event.observables" :key="key"><dt>{{ titleCase(key) }}</dt><dd>{{ value }}</dd></div>
           <div class="evidence-reference"><dt>Evidence reference</dt><dd><code>{{ event.evidence_reference }}</code></dd></div>
+          <div v-if="event.alert_id"><dt>Alert ID</dt><dd><code>{{ event.alert_id }}</code></dd></div>
         </dl>
+        <div v-if="pivots" class="actions evidence-pivots">
+          <button class="button secondary" @click="emit('pivot', 'host', event.host)">Pivot by host</button>
+          <button v-if="event.user" class="button secondary" @click="emit('pivot', 'user', event.user)">Pivot by actor</button>
+          <button class="button secondary" @click="emit('pivot', 'source', event.source)">Pivot by source</button>
+        </div>
       </details>
     </li>
   </ol>

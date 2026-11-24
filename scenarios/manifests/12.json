@@ -1,7 +1,7 @@
 {
   "id": "12",
-  "title": "Credential dumping",
-  "category": "Privilege & Credentials",
+  "title": "Credential Dumping",
+  "category": "Privilege Escalation & Credentials",
   "overview": "Triage a Sysmon process access record involving the authentication subsystem.",
   "objective": "Secrets from host memory.",
   "platform": "Windows",

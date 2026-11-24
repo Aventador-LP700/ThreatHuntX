@@ -20,6 +20,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
         with:
           version: 0.13.9
@@ -50,6 +51,10 @@ jobs:
         run: |
           uv run --locked pytest --junitxml=build/validation/pytest.xml
           uv run --locked python -m app.cli verify > build/validation/fixture-results.json
+          uv run --locked python -m app.cli lab > build/validation/scenario-assessment.md
+          uv run --locked python -m scripts.vendor_samples all > build/validation/vendor-samples.json
+      - name: Verify optional YARA text samples
+        run: uv run --locked --extra forensics python -m scripts.check_yara_samples > build/validation/yara-samples.json
       - name: Scan application source, dependencies, and history
         run: |
           uv run --locked bandit -q -r backend/app
@@ -65,6 +70,15 @@ jobs:
           npm --prefix frontend run build
           uv run --locked cyclonedx-py requirements --output-reproducible infra/docker/requirements.txt --output-file build/validation/python.cdx.json
           npm --prefix frontend sbom --omit=dev --sbom-format=cyclonedx > build/validation/web.cdx.json
+      - name: Package the review candidate and verify checksums
+        run: |
+          ./scripts/package-release.sh
+          (cd build/release && sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: community-v2-candidate
+          path: build/release/
+          if-no-files-found: error
       - name: Write validation summary
         if: always()
         run: |
@@ -83,6 +97,7 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
         with:
           version: 0.13.9
@@ -98,6 +113,7 @@ jobs:
         run: |
           docker compose up -d --build --wait --wait-timeout 120
           curl -fsS http://127.0.0.1:8080/api/health
+          ./scripts/setup.sh lab 02 --threshold 3
           npm --prefix frontend run test:e2e
           ./scripts/setup.sh reset
       - name: Smoke the static showcase under a project subpath
@@ -108,6 +124,12 @@ jobs:
           trap 'kill "$preview_pid"' EXIT
           curl --retry 8 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:4173/dist/ > /dev/null
           THX_SHOWCASE=1 THX_URL=http://127.0.0.1:4173/dist/ npm --prefix frontend run test:e2e
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: read-only-showcase
+          path: public-demo/dist/
+          include-hidden-files: true
+          if-no-files-found: error
       - name: Logs and teardown
         if: always()
         run: |

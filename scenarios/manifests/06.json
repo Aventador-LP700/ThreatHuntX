@@ -1,6 +1,6 @@
 {
   "id": "06",
-  "title": "PowerShell abuse",
+  "title": "PowerShell Abuse",
   "category": "Execution & Persistence",
   "overview": "Investigate a PowerShell script-block observation with an unusual document-application parent.",
   "objective": "Suspicious script execution.",

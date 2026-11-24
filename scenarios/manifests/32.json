@@ -1,7 +1,7 @@
 {
   "id": "32",
-  "title": "CI/CD token theft",
-  "category": "Supply Chain / Ci-Cd",
+  "title": "CI/CD Token Compromise",
+  "category": "Supply Chain & CI/CD",
   "overview": "Review a workflow token-use audit projection when privileged actions come from an unapproved runner pool.",
   "objective": "Abuse pipeline credentials.",
   "platform": "CI/CD",

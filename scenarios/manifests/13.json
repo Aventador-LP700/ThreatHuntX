@@ -1,7 +1,7 @@
 {
   "id": "13",
   "title": "Kerberoasting",
-  "category": "Privilege & Credentials",
+  "category": "Privilege Escalation & Credentials",
   "overview": "Correlate service-ticket requests for distinct services alongside encryption and requester context.",
   "objective": "Service tickets for cracking.",
   "platform": "AD",

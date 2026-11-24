@@ -1,7 +1,7 @@
 {
   "id": "26",
-  "title": "AiTM phishing",
-  "category": "Modern Identity",
+  "title": "Adversary-in-the-Middle Phishing",
+  "category": "Identity & Phishing",
   "overview": "Investigate risky session drift after a sign-in and evaluate evidence for a possible relay.",
   "objective": "Session relay via fake login.",
   "platform": "Identity",

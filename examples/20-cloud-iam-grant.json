@@ -69,7 +69,7 @@
       "id": "example-20-1",
       "rule_id": "THX-20",
       "scenario_id": "20",
-      "title": "Cloud IAM abuse",
+      "title": "Cloud IAM Abuse",
       "severity": "medium",
       "group": "analyst-sample@training.example",
       "first_seen": "2025-08-14T14:10:32Z",

@@ -18,7 +18,7 @@ const domains = computed(() => [...new Set(scenarios.value.map(item => item.cate
       <p v-else>Investigate realistic security signals, test detection rules, and build analyst skills in a local lab that runs on synthetic data.</p>
       <div class="actions">
         <RouterLink class="button primary" to="/lesson/02"><BookOpen :size="17" aria-hidden="true" /> Start Learning <ArrowRight :size="17" aria-hidden="true" /></RouterLink>
-        <RouterLink class="button secondary" to="/techniques">Explore techniques</RouterLink>
+        <RouterLink class="button secondary" to="/techniques">Browse scenario lab</RouterLink>
       </div>
     </div>
     <div class="hero-visual" aria-hidden="true">

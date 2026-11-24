@@ -1,4 +1,4 @@
-// THX-06 PowerShell abuse | Review-only. Custom normalized schema.
+// THX-06 PowerShell Abuse | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "windows"
 | where THXEventId =~ "4104"
