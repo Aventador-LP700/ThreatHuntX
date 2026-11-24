@@ -1,5 +1,20 @@
 # ThreatHuntX validation
 
+## Scenario lab update · 2026-11-24
+
+The Linux x86-64 rehearsal built and started both Compose services using `./scripts/setup.sh` with an isolated project and loopback port. `/api/health` returned `synthetic_only: true`. The [scenario map screenshot](../docs/media/v2-technique-map.webp) was captured from this deployment at 2109 × 2244 pixels.
+
+| Check | Observed result |
+| --- | --- |
+| `uv run --locked pytest -q` | 214 passed. New tests cover all 40 report entries, exact fixture references, read-only assessment, argument validation, and temporary threshold trials. Starlette emitted its existing test-client deprecation warning. |
+| `./scripts/setup.sh lab all` and `PYTHONPATH=backend uv run --locked python -m app.cli lab --format json` | Both modes reported 120 checks passed. All 40 positive fixtures alerted and all 80 clean and noisy fixtures stayed quiet. |
+| `./scripts/setup.sh lab 02 --threshold 4 --format json` | Exit status 1 with a false negative in the trial. The published rule still passed all three MFA checks. |
+| `./scripts/setup.sh lab 02 --threshold 3 --format json` | Exit status 0 with three matched challenge records in the positive fixture and zero alerts in both controls. |
+| Chromium on Compose | 15 passed. The suite checked the eight-by-five map, all 40 lesson links and countermeasures, mobile search, rule trials, and case exports. |
+| Chromium on the static showcase | Six passed and nine live-app-only checks skipped. The map and all 40 lessons worked from a project subpath. |
+
+The assessment reports decisions for bundled synthetic evidence. [Integration acceptance](../docs/INTEGRATION_ACCEPTANCE.md) records the checks that require external platforms or collectors.
+
 ## Community v2 · 2026-11-24
 
 The upgrade starts from the existing `community-alpha` candidate and retains [PR #1](https://github.com/Aventador-LP700/ThreatHuntX/pull/1). Tests exercise the 40 bundled synthetic scenarios. The previous alpha measurements and CI evidence remain below.

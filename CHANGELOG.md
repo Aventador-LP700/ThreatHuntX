@@ -3,6 +3,7 @@
 ## 0.2.0 review candidate
 
 - Align the 40 lessons with eight teaching domains and publish a machine-readable scenario matrix.
+- Pair each technique with its countermeasure in the lab map, and add a terminal runner for all 40 exercises with Markdown and JSON evidence reports.
 - Evaluate temporary detection thresholds, grouping, and windows against three bundled fixture batches.
 - Add case, host, actor and source pivots, browser-local analysis, and JSON, CSV and printable case reports.
 - Add offline vendor adapters, an inert YARA exercise and recorded native Wazuh engine results.

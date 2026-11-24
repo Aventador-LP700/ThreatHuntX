@@ -51,6 +51,7 @@ jobs:
         run: |
           uv run --locked pytest --junitxml=build/validation/pytest.xml
           uv run --locked python -m app.cli verify > build/validation/fixture-results.json
+          uv run --locked python -m app.cli lab > build/validation/scenario-assessment.md
           uv run --locked python -m scripts.vendor_samples all > build/validation/vendor-samples.json
       - name: Verify optional YARA text samples
         run: uv run --locked --extra forensics python -m scripts.check_yara_samples > build/validation/yara-samples.json
@@ -112,6 +113,7 @@ jobs:
         run: |
           docker compose up -d --build --wait --wait-timeout 120
           curl -fsS http://127.0.0.1:8080/api/health
+          ./scripts/setup.sh lab 02 --threshold 3
           npm --prefix frontend run test:e2e
           ./scripts/setup.sh reset
       - name: Smoke the static showcase under a project subpath

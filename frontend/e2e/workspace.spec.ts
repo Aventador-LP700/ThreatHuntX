@@ -9,14 +9,26 @@ test('all 40 lessons open from the generated catalog and export their samples', 
   const response = await request.get(isShowcase ? './snapshot.json' : '/api/scenarios')
   expect(response.ok()).toBe(true)
   const data = await response.json()
-  const entries: { id: string; title: string }[] = isShowcase ? data.catalog.scenarios : data.scenarios
+  const entries: { id: string; title: string; prevention: string }[] = isShowcase ? data.catalog.scenarios : data.scenarios
   expect(entries).toHaveLength(40)
-  await page.goto('./#/techniques')
+  await page.goto('./')
+  await page.getByRole('link', { name: 'Browse scenario lab' }).click()
   await expect(page.locator('.technique-group')).toHaveCount(8)
   await expect(page.locator('.technique-card')).toHaveCount(40)
+  for (const group of await page.locator('.technique-group').all()) {
+    await expect(group.locator('.technique-tile')).toHaveCount(5)
+  }
   for (const entry of entries) {
-    await page.goto(`./#/lesson/${entry.id}`)
+    const tile = page.locator(`.technique-tile[href$="#/lesson/${entry.id}"]`)
+    await expect(tile.getByRole('heading', { name: entry.title, exact: true })).toBeVisible()
+    await expect(tile).toContainText(entry.prevention)
+  }
+  for (const entry of entries) {
+    await page.locator(`.technique-tile[href$="#/lesson/${entry.id}"]`).click()
     await expect(page.getByRole('heading', { name: entry.title, exact: true, level: 1 })).toBeVisible()
+    if (entry.id !== entries.at(-1)?.id) {
+      await page.getByRole('link', { name: 'All lab scenarios' }).click()
+    }
   }
   await page.getByLabel('Sample fixture').selectOption('baseline')
   const downloaded = page.waitForEvent('download')

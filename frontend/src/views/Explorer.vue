@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { ArrowRight, BookOpen, CheckCircle2, Clock3, Search } from 'lucide-vue-next'
+import { ArrowRight, BookOpen, CheckCircle2, Clock3, Search, ShieldCheck } from 'lucide-vue-next'
 import { scenarios, validationStatus } from '../api'
 import { curricula, progress, titleCase, tracks } from '../learning'
 import type { ArtifactKind } from '../types'
@@ -35,9 +35,9 @@ const all = computed(() => {
     (!status.value || status.value === validationStatus(s.id)) &&
     (!language.value || language.value === 'Local rule' || s.artifacts.includes(language.value.toLowerCase() as ArtifactKind)) &&
     (!data.value || data.value === 'Synthetic replay') &&
-    (!words || `${s.title} ${s.overview} ${s.attack.id} ${s.category}`.toLowerCase().includes(words)))
+    (!words || `${s.title} ${s.overview} ${s.attack.id} ${s.category} ${s.prevention}`.toLowerCase().includes(words)))
 })
-const groups = computed(() => props.learning ? [{ category: '', lessons: all.value }] :
+const groups = computed(() =>
   [...new Set(all.value.map(item => item.category))].map(category => ({ category, lessons: all.value.filter(item => item.category === category) })))
 const facets = computed(() => [
   { label: 'Platform', selected: platform, values: [...new Set(scenarios.value.map(s => s.platform))].sort() },
@@ -51,7 +51,7 @@ const facets = computed(() => [
 </script>
 
 <template>
-  <PageHeading :title="props.learning ? 'Learning Paths' : 'Technique Map'" :description="props.learning ? 'Choose a track and investigate a technique at your own pace.' : 'Browse defensive hypotheses, evidence sources, and ATT&CK mappings.'" />
+  <PageHeading :title="props.learning ? 'Learning Paths' : 'Technique Map'" :description="props.learning ? 'Choose a track and investigate a technique at your own pace.' : 'Choose a scenario to replay evidence, test a detection, and learn the countermeasure.'" />
   <section class="panel search-panel" aria-label="Filter techniques">
     <label class="search-field"><Search :size="18" aria-hidden="true" /><span class="sr-only">Search techniques</span><input v-model="search" type="search" placeholder="Search by technique, keyword, or ATT&CK ID" /></label>
     <div class="actions track-buttons" aria-label="Difficulty track"><button v-for="level in ['', ...tracks]" :key="level" class="button secondary" :aria-pressed="track === level" @click="track = level">{{ level || 'All levels' }}</button></div>
@@ -64,11 +64,24 @@ const facets = computed(() => [
     <ol><li v-for="entry in checkpoints" :key="entry.id"><RouterLink :to="`/lesson/${entry.id}`">{{ entry.title }}</RouterLink> · {{ progress[entry.id] ? 'Completed' : 'To do' }}</li></ol>
   </section>
   <p class="results-count" role="status">{{ all.length }} {{ all.length === 1 ? 'technique' : 'techniques' }}</p>
-  <section v-for="group in groups" :key="group.category" class="technique-group">
-    <h2 v-if="group.category">{{ group.category }}</h2>
-    <div class="cards-grid">
-    <RouterLink v-for="scenario in group.lessons" :key="scenario.id" class="panel technique-card" :to="`/lesson/${scenario.id}`"><div class="card-top"><span class="lesson-icon"><BookOpen :size="19" aria-hidden="true" /></span><span class="tag">{{ scenario.attack.id }}</span></div><component :is="group.category ? 'h3' : 'h2'">{{ scenario.title }}</component><p>{{ scenario.overview }}</p><div class="inline-meta"><span>{{ scenario.difficulty }}</span><span><Clock3 :size="13" aria-hidden="true" /> {{ scenario.minutes }} min</span></div><div class="card-footer"><span><CheckCircle2 v-if="progress[scenario.id]" :size="15" aria-hidden="true" /> {{ progress[scenario.id] ? 'Completed' : validationStatus(scenario.id) }}</span><ArrowRight :size="18" aria-hidden="true" /></div></RouterLink>
-    </div>
-  </section>
+  <div v-if="props.learning" class="cards-grid">
+    <RouterLink v-for="scenario in all" :key="scenario.id" class="panel technique-card" :to="`/lesson/${scenario.id}`"><div class="card-top"><span class="lesson-icon"><BookOpen :size="19" aria-hidden="true" /></span><span class="tag">{{ scenario.attack.id }}</span></div><h2>{{ scenario.title }}</h2><p>{{ scenario.overview }}</p><div class="inline-meta"><span>{{ scenario.difficulty }}</span><span><Clock3 :size="13" aria-hidden="true" /> {{ scenario.minutes }} min</span></div><div class="card-footer"><span><CheckCircle2 v-if="progress[scenario.id]" :size="15" aria-hidden="true" /> {{ progress[scenario.id] ? 'Completed' : validationStatus(scenario.id) }}</span><ArrowRight :size="18" aria-hidden="true" /></div></RouterLink>
+  </div>
+  <div v-else class="technique-map">
+    <section v-for="(group, index) in groups" :key="group.category" class="technique-group" :aria-labelledby="`technique-domain-${index}`">
+      <header class="technique-domain"><h2 :id="`technique-domain-${index}`">{{ group.category }}</h2></header>
+      <div class="technique-tiles">
+        <RouterLink v-for="scenario in group.lessons" :key="scenario.id" class="technique-card technique-tile" :to="`/lesson/${scenario.id}`">
+          <div class="tile-meta">
+            <span>{{ scenario.attack.id }}</span>
+            <span v-if="progress[scenario.id]" class="tile-completed"><CheckCircle2 :size="14" aria-hidden="true" /> Completed</span>
+            <ArrowRight v-else :size="14" aria-hidden="true" />
+          </div>
+          <h3>{{ scenario.title }}</h3>
+          <p class="tile-control"><ShieldCheck :size="16" aria-hidden="true" /><span><span class="sr-only">Countermeasure. </span>{{ scenario.prevention }}</span></p>
+        </RouterLink>
+      </div>
+    </section>
+  </div>
   <p v-if="!all.length && scenarios.length" class="empty">No techniques match these filters.</p>
 </template>

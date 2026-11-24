@@ -1,65 +1,121 @@
-# ThreatHuntX
+# ThreatHuntX v2 — Threat-Hunting & Detection Lab
 
-A free, MIT-licensed threat-hunting lab that teaches 40 offensive techniques through synthetic evidence, detection engineering, and defensive response.
+**Replay an incident. Test the detection. Document the response.**
 
-[Quick start](#quick-start) · [40 scenarios](docs/evidence-matrix.md) · [Accessible scenario data](docs/scenario-matrix.json) · [Learning paths](docs/curricula/README.md) · [Static showcase](public-demo/README.md)
+[![Lab validation](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml/badge.svg?branch=community-v2-workspace)](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml?query=branch%3Acommunity-v2-workspace)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-The catalog covers eight learning domains. Each lesson links its telemetry and defensive controls to a pinned Enterprise ATT&CK 20.1 mapping and shows the outcomes of a positive, clean, and noisy fixture. The existing ATT&CK screenshot below shows verified fixture coverage. [Evidence matrix](docs/evidence-matrix.md)
+ThreatHuntX is a free, open-source lab for SOC analysts, detection engineers, and purple-team learners. Its 40 guided scenarios show what offensive techniques look like in security logs, how to recognize them, and which controls reduce the risk. Replay bundled synthetic telemetry, compare a detection against clean and noisy controls, investigate the matching records, and write up the case.
 
-## Quick start
+[Quick start](#five-minute-start-with-docker) · [Scenario lab](#scenario-lab) · [Terminal exercises](#run-and-verify-from-the-terminal) · [Architecture](#lab-architecture) · [Validation](#deployment-and-validation) · [Contribute](#contribute)
 
-Use Git and Docker Engine or Docker Desktop with Compose v2. The command below selects the v2 review branch while the pull requests are open. Run on a Linux checkout or see the Docker Desktop guide for Windows WSL 2 and macOS. [Platform instructions](docs/WINDOWS_AND_MACOS.md)
+## Five-minute start with Docker
+
+Use Git and Docker Engine or Docker Desktop with Compose v2. The clone command selects the v2 branch while [PR #2](https://github.com/Aventador-LP700/ThreatHuntX/pull/2) is under review. [Windows and macOS notes](docs/WINDOWS_AND_MACOS.md)
 
 ```bash
 git clone --branch community-v2-workspace https://github.com/Aventador-LP700/ThreatHuntX.git
 cd ThreatHuntX
-docker compose up -d --build --wait
+bash ./scripts/setup.sh
 curl -fsS http://127.0.0.1:8080/api/health
 ```
 
-Open <http://127.0.0.1:8080/> and click **Start Learning**. The MFA Fatigue exercise shows three linked challenge records, an alert and a noisy control. Try changing the threshold in **Detection Studio**, then save a triage decision and export a case report. [First 10 minutes](docs/FIRST_10_MINUTES.md)
+The Bash launcher checks Docker and starts the two Compose services. The equivalent Compose command is `docker compose up -d --build --wait`. The first build downloads pinned images and dependencies. A healthy lab returns `{"status":"ok","schema_version":1,"synthetic_only":true}`.
 
-Use `./scripts/setup.sh` as the single Bash launcher from a checkout. Check services with `docker compose ps` and diagnostics with `docker compose logs api web`. Use `docker compose down` to stop them and `./scripts/setup.sh reset` while running to clear replay records. [Setup](docs/GETTING_STARTED.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
+Open <http://127.0.0.1:8080/> and choose **Start Learning** to work through MFA Fatigue. Use **Browse scenario lab** to go directly to the eight-domain map. [Setup and troubleshooting](docs/GETTING_STARTED.md) · [First 10 minutes](docs/FIRST_10_MINUTES.md)
 
-## How it works
+## Scenario lab
 
-```mermaid
-flowchart LR
-    Clone[Clone] --> Deploy[Deploy Lite] --> Technique[Choose a technique]
-    Technique --> Replay[Replay synthetic logs] --> Hunt[Hunt and detect]
-    Hunt --> Triage[Triage] --> Export[Export a case report]
+Every exercise includes an attacker objective, a clean baseline, a positive replay, a noisy control, a local detection, a response and prevention guide, and a knowledge check. The Technique Map pairs each scenario with its countermeasure and opens the corresponding lesson. Search by technique, defensive control, or ATT&CK ID.
+
+[![Screenshot of the ThreatHuntX lab with five technique and countermeasure pairs in each of eight domains](docs/media/v2-technique-map.webp)](docs/media/v2-technique-map.webp)
+
+[All 40 walkthroughs and fixture results](docs/evidence-matrix.md) · [Machine-readable catalog](docs/scenario-matrix.json) · [Role-based learning paths](docs/curricula/README.md)
+
+| Domain | Scenarios | Example investigation |
+| --- | --- | --- |
+| Initial Access | 01–05 | Separate repeated denied push prompts from approved enrollment in [MFA Fatigue](docs/learn/02.md). |
+| Execution & Persistence | 06–10 | Inspect the origin and target of a Run or RunOnce value in [Registry Autoruns](docs/learn/09.md). |
+| Privilege Escalation & Credentials | 11–15 | Review process access to LSASS and the clean control in [Credential Dumping](docs/learn/12.md). |
+| Lateral Movement & Command | 16–20 | Pivot from rare-domain observations to the associated host in [HTTPS/DNS Command & Control](docs/learn/19.md). |
+| Discovery & Impact | 21–25 | Compare restricted-object access patterns in [Cloud Exfiltration](docs/learn/22.md). |
+| Identity & Phishing | 26–30 | Review session risk and origin-bound authentication in [Adversary-in-the-Middle Phishing](docs/learn/26.md). |
+| Supply Chain & CI/CD | 31–35 | Trace an elevated permission grant in [Kubernetes RBAC Abuse](docs/learn/35.md). |
+| Cloud, Host & SaaS | 36–40 | Determine which share and external recipients to investigate in [SaaS Exfiltration](docs/learn/40.md). |
+
+### Example exercise · MFA Fatigue
+
+1. In **Clean baseline**, expand a normal sign-in record and examine its evidence fields.
+2. In **Replay & evidence**, replay the positive batch. Follow the alert to the timeline and identify its three distinct denied challenges. Replay the noisy batch and check that it produces zero alerts.
+3. In **Detection Studio**, change the threshold from 3 to 4. The positive fixture should become a miss. Restore 3 and confirm the alert returns while the two controls stay quiet.
+4. Record your triage decision, response and supporting evidence in the investigation. Export the case as JSON, CSV, or a printable report.
+
+[Guided walkthrough](docs/FIRST_10_MINUTES.md) · [Case report guide](docs/CASE_REPORTS.md) · [MFA replay video](docs/media/mfa-replay.mp4)
+
+## Run and verify from the terminal
+
+Start the Compose lab first, then run all 40 exercises or select one scenario. Reports include source fixture paths, expected and observed alert decisions, matched record IDs, response and prevention.
+
+```bash
+mkdir -p build
+./scripts/setup.sh lab all > build/scenario-assessment.md
+./scripts/setup.sh lab 02 --format json > build/mfa-assessment.json
 ```
 
-[![The Lite network with a loopback web listener, internal API and SQLite evidence volume](docs/media/lite-boundaries.png)](docs/media/lite-boundaries.png)
+The all-scenario assessment should report `Published rules passed 120 of 120 fixture checks.` A mismatch returns exit status 1 and still writes the evidence. The runner evaluates files in memory.
 
-Vue and Nginx expose the lab on loopback. FastAPI evaluates bundled records and stores replay evidence in SQLite. The browser stores course progress and optional case analysis. The static showcase serves precomputed synthetic records and reports. [Reference architecture](docs/REFERENCE_ARCHITECTURE.md) · [Original architecture illustration](docs/media/architecture.png)
+To see a detection regression, run `./scripts/setup.sh lab 02 --threshold 4`. It exits 1 when the positive batch misses. Rerun with `--threshold 3` to confirm all three checks pass. Each report includes the published rule beside the temporary trial.
 
-## Learn, tune, and investigate
+### Terminal-only start with Python
 
-- Use the Technique Map or follow a role-based pathway. Open the guided lesson, download the source samples and answer the knowledge checks. [All 40 lessons](docs/evidence-matrix.md)
-- Compare the published rule against temporary threshold, grouping and window settings in Detection Studio. Browse 40 Sigma specifications, 20 Wazuh candidates, 15 KQL templates and 15 SPL templates. [Portable detections](docs/PORTABLE_DETECTIONS.md)
-- Pivot across case, host, actor and source. Save case notes locally and export JSON, spreadsheet-safe CSV or a printable report. [Case report guide](docs/CASE_REPORTS.md)
-- Work through 15 testable hunt hypotheses and five worked investigations. [Hunt hypotheses](docs/HUNT_HYPOTHESES.md) · [Case studies](docs/case-studies/README.md) · [Media](docs/media/README.md)
+With an existing checkout, Python 3.12 and [uv](https://docs.astral.sh/uv/), run the same assessment directly.
 
-[![Screenshot of the actual ThreatHuntX ATT&CK matrix and synthetic fixture results](docs/media/attack-matrix.webp)](docs/media/attack-matrix.webp)
+```bash
+PYTHONPATH=backend uv run --locked python -m app.cli lab 02
+```
 
-[![Detection Studio comparing the positive, clean and noisy MFA fixture decisions](docs/media/v2-detection-studio.webp)](docs/media/v2-detection-studio.webp)
+## Lab architecture
 
-## Deployment tracks and validation
+[![Compose architecture showing a loopback web gateway, internal API and local SQLite evidence](docs/media/lite-boundaries.png)](docs/media/lite-boundaries.png)
 
-| Track | Evidence |
+Vue and Nginx serve the local workspace over loopback. FastAPI evaluates bundled telemetry on the internal Compose network and stores replay evidence in SQLite. The browser stores learning progress and optional case analysis. The static showcase serves precomputed synthetic examples and supports browser-local analysis. [Reference architecture](docs/REFERENCE_ARCHITECTURE.md) · [Optional analyst lab topology and setup](docs/full-lab-setup.md)
+
+| Workflow | What you can use |
 | --- | --- |
-| Community Lite on Linux x86-64 | Loopback Compose deployment, fixture comparison, all 40 lesson pages, evidence and report exports. |
-| Static showcase | Static build and browser tests on a project subpath. GitHub Pages setup is documented. |
-| Optional Wazuh | Native Wazuh 4.14.10 engine check on 138 synthetic records across the 20 event-level candidate rules. Full manager and collector paths are tracked separately. |
-| Vendor and sensor examples | Eight native-shaped sample adapters and an offline network baseline. Live sensor and licensed vendor query checks await their environments. |
+| Investigate and respond | Case, host, actor and source pivots, 15 hunt hypotheses, five worked cases, and evidence exports. [Hunts](docs/HUNT_HYPOTHESES.md) · [Case studies](docs/case-studies/README.md) |
+| Engineer a detection | Compare temporary threshold, grouping and window settings. Inspect 40 Sigma specifications, 20 Wazuh candidates, 15 KQL templates and 15 SPL templates. [Portable detections](docs/PORTABLE_DETECTIONS.md) |
+| Work with source records | Read vendor-shaped sample adapters for endpoint, network, cloud, identity and audit logs. [Vendor samples](docs/VENDOR_SAMPLES.md) |
+| Extend the lab | Set up optional Wazuh and collectors on separate machines, with per-tool requirements and verification steps. [Optional integrations](docs/full-lab-setup.md) |
 
-[Observed verification](reports/validation-summary.md) · [Integration acceptance](docs/INTEGRATION_ACCEPTANCE.md) · [Optional analyst lab](docs/full-lab-setup.md) · [How to deploy the showcase](public-demo/README.md)
+[![Detection Studio comparing the positive, clean and noisy MFA fixtures](docs/media/v2-detection-studio.webp)](docs/media/v2-detection-studio.webp)
 
-Use Lite for safe training on deterministic records. The readiness metrics describe this labeled fixture corpus. Review the [safety scope](docs/SAFETY_AND_SCOPE.md), [privacy practices](docs/PRIVACY.md) and [threat model](docs/threat-model.md) before adding evidence or optional sensors.
+## Deployment and validation
+
+| Track | Recorded coverage |
+| --- | --- |
+| Community Lite on Linux x86-64 | Compose health, all 40 lesson routes, synthetic fixture comparison, evidence export and report workflows. |
+| Terminal assessment | Runs 40 scenarios with 120 labeled batches. Includes Markdown and JSON reports and temporary per-scenario threshold trials. |
+| Static showcase | Local HTTP and browser coverage under a project subpath. GitHub Pages setup is documented. |
+| Optional Wazuh 4.14.10 | Native engine check on 138 synthetic records for the 20 event-level candidates. Manager and collector deployment are separate acceptance checks. |
+| External platforms and sensors | Offline samples and template review. Live collectors and licensed query endpoints require separate validation. |
+
+Fixture results describe the bundled teaching corpus. [Recorded verification](reports/validation-summary.md) · [Integration acceptance](docs/INTEGRATION_ACCEPTANCE.md) · [Static showcase setup](public-demo/README.md) · [Safety and scope](docs/SAFETY_AND_SCOPE.md) · [Privacy](docs/PRIVACY.md)
+
+Use `./scripts/setup.sh health` to check service health, `docker compose logs api web` for diagnostics, and `./scripts/setup.sh down` to stop the lab. While the lab is running, `./scripts/setup.sh reset` restores the clean baselines and clears replay records. [Troubleshooting](docs/TROUBLESHOOTING.md)
+
+## Repository map
+
+| Path | Contents |
+| --- | --- |
+| [scenarios/](scenarios/) | Scenario manifests, normalized fixtures, schemas and ATT&CK data |
+| [docs/learn/](docs/learn/) | The 40 guided walkthroughs |
+| [detections/](detections/) | Portable defensive rules and query templates |
+| [backend/](backend/) and [frontend/](frontend/) | Local detector, assessment runner, API and learning workspace |
+| [integrations/](integrations/) and [infra/](infra/) | Vendor sample logs and lab deployment assets |
+| [reports/](reports/) | Recorded validation and release evidence |
 
 ## Contribute
 
-Report a reproducible issue, improve a lesson, or submit a reviewed synthetic example. Star the repository to find it again. [Contribution guide](CONTRIBUTING.md) · [Scenario template](scenarios/templates/scenario-template.json) · [Code of conduct](CODE_OF_CONDUCT.md) · [Security disclosures](SECURITY.md)
+Reproduce a bug, improve a lesson, or submit a reviewed synthetic example. [Contribution guide](CONTRIBUTING.md) · [Scenario template](scenarios/templates/scenario-template.json) · [Code of conduct](CODE_OF_CONDUCT.md) · [Security disclosures](SECURITY.md)
 
 [Release candidate notes](docs/RELEASE_0_2.md) · [Changelog](CHANGELOG.md) · [Roadmap](ROADMAP.md) · [MIT license](LICENSE) · [Third-party notices](THIRD_PARTY_NOTICES.md)

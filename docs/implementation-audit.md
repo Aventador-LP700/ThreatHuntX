@@ -15,4 +15,4 @@ The product catalog uses the specification for scenario names and pinned MITRE d
 
 ## Review candidate status
 
-The v2 implementation adds the grouped catalog, portable case reports, fixture-backed tuning, vendor samples, and an isolated Wazuh engine check. Verification and pending live or platform work are tracked in the [validation summary](../reports/validation-summary.md). The exact framework artwork remains pending its source file. The existing runtime screenshot is labeled as an ATT&CK view in the README.
+The v2 implementation adds the grouped catalog, portable case reports, fixture-backed tuning, vendor samples, and an isolated Wazuh engine check. The lab map shows all 40 scenario and countermeasure pairs, and the CLI reports the underlying evidence and detection results. The framework artwork appeared as an inline reference. The exact README asset still requires the downloadable original. The README labels the lab screenshot as a capture of the running application. [Validation summary](../reports/validation-summary.md)

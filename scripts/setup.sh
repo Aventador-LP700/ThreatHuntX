@@ -5,8 +5,8 @@ error() { printf '%s\n' "$*" >&2; exit 1; }
 root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 action=${1:-up}
 case "$action" in
-  up|doctor|health|reset|down|install) ;;
-  *) error 'Usage: ./scripts/setup.sh [up|doctor|health|reset|down|install [directory]]' ;;
+  up|doctor|health|reset|down|install|lab) ;;
+  *) error 'Usage: ./scripts/setup.sh [up|doctor|health|reset|down|install [directory]|lab [all|ID] [--format markdown|json] [--threshold N]]' ;;
 esac
 command -v docker >/dev/null || error 'Install Docker Desktop or Docker Engine with Compose v2.'
 docker compose version >/dev/null 2>&1 || error 'Install the Docker Compose v2 plugin.'
@@ -27,6 +27,7 @@ case "$action" in
   down) docker compose down; exit ;;
   reset) docker compose exec -T api python -m app.cli reset; exit ;;
   health) docker compose ps; docker compose exec -T web wget -Y off -qO - http://127.0.0.1:8080/api/health; printf '\n'; exit ;;
+  lab) shift; exec docker compose exec -T api python -m app.cli lab "$@" ;;
 esac
 
 docker compose config --quiet

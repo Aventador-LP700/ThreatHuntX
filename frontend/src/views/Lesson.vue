@@ -78,7 +78,7 @@ async function downloadSample() {
 </script>
 
 <template>
-  <RouterLink class="back-link" to="/learn"><ArrowLeft :size="16" aria-hidden="true" /> All learning tracks</RouterLink>
+  <RouterLink class="back-link" to="/techniques"><ArrowLeft :size="16" aria-hidden="true" /> All lab scenarios</RouterLink>
   <p v-if="error" class="error-box" role="alert">{{ error }}</p>
   <p v-else-if="!scenario" class="muted" role="status">Loading lesson…</p>
   <template v-else>
