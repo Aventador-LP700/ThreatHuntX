@@ -3,7 +3,7 @@
 The Community Lab needs Docker Engine on Linux or Docker Desktop with Compose v2. Docker Desktop must be running before you build. On Windows use Linux containers and the WSL2 backend. See [tested environments and measurements](../reports/validation-summary.md).
 
 ```bash
-git clone --branch community-v2-workspace https://github.com/Aventador-LP700/ThreatHuntX.git
+git clone https://github.com/Aventador-LP700/ThreatHuntX.git
 cd ThreatHuntX
 docker compose up -d --build --wait
 docker compose ps

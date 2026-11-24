@@ -2,7 +2,7 @@
 
 **Replay an incident. Test the detection. Document the response.**
 
-[![Lab validation](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml/badge.svg?branch=community-v2-workspace)](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml?query=branch%3Acommunity-v2-workspace)
+[![Lab validation](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml/badge.svg)](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ThreatHuntX is a free, open-source lab for SOC analysts, detection engineers, and purple-team learners. Its 40 guided scenarios show what offensive techniques look like in security logs, how to recognize them, and which controls reduce the risk. Replay bundled synthetic telemetry, compare a detection against clean and noisy controls, investigate the matching records, and write up the case.
@@ -11,10 +11,10 @@ ThreatHuntX is a free, open-source lab for SOC analysts, detection engineers, an
 
 ## Five-minute start with Docker
 
-Use Git and Docker Engine or Docker Desktop with Compose v2. The clone command selects the v2 branch while [PR #2](https://github.com/Aventador-LP700/ThreatHuntX/pull/2) is under review. [Windows and macOS notes](docs/WINDOWS_AND_MACOS.md)
+Use Git and Docker Engine or Docker Desktop with Compose v2. [Windows and macOS notes](docs/WINDOWS_AND_MACOS.md)
 
 ```bash
-git clone --branch community-v2-workspace https://github.com/Aventador-LP700/ThreatHuntX.git
+git clone https://github.com/Aventador-LP700/ThreatHuntX.git
 cd ThreatHuntX
 bash ./scripts/setup.sh
 curl -fsS http://127.0.0.1:8080/api/health

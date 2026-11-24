@@ -8,7 +8,7 @@ Docker Desktop smoke tests on Windows and macOS are manual pending. The Linux ve
 2. Open PowerShell in a writable code directory. Use `docker compose version` and `docker info` to confirm connectivity before the build.
 
 ```powershell
-git clone --branch community-v2-workspace https://github.com/Aventador-LP700/ThreatHuntX.git
+git clone https://github.com/Aventador-LP700/ThreatHuntX.git
 Set-Location ThreatHuntX
 docker compose up -d --build --wait
 docker compose ps
