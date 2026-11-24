@@ -1,0 +1,27 @@
+title: Token Theft observation
+name: threathuntx_11
+id: 6f208b2d-fd7e-54eb-83ac-477b89cd719b
+status: test
+description: Successful application session use from an unmanaged context and a new
+  ASN merits a pivot to the original sign-in.
+references:
+- https://attack.mitre.org/techniques/T1550/001
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1550.001
+logsource:
+  product: azure
+  service: signinlogs
+  definition: Entra sign-in or audit projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: identity
+    THXAction: token_use
+    THXSessionContext: new_asn_unmanaged
+    THXRiskLevel: high
+  condition: selection
+falsepositives:
+- A legitimate device replacement or roaming user may appear in a new context.
+level: medium

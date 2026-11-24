@@ -1,0 +1,90 @@
+{
+  "id": "10",
+  "title": "WMI Subscription",
+  "category": "Execution & Persistence",
+  "overview": "Inspect a permanent WMI subscription binding and compare the owner and change context.",
+  "objective": "Event-triggered persistence.",
+  "platform": "Windows",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and windows security or sysmon projection fields.",
+  "attack": {
+    "id": "T1546.003",
+    "name": "Windows Management Instrumentation Event Subscription",
+    "url": "https://attack.mitre.org/techniques/T1546/003",
+    "tactics": [
+      "persistence",
+      "privilege_escalation"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "WMI filter/consumer creation"
+  ],
+  "hypothesis": "A new permanent WMI binding with unknown ownership warrants a review of the filter, consumer and registration actor.",
+  "evidence": "Use Sysmon 21 to link filter and consumer. Check related filter and consumer records and authorized endpoint management changes.",
+  "false_positive": "Managed inventory software can register subscriptions during onboarding.",
+  "tuning": "Review specific inventory consumer names and signed owner identities before adding an exception.",
+  "response": "Preserve filter, consumer, binding and process telemetry. Remove confirmed unauthorized registrations with endpoint approval.",
+  "prevention": "Collect WMI activity and monitor changes to permanent subscriptions on high-value hosts.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture models binding telemetry only. It contains no command or registration code.",
+  "questions": [
+    {
+      "prompt": "What event is the pivot?",
+      "options": [
+        "A permanent filter-to-consumer binding",
+        "A disk free-space report"
+      ],
+      "answer": 0,
+      "explanation": "The binding shows the link that requires review."
+    },
+    {
+      "prompt": "What do you check before removal?",
+      "options": [
+        "The order of log display columns",
+        "Consumer ownership and authorized management changes"
+      ],
+      "answer": 1,
+      "explanation": "Endpoint software may use legitimate permanent subscriptions."
+    }
+  ],
+  "rule": {
+    "id": "THX-10",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "event_id",
+        "op": "eq",
+        "value": "21"
+      },
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "wmi_binding"
+      },
+      {
+        "field": "observables.namespace",
+        "op": "eq",
+        "value": "root/subscription"
+      },
+      {
+        "field": "observables.owner_state",
+        "op": "eq",
+        "value": "unknown"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1546/003",
+  "license": "MIT"
+}

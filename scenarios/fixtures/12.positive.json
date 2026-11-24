@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "12-positive-01",
+    "record": {
+      "TimeCreated": "2025-08-14T12:18:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "process_access",
+      "Status": "observed",
+      "EventID": "10"
+    },
+    "context": {
+      "process": "approved-monitor.exe"
+    },
+    "observables": {
+      "target_process": "lsass.exe",
+      "access_class": "query_only",
+      "publisher_status": "verified"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "12-positive-02",
+    "record": {
+      "TimeCreated": "2025-08-14T12:18:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "process_access",
+      "Status": "observed",
+      "EventID": "10"
+    },
+    "context": {
+      "process": "sample-reader.exe"
+    },
+    "observables": {
+      "target_process": "lsass.exe",
+      "access_class": "read_memory",
+      "publisher_status": "unverified"
+    }
+  }
+]

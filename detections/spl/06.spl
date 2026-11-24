@@ -1,0 +1,4 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="windows"
+| where (lower(tostring(THXEventId)) = "4104") AND (in(lower(tostring(THXProcess)), "powershell.exe", "pwsh.exe")) AND (in(lower(tostring(THXParentProcess)), "winword.exe", "excel.exe")) AND (lower(tostring(THXScriptClass)) = "obfuscated")
+| where NOT coalesce((lower(tostring(THXApprovedAutomation)) = "true"), false())
+| table _time THXSource THXRecordId THXEventId THXApprovedAutomation THXScriptClass THXParentProcess THXProcess THXUser

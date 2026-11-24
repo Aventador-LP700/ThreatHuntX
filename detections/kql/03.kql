@@ -1,0 +1,8 @@
+// THX-03 Password Spraying | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "identity"
+| where THXAction =~ "sign_in"
+| where THXOutcome =~ "failure"
+| where THXFailureReason =~ "bad_password"
+| summarize Observations=dcount(THXUser), Evidence=make_set(THXRecordId, 100) by THXSourceIp, bin(TimeGenerated, 600s)
+| where Observations >= 4

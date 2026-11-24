@@ -13,3 +13,8 @@ reset-demo:
 	./scripts/setup.sh reset
 down:
 	./scripts/setup.sh down
+
+.PHONY: showcase
+showcase:
+	npm --prefix frontend run build -- --mode showcase --outDir ../public-demo/dist --emptyOutDir
+	PYTHONPATH=backend uv run --locked python -m scripts.build_showcase public-demo/dist

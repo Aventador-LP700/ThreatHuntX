@@ -1,0 +1,3 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="mail"
+| where (lower(tostring(THXAction)) = "url_inspection") AND (lower(tostring(THXSenderAlignment)) = "fail") AND (lower(tostring(THXUrlCategory)) = "credential_lure")
+| table _time THXSource THXRecordId THXAction THXSenderAlignment THXUrlCategory THXUser

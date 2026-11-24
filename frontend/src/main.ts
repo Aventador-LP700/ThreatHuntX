@@ -9,18 +9,19 @@ import Workspace from './views/Workspace.vue'
 import './styles.css'
 
 const workspace = [
-  ['simulate', 'Simulate'], ['alerts', 'Alerts'], ['hunt', 'Hunt Workspace'], ['matrix', 'ATT&CK Matrix'],
-  ['investigations', 'Investigations'], ['rules', 'Detection Rules'], ['playbooks', 'Playbooks'],
-  ['progress', 'Learning Progress'], ['deployment', 'Deployment Help'], ['about', 'About / Contribute'],
+  ['simulate', 'Guided Hunt'], ['alerts', 'Alerts'], ['hunt', 'Investigation Workspace'], ['matrix', 'MITRE Matrix'],
+  ['investigations', 'Recent Investigations'], ['rules', 'Detection Studio'], ['playbooks', 'Playbooks'],
+  ['progress', 'Reports'], ['architecture', 'Reference Architecture'], ['deployment', 'Deployment Help'], ['about', 'Community'],
 ].map(([page, title]) => ({ path: `/${page}`, component: Workspace, props: { page }, meta: { title } }))
 const router = createRouter({
   history: createWebHashHistory(),
   scrollBehavior: (_to, _from, saved) => saved ?? { top: 0 },
   routes: [
-    { path: '/', component: Home, meta: { title: 'Start Here' } },
-    { path: '/learn', component: Explorer, props: { learning: true }, meta: { title: 'Learn' } },
-    { path: '/techniques', component: Explorer, props: { learning: false }, meta: { title: 'Technique Explorer' } },
+    { path: '/', component: Home, meta: { title: 'Home' } },
+    { path: '/learn', component: Explorer, props: { learning: true }, meta: { title: 'Learning Paths' } },
+    { path: '/techniques', component: Explorer, props: { learning: false }, meta: { title: 'Technique Map' } },
     { path: '/lesson/:id', component: Lesson, props: true, meta: { title: 'Guided Lesson' } },
+    { path: '/investigations/:id/report', component: Investigation, props: route => ({ id: String(route.params.id), printable: true }), meta: { title: 'Case Report' } },
     { path: '/investigations/:id', component: Investigation, props: true, meta: { title: 'Evidence Timeline' } },
     { path: '/rules/:id', component: Workspace, props: route => ({ page: 'rules', id: String(route.params.id) }), meta: { title: 'Detection Rule' } },
     ...workspace,

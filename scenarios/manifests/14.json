@@ -1,0 +1,100 @@
+{
+  "id": "14",
+  "title": "Pass-the-Hash",
+  "category": "Privilege Escalation & Credentials",
+  "overview": "Review an NTLM network logon on a host that typically receives traffic from managed services.",
+  "objective": "Reused NTLM credentials.",
+  "platform": "AD",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of AD auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1550.002",
+    "name": "Pass the Hash",
+    "url": "https://attack.mitre.org/techniques/T1550/002",
+    "tactics": [
+      "lateral_movement"
+    ],
+    "confidence": "related",
+    "rationale": "An anomalous NTLM logon is compatible with pass-the-hash, but the authentication record does not identify credential form."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "NTLM lateral-login anomalies"
+  ],
+  "hypothesis": "A successful NTLM network logon by a local administrator from a peer workstation warrants host-to-host review.",
+  "evidence": "Check package, logon type, peer zone and account class. Correlate authentication and process activity on both systems.",
+  "false_positive": "An approved help-desk task can use legacy authentication between systems.",
+  "tuning": "Identify approved jump hosts and prefer central, constrained administration over broad user exclusions.",
+  "response": "Scope the source and destination, preserve access logs, and reset impacted local administrator credentials if appropriate.",
+  "prevention": "Roll out unique managed local administrator passwords, restrict NTLM and segment administration traffic.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "NTLM logon metadata alone cannot distinguish a password from another form of authentication material.",
+  "questions": [
+    {
+      "prompt": "What indicates the network logon?",
+      "options": [
+        "Logon type 3 in event 4624",
+        "A file rename"
+      ],
+      "answer": 0,
+      "explanation": "Event 4624 establishes success and type 3 indicates a network logon."
+    },
+    {
+      "prompt": "What should an analyst correlate?",
+      "options": [
+        "The account spelling alone",
+        "Both source and destination endpoint activity"
+      ],
+      "answer": 1,
+      "explanation": "A lateral movement assessment needs evidence across systems."
+    }
+  ],
+  "rule": {
+    "id": "THX-14",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "event_id",
+        "op": "eq",
+        "value": "4624"
+      },
+      {
+        "field": "observables.auth_package",
+        "op": "eq",
+        "value": "ntlm"
+      },
+      {
+        "field": "observables.logon_type",
+        "op": "eq",
+        "value": 3
+      },
+      {
+        "field": "observables.peer_zone",
+        "op": "eq",
+        "value": "workstations"
+      },
+      {
+        "field": "observables.account_class",
+        "op": "eq",
+        "value": "local_admin"
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.approved_change",
+        "op": "eq",
+        "value": true
+      }
+    ],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1550/002",
+  "license": "MIT"
+}

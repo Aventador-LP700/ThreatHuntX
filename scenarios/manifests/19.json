@@ -1,0 +1,84 @@
+{
+  "id": "19",
+  "title": "HTTPS/DNS Command & Control",
+  "category": "Lateral Movement & Command",
+  "overview": "Explore repeated DNS lookups classified as high entropy for an uncommon destination domain.",
+  "objective": "Hidden command channels.",
+  "platform": "Network",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and network sensor or waf projection fields.",
+  "attack": {
+    "id": "T1071.004",
+    "name": "DNS",
+    "url": "https://attack.mitre.org/techniques/T1071/004",
+    "tactics": [
+      "command_and_control"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Network sensor or WAF projection",
+  "data_sources": [
+    "Network sensor or WAF projection",
+    "Beacon/DNS timing analytics"
+  ],
+  "hypothesis": "Three distinct observations of high-entropy labels targeting a rare domain justify a DNS activity pivot.",
+  "evidence": "Check the DNS host, domain and timestamps, then compare process and egress telemetry for the same host.",
+  "false_positive": "CDNs, update networks and security agents can emit opaque DNS labels.",
+  "tuning": "Segment expected infrastructure, track observed domain age externally if available, and check process baselines.",
+  "response": "Preserve DNS and resolver logs, correlate endpoint process evidence and constrain egress if justified.",
+  "prevention": "Use controlled resolvers, egress filtering and DNS analytics with reviewed allowlists.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture supplies entropy and rarity classes. The rule does not infer true DNS tunneling or analyze HTTPS content.",
+  "questions": [
+    {
+      "prompt": "What is the follow-up pivot?",
+      "options": [
+        "Endpoint process and egress telemetry for the host",
+        "The wallpaper settings"
+      ],
+      "answer": 0,
+      "explanation": "DNS alone gives network context, while endpoint evidence can identify the requester."
+    },
+    {
+      "prompt": "Why review expected CDN behavior?",
+      "options": [
+        "CDNs always use clear names",
+        "Legitimate services can use opaque labels"
+      ],
+      "answer": 1,
+      "explanation": "Opaque DNS alone can be noisy."
+    }
+  ],
+  "rule": {
+    "id": "THX-19",
+    "severity": "medium",
+    "source": "network",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "dns_query"
+      },
+      {
+        "field": "observables.label_entropy_class",
+        "op": "eq",
+        "value": "high"
+      },
+      {
+        "field": "observables.domain_popularity",
+        "op": "eq",
+        "value": "rare"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "domain",
+    "threshold": 3,
+    "window_seconds": 180,
+    "distinct": "observables.query_id"
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1071/004",
+  "license": "MIT"
+}

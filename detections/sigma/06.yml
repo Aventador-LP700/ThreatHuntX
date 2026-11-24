@@ -1,0 +1,34 @@
+title: PowerShell Abuse observation
+name: threathuntx_06
+id: 831240bb-b023-5eeb-bfbc-0fc12afd6f95
+status: test
+description: An obfuscated PowerShell observation under an office parent warrants
+  process-tree and document review.
+references:
+- https://attack.mitre.org/techniques/T1059/001
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1059.001
+logsource:
+  product: windows
+  service: powershell
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXEventId: '4104'
+    THXProcess:
+    - powershell.exe
+    - pwsh.exe
+    THXParentProcess:
+    - winword.exe
+    - excel.exe
+    THXScriptClass: obfuscated
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXApprovedAutomation: true
+falsepositives:
+- Internal Office automation can invoke maintenance tooling with similar lineage.
+level: medium

@@ -1,0 +1,1 @@
+{"ts":1755168800.125,"uid":"CFixtureDNS01","id.orig_h":"192.0.2.20","id.orig_p":53000,"id.resp_h":"192.0.2.53","id.resp_p":53,"proto":"udp","trans_id":4097,"query":"docs.training.example","qtype_name":"A","rcode_name":"NOERROR","answers":["198.51.100.20"]}

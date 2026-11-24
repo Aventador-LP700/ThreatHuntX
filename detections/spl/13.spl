@@ -1,0 +1,5 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="windows"
+| where (lower(tostring(THXEventId)) = "4769") AND (lower(tostring(THXAction)) = "service_ticket_request") AND (lower(tostring(THXTicketEncryption)) = "rc4") AND (lower(tostring(THXRequesterClass)) = "user")
+| bin _time span=600s
+| stats dc(THXServiceName) AS observations values(THXRecordId) AS evidence BY _time THXUser
+| where observations >= 3

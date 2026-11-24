@@ -1,0 +1,42 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "27-negative-01",
+    "record": {
+      "createdDateTime": "2025-08-14T15:48:00Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "oauth_grant",
+      "result": "success",
+      "id": "OAuthGrant"
+    },
+    "context": {},
+    "observables": {
+      "flow": "device_code",
+      "device_class": "unmanaged",
+      "app_trust": "approved",
+      "app_id": "training-device-app"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "27-negative-02",
+    "record": {
+      "createdDateTime": "2025-08-14T15:48:32Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "oauth_grant",
+      "result": "success",
+      "id": "OAuthGrant"
+    },
+    "context": {},
+    "observables": {
+      "flow": "device_code",
+      "device_class": "managed",
+      "app_trust": "approved",
+      "app_id": "training-cli"
+    }
+  }
+]

@@ -1,0 +1,24 @@
+name: New or revised detection
+description: Propose a defensive rule or change to a synthetic scenario
+labels: [detection]
+body:
+  - type: input
+    id: mapping
+    attributes:
+      label: Scenario ID and ATT&CK reference
+    validations:
+      required: true
+  - type: textarea
+    id: signal
+    attributes:
+      label: Detection hypothesis and required evidence
+      description: Specify the source fields, expected correlation and known legitimate alternatives.
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: Fixture and verification plan
+      description: Describe generated positive, clean and noisy records. Keep real samples and secrets private.
+    validations:
+      required: true

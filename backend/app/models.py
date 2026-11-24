@@ -170,3 +170,33 @@ class Alert(Model):
 class RunRequest(Model):
     scenario_id: ScenarioId
     mode: Literal["positive", "negative"]
+
+
+class CaseAnalysis(Model):
+    hypothesis: Annotated[str, Field(min_length=1, max_length=700)]
+    notes: Annotated[str, Field(max_length=4000)]
+    disposition: Literal["unreviewed", "benign", "investigate", "escalate"]
+    response: Annotated[str, Field(max_length=1500)]
+    updated_at: AwareDatetime | None
+
+
+class CaseScenario(Model):
+    id: ScenarioId
+    title: Short
+    attack: Mapping
+
+
+class CaseReport(Model):
+    schema_version: Literal[1]
+    synthetic_only: Literal[True]
+    case_id: Short
+    scenario: CaseScenario
+    rule_id: Annotated[str, Field(pattern=r"^THX-\d{2}$")]
+    fixture_mode: Mode
+    recorded_at: AwareDatetime
+    generated_at: AwareDatetime
+    analysis: CaseAnalysis
+    limitations: Short
+    mitigations: list[Short] = Field(min_length=1)
+    alerts: list[Alert]
+    evidence: list[Event] = Field(min_length=1)

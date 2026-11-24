@@ -1,4 +1,4 @@
-FROM node:22.21.1-bookworm-slim@sha256:25b3eb23a00590b7499f2a2ce939322727fcce1b15fdd69754fcd09536a3ae2c AS build
+FROM node:24.22.3-alpine@sha256:116b800c3754b440ee0aa3ed2f20f5bf3d99a554bfd9adeea09ea8017f6e85f5 AS build
 WORKDIR /opt/web
 COPY frontend/package.json frontend/package-lock.json ./
 RUN --mount=type=secret,id=threathuntx_build_ca,mode=0444 \
@@ -9,9 +9,10 @@ RUN --mount=type=secret,id=threathuntx_build_ca,mode=0444 \
 COPY frontend/ ./
 RUN npm run build
 
-FROM nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284
+FROM nginx:1.30.5-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94
 COPY --chown=101:101 infra/docker/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build --chown=101:101 /opt/web/dist /usr/share/nginx/html
+COPY --chown=101:101 LICENSE THIRD_PARTY_NOTICES.md docs/licenses/*.txt /usr/share/nginx/html/licenses/
 USER 101:101
 EXPOSE 8080
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

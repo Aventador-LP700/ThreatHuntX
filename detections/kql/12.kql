@@ -1,0 +1,8 @@
+// THX-12 Credential Dumping | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "windows"
+| where THXEventId =~ "10"
+| where THXTargetProcess =~ "lsass.exe"
+| where THXAccessClass =~ "read_memory"
+| where THXPublisherStatus =~ "unverified"
+| project TimeGenerated, THXSource, THXRecordId, THXEventId, THXHost, THXAccessClass, THXPublisherStatus, THXTargetProcess

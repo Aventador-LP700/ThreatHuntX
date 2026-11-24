@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "scanner",
+    "record_id": "34-negative-01",
+    "record": {
+      "timestamp": "2025-08-14T17:26:00Z",
+      "repository": "example-org/training-repo",
+      "author": "analyst-sample@training.example",
+      "detector": "finding_created",
+      "result": "observed",
+      "finding_type": "ScannerFinding"
+    },
+    "context": {},
+    "observables": {
+      "finding_class": "documentation_example",
+      "artifact_exposure": "shared",
+      "pattern_id": "training_sentinel",
+      "file_path": "examples/sample.txt",
+      "redacted": true
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "scanner",
+    "record_id": "34-negative-02",
+    "record": {
+      "timestamp": "2025-08-14T17:26:32Z",
+      "repository": "example-org/training-repo",
+      "author": "analyst-sample@training.example",
+      "detector": "finding_created",
+      "result": "observed",
+      "finding_type": "ScannerFinding"
+    },
+    "context": {},
+    "observables": {
+      "finding_class": "documentation_example",
+      "artifact_exposure": "shared",
+      "pattern_id": "training_sentinel",
+      "file_path": "docs/sample.md",
+      "redacted": true
+    }
+  }
+]

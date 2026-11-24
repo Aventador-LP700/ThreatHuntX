@@ -1,0 +1,3 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="windows"
+| where (lower(tostring(THXEventId)) = "10") AND (lower(tostring(THXTargetProcess)) = "lsass.exe") AND (lower(tostring(THXAccessClass)) = "read_memory") AND (lower(tostring(THXPublisherStatus)) = "unverified")
+| table _time THXSource THXRecordId THXEventId THXHost THXAccessClass THXPublisherStatus THXTargetProcess

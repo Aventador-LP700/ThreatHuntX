@@ -1,0 +1,42 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "17-baseline-01",
+    "record": {
+      "TimeCreated": "2025-08-14T13:28:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "process_start",
+      "Status": "observed",
+      "EventID": "1"
+    },
+    "context": {
+      "process": "rundll32.exe",
+      "parent_process": "explorer.exe"
+    },
+    "observables": {
+      "content_origin": "managed_system"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "17-baseline-02",
+    "record": {
+      "TimeCreated": "2025-08-14T13:28:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "process_start",
+      "Status": "observed",
+      "EventID": "1"
+    },
+    "context": {
+      "process": "rundll32.exe",
+      "parent_process": "explorer.exe"
+    },
+    "observables": {
+      "content_origin": "managed_system"
+    }
+  }
+]

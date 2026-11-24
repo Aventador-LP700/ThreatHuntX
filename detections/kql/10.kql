@@ -1,0 +1,8 @@
+// THX-10 WMI Subscription | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "windows"
+| where THXEventId =~ "21"
+| where THXAction =~ "wmi_binding"
+| where THXNamespace =~ "root/subscription"
+| where THXOwnerState =~ "unknown"
+| project TimeGenerated, THXSource, THXRecordId, THXAction, THXEventId, THXHost, THXNamespace, THXOwnerState

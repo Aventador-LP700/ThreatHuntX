@@ -1,0 +1,22 @@
+name: Bug report
+description: Report a reproducible Community Lab problem
+labels: [needs reproduction]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version, operating system and Compose version
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps, expected outcome and observed outcome
+      description: Use bundled fixtures and include the scenario ID if applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Redacted diagnostics
+      description: Share only synthetic event evidence. Keep host logs and credentials private.

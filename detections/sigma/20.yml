@@ -1,0 +1,29 @@
+title: Cloud IAM Abuse observation
+name: threathuntx_20
+id: f1a1f751-4781-54ec-b563-d98f61e42719
+status: test
+description: A successful interactive administrative role grant warrants checking
+  change approval and later role use.
+references:
+- https://attack.mitre.org/techniques/T1098/003
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1098.003
+logsource:
+  product: aws
+  service: cloudtrail
+  definition: Cloud audit projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: cloud
+    THXAction: role_grant
+    THXOutcome: success
+    THXRoleClass: administrative
+    THXActorClass: interactive
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXChangeContext: approved_breakglass
+falsepositives:
+- An approved break-glass grant can be necessary during incident response.
+level: medium

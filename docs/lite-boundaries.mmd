@@ -1,0 +1,25 @@
+flowchart LR
+    Learner[Browser case workspace]
+    subgraph Lite[Community Lite Docker project]
+      Web[Nginx on 127.0.0.1:8080]
+      subgraph Network[Internal lab network]
+        API[FastAPI validation]
+        FX[Bundled synthetic fixtures]
+        DB[(SQLite evidence volume)]
+      end
+    end
+    subgraph Offline[Static showcase]
+      Build[Build-time fixture evaluation] --> Assets[Read-only HTML, JS and JSON]
+    end
+    subgraph Analyst[Separate optional analyst lab]
+      Engine[Wazuh native rule test]
+      Sensors[Live endpoints and sensors · pending]
+      SIEM[Vendor query endpoints · pending]
+    end
+    Learner --> Web --> API
+    FX --> API --> DB
+    FX --> Build
+    Assets --> Learner
+    FX -. projected synthetic records .-> Engine
+    Sensors -. optional deployment .-> Engine
+    Learner -. analyst query review .-> SIEM

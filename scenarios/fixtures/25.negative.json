@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "linux",
+    "record_id": "25-negative-01",
+    "record": {
+      "timestamp": "2025-08-14T15:20:00Z",
+      "node": "linux-05.training.example",
+      "acct": "analyst-sample@training.example",
+      "type": "delete_summary",
+      "res": "success",
+      "serial": "DeletionSummary"
+    },
+    "context": {
+      "process": "sample-job"
+    },
+    "observables": {
+      "target_class": "protected",
+      "objects_affected": 140,
+      "change_context": "approved_disposal"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "linux",
+    "record_id": "25-negative-02",
+    "record": {
+      "timestamp": "2025-08-14T15:20:32Z",
+      "node": "linux-05.training.example",
+      "acct": "analyst-sample@training.example",
+      "type": "delete_summary",
+      "res": "success",
+      "serial": "DeletionSummary"
+    },
+    "context": {
+      "process": "lifecycle-manager"
+    },
+    "observables": {
+      "target_class": "cache",
+      "objects_affected": 140,
+      "change_context": "planned"
+    }
+  }
+]

@@ -1,0 +1,9 @@
+// THX-09 Registry Autoruns | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "windows"
+| where THXEventId =~ "13"
+| where THXAction =~ "registry_value_set"
+| where THXRegistryArea in~ ("run", "run_once")
+| where THXImageOrigin =~ "user_writable"
+| where not(coalesce((THXApprovedChange == true), false))
+| project TimeGenerated, THXSource, THXRecordId, THXAction, THXEventId, THXHost, THXApprovedChange, THXImageOrigin, THXRegistryArea

@@ -1,0 +1,65 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "19-negative-01",
+    "record": {
+      "ts": "2025-08-14T13:56:00Z",
+      "sensor": "sensor-01.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "dns_query",
+      "verdict": "observed",
+      "signature_id": "DNS"
+    },
+    "context": {
+      "domain": "cdn.training.example"
+    },
+    "observables": {
+      "label_entropy_class": "high",
+      "domain_popularity": "common",
+      "query_id": "19-observation-01"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "19-negative-02",
+    "record": {
+      "ts": "2025-08-14T13:56:32Z",
+      "sensor": "sensor-01.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "dns_query",
+      "verdict": "observed",
+      "signature_id": "DNS"
+    },
+    "context": {
+      "domain": "cdn.training.example"
+    },
+    "observables": {
+      "label_entropy_class": "high",
+      "domain_popularity": "common",
+      "query_id": "19-observation-02"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "19-negative-03",
+    "record": {
+      "ts": "2025-08-14T13:57:04Z",
+      "sensor": "sensor-01.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "dns_query",
+      "verdict": "observed",
+      "signature_id": "DNS"
+    },
+    "context": {
+      "domain": "cdn.training.example"
+    },
+    "observables": {
+      "label_entropy_class": "high",
+      "domain_popularity": "common",
+      "query_id": "19-observation-03"
+    }
+  }
+]

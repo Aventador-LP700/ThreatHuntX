@@ -1,0 +1,84 @@
+{
+  "id": "03",
+  "title": "Password Spraying",
+  "category": "Initial Access",
+  "overview": "Look for repeated password failures across several different accounts from a common source.",
+  "objective": "Low-rate account guessing.",
+  "platform": "Identity",
+  "difficulty": "Beginner",
+  "minutes": 8,
+  "prerequisites": "Read the baseline and compare event fields. No external tools are required.",
+  "attack": {
+    "id": "T1110.003",
+    "name": "Password Spraying",
+    "url": "https://attack.mitre.org/techniques/T1110/003",
+    "tactics": [
+      "credential_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Entra sign-in or audit projection",
+  "data_sources": [
+    "Entra sign-in or audit projection",
+    "Failed-login pattern analysis"
+  ],
+  "hypothesis": "Four distinct users with bad-password failures from one source within ten minutes warrant a password-spray hunt.",
+  "evidence": "Group by source IP, count distinct usernames, and pivot to subsequent successful sign-ins.",
+  "false_positive": "A shared proxy or SSO outage can make unrelated failures appear to have the same source.",
+  "tuning": "Enrich by network ownership and client app. Compare against the usual mix of users behind a shared address.",
+  "response": "Check successful sign-ins for the targeted users, revoke suspicious sessions, and coordinate blocking with the identity team.",
+  "prevention": "Use phishing-resistant MFA, adaptive access, smart lockout and monitored legacy protocol controls.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "One IP represents a deterministic fixture. Distributed attacks require additional grouping or telemetry.",
+  "questions": [
+    {
+      "prompt": "What is counted for this alert?",
+      "options": [
+        "Distinct users",
+        "Password length"
+      ],
+      "answer": 0,
+      "explanation": "Counting unique accounts prevents repeated typos by one user from dominating."
+    },
+    {
+      "prompt": "What can produce similar activity?",
+      "options": [
+        "A single renamed file",
+        "A shared proxy during an SSO problem"
+      ],
+      "answer": 1,
+      "explanation": "Many legitimate users can share one egress address."
+    }
+  ],
+  "rule": {
+    "id": "THX-03",
+    "severity": "medium",
+    "source": "identity",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "sign_in"
+      },
+      {
+        "field": "outcome",
+        "op": "eq",
+        "value": "failure"
+      },
+      {
+        "field": "observables.failure_reason",
+        "op": "eq",
+        "value": "bad_password"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "source_ip",
+    "threshold": 4,
+    "window_seconds": 600,
+    "distinct": "user"
+  },
+  "core_lesson": true,
+  "reference": "https://attack.mitre.org/techniques/T1110/003",
+  "license": "MIT"
+}

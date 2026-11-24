@@ -1,0 +1,29 @@
+title: GitHub Actions Tampering observation
+name: threathuntx_33
+id: 56ff644c-2ee4-55c0-8ae7-3e5551549f6a
+status: test
+description: A workflow update that adds write permissions outside approved review
+  warrants examining the diff and executed jobs.
+references:
+- https://attack.mitre.org/techniques/T1677
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1677
+logsource:
+  product: github
+  service: audit
+  definition: GitHub organization audit projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: github
+    THXAction: repository_push
+    THXPath|startswith: .github/workflows/
+    THXPermissionsDelta: write_added
+    THXReviewStatus: unreviewed
+  condition: selection
+falsepositives:
+- An emergency policy adjustment can add scoped write rights before normal release
+  workflows run.
+level: high

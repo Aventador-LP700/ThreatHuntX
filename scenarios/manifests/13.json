@@ -1,0 +1,89 @@
+{
+  "id": "13",
+  "title": "Kerberoasting",
+  "category": "Privilege Escalation & Credentials",
+  "overview": "Correlate service-ticket requests for distinct services alongside encryption and requester context.",
+  "objective": "Service tickets for cracking.",
+  "platform": "AD",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and windows security or sysmon projection fields.",
+  "attack": {
+    "id": "T1558.003",
+    "name": "Kerberoasting",
+    "url": "https://attack.mitre.org/techniques/T1558/003",
+    "tactics": [
+      "credential_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "Abnormal ticket requests"
+  ],
+  "hypothesis": "Three distinct legacy-encrypted service tickets requested by one user during ten minutes warrant investigation.",
+  "evidence": "Check event 4769, encryption type, requesting identity and the distinct service names.",
+  "false_positive": "Legacy services and trusted inventory jobs can produce bursts of service-ticket requests.",
+  "tuning": "Baseline service accounts, isolate legacy protocols and verify ownership before excluding a workload.",
+  "response": "Review requester activity and service-account exposure. Move accounts to managed credentials according to policy.",
+  "prevention": "Prefer gMSAs and modern encryption. Audit service principal assignments and legacy-client dependencies.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The exercise checks request metadata only, with no ticket capture or password recovery.",
+  "questions": [
+    {
+      "prompt": "What differentiates the positive fixture?",
+      "options": [
+        "Distinct service targets and legacy encryption",
+        "The usernames are sorted"
+      ],
+      "answer": 0,
+      "explanation": "The rule combines a cryptographic property and distinct services per user."
+    },
+    {
+      "prompt": "Which control addresses persistent exposure?",
+      "options": [
+        "Permanently suppress all ticket events",
+        "Use managed service accounts and modern encryption"
+      ],
+      "answer": 1,
+      "explanation": "Maintenance should reduce risk while preserving useful audit visibility."
+    }
+  ],
+  "rule": {
+    "id": "THX-13",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "event_id",
+        "op": "eq",
+        "value": "4769"
+      },
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "service_ticket_request"
+      },
+      {
+        "field": "observables.ticket_encryption",
+        "op": "eq",
+        "value": "rc4"
+      },
+      {
+        "field": "observables.requester_class",
+        "op": "eq",
+        "value": "user"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 3,
+    "window_seconds": 600,
+    "distinct": "observables.service_name"
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1558/003",
+  "license": "MIT"
+}

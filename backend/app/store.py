@@ -6,7 +6,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from .catalog import Catalog
-from .detect import correlate
+from .exports import capture_run
 from .models import Mode, Scenario
 
 
@@ -43,7 +43,7 @@ class Store:
 
     def _seed(self, db: sqlite3.Connection, catalog: Catalog):
         for scenario in catalog.scenarios.values():
-            self._insert(db, catalog, scenario, "baseline", f"baseline-{scenario.id}")
+            self.insert(db, catalog, scenario, "baseline", f"baseline-{scenario.id}")
 
     def reset(self, catalog: Catalog):
         with self.connect() as db:
@@ -51,27 +51,13 @@ class Store:
             db.execute("DELETE FROM runs")
             self._seed(db, catalog)
 
-    def _insert(
+    def insert(
         self, db: sqlite3.Connection, catalog: Catalog, scenario: Scenario, mode: Mode, run_id: str
     ):
-        events = catalog.fixtures[scenario.id, mode]
-        alerts = correlate(scenario, events, run_id)
-        alert_by_record = {record: alert.id for alert in alerts for record in alert.evidence}
-        serialized_events = [
-            event.model_dump(mode="json") | {"alert_id": alert_by_record.get(event.record_id)}
-            for event in events
-        ]
-        serialized_alerts = [alert.model_dump(mode="json") for alert in alerts]
-        run = {
-            "id": run_id,
-            "scenario_id": scenario.id,
-            "mode": mode,
-            "created_at": datetime.now(UTC).isoformat()
-            if mode != "baseline"
-            else "2025-01-01T00:00:00+00:00",
-            "events": serialized_events,
-            "alerts": serialized_alerts,
-        }
+        created_at = (
+            datetime.now(UTC).isoformat() if mode != "baseline" else "2025-01-01T00:00:00+00:00"
+        )
+        run = capture_run(scenario, mode, catalog.fixtures[scenario.id, mode], run_id, created_at)
         db.execute(
             """INSERT INTO runs (id, scenario_id, mode, created_at, events, alerts)
             VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO NOTHING""",
@@ -80,15 +66,15 @@ class Store:
                 scenario.id,
                 mode,
                 run["created_at"],
-                json.dumps(serialized_events),
-                json.dumps(serialized_alerts),
+                json.dumps(run["events"]),
+                json.dumps(run["alerts"]),
             ),
         )
         return run
 
     def replay(self, catalog: Catalog, scenario: Scenario, mode: Mode):
         with self.connect() as db:
-            return self._insert(db, catalog, scenario, mode, uuid4().hex)
+            return self.insert(db, catalog, scenario, mode, uuid4().hex)
 
     def _unpack(self, row: sqlite3.Row) -> dict:
         return dict(row) | {

@@ -1,0 +1,45 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "04-negative-01",
+    "record": {
+      "ts": "2025-08-14T10:26:00Z",
+      "sensor": "sensor-01.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "waf_decision",
+      "verdict": "blocked",
+      "signature_id": "WebFirewallDecision"
+    },
+    "context": {
+      "source_ip": "203.0.113.91"
+    },
+    "observables": {
+      "signature_family": "injection",
+      "origin_status": 403,
+      "route_family": "public_api",
+      "authorized_scan": true
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "04-negative-02",
+    "record": {
+      "ts": "2025-08-14T10:26:32Z",
+      "sensor": "sensor-01.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "waf_decision",
+      "verdict": "allowed",
+      "signature_id": "WebFirewallDecision"
+    },
+    "context": {
+      "source_ip": "203.0.113.91"
+    },
+    "observables": {
+      "signature_family": "normal",
+      "origin_status": 200,
+      "route_family": "public_api"
+    }
+  }
+]

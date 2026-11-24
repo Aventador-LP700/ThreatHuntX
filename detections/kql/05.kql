@@ -1,0 +1,7 @@
+// THX-05 OAuth Consent Phishing | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "identity"
+| where THXAction =~ "consent_grant"
+| where THXPublisherVerified == false
+| where THXGrantedScope contains "offline_access"
+| project TimeGenerated, THXSource, THXRecordId, THXAction, THXGrantedScope, THXPublisherVerified, THXUser

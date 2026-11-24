@@ -1,0 +1,4 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="windows"
+| where (lower(tostring(THXEventId)) = "13") AND (lower(tostring(THXAction)) = "registry_value_set") AND (in(lower(tostring(THXRegistryArea)), "run", "run_once")) AND (lower(tostring(THXImageOrigin)) = "user_writable")
+| where NOT coalesce((lower(tostring(THXApprovedChange)) = "true"), false())
+| table _time THXSource THXRecordId THXAction THXEventId THXHost THXApprovedChange THXImageOrigin THXRegistryArea

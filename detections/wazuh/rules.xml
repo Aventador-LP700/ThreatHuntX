@@ -1,0 +1,246 @@
+<group name="threathuntx,synthetic,">
+  <rule id="100100" level="0">
+    <decoded_as>threathuntx_json</decoded_as>
+    <field name="lab_format" type="pcre2">^threathuntx\.normalized\.v1$</field>
+    <description>ThreatHuntX synthetic envelope</description>
+  </rule>
+  <rule id="100101" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^mail$</field>
+    <field name="THXAction" type="pcre2">(?i)^url_inspection$</field>
+    <field name="THXSenderAlignment" type="pcre2">(?i)^fail$</field>
+    <field name="THXUrlCategory" type="pcre2">(?i)^credential_lure$</field>
+    <description>THX 01 Phishing event candidate</description>
+    <mitre>
+      <id>T1566.002</id>
+    </mitre>
+  </rule>
+  <rule id="100102" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^identity$</field>
+    <field name="THXAction" type="pcre2">(?i)^mfa_challenge$</field>
+    <field name="THXOutcome" type="pcre2">(?i)^denied$</field>
+    <field name="THXAuthMethod" type="pcre2">(?i)^push$</field>
+    <field name="THXChangeContext" type="pcre2" negate="yes">(?i)^approved_enrollment$</field>
+    <description>THX 02 MFA Fatigue event candidate</description>
+    <mitre>
+      <id>T1621</id>
+    </mitre>
+  </rule>
+  <rule id="100103" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^identity$</field>
+    <field name="THXAction" type="pcre2">(?i)^sign_in$</field>
+    <field name="THXOutcome" type="pcre2">(?i)^failure$</field>
+    <field name="THXFailureReason" type="pcre2">(?i)^bad_password$</field>
+    <description>THX 03 Password Spraying event candidate</description>
+    <mitre>
+      <id>T1110.003</id>
+    </mitre>
+  </rule>
+  <rule id="100104" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^network$</field>
+    <field name="THXAction" type="pcre2">(?i)^waf_decision$</field>
+    <field name="THXOutcome" type="pcre2">(?i)^blocked$</field>
+    <field name="THXSignatureFamily" type="pcre2">(?i)^injection$</field>
+    <field name="THXAuthorizedScan" type="pcre2" negate="yes">(?i)^true$</field>
+    <description>THX 04 Public-Facing Application Exploits event candidate</description>
+    <mitre>
+      <id>T1190</id>
+    </mitre>
+  </rule>
+  <rule id="100105" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^identity$</field>
+    <field name="THXAction" type="pcre2">(?i)^consent_grant$</field>
+    <field name="THXPublisherVerified" type="pcre2">(?i)^false$</field>
+    <field name="THXGrantedScope" type="pcre2">(?i)offline_access</field>
+    <description>THX 05 OAuth Consent Phishing event candidate</description>
+    <mitre>
+      <id>T1528</id>
+    </mitre>
+  </rule>
+  <rule id="100106" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^windows$</field>
+    <field name="THXEventId" type="pcre2">(?i)^4104$</field>
+    <field name="THXProcess" type="pcre2">(?i)^(?:powershell\.exe|pwsh\.exe)$</field>
+    <field name="THXParentProcess" type="pcre2">(?i)^(?:winword\.exe|excel\.exe)$</field>
+    <field name="THXScriptClass" type="pcre2">(?i)^obfuscated$</field>
+    <field name="THXApprovedAutomation" type="pcre2" negate="yes">(?i)^true$</field>
+    <description>THX 06 PowerShell Abuse event candidate</description>
+    <mitre>
+      <id>T1059.001</id>
+    </mitre>
+  </rule>
+  <rule id="100107" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^mail$</field>
+    <field name="THXAction" type="pcre2">(?i)^attachment_scan$</field>
+    <field name="THXFileExt" type="pcre2">(?i)^(?:\.html|\.htm)$</field>
+    <field name="THXSandboxTrait" type="pcre2">(?i)^embedded_file_materialization$</field>
+    <description>THX 07 HTML Smuggling event candidate</description>
+    <mitre>
+      <id>T1027.006</id>
+    </mitre>
+  </rule>
+  <rule id="100108" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^linux$</field>
+    <field name="THXAction" type="pcre2">(?i)^cron_change$</field>
+    <field name="THXScheduleOwner" type="pcre2">(?i)^root$</field>
+    <field name="THXOriginClass" type="pcre2">(?i)^user_write$</field>
+    <description>THX 08 Scheduled Tasks/Cron event candidate</description>
+    <mitre>
+      <id>T1053.003</id>
+    </mitre>
+  </rule>
+  <rule id="100109" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^windows$</field>
+    <field name="THXEventId" type="pcre2">(?i)^13$</field>
+    <field name="THXAction" type="pcre2">(?i)^registry_value_set$</field>
+    <field name="THXRegistryArea" type="pcre2">(?i)^(?:run|run_once)$</field>
+    <field name="THXImageOrigin" type="pcre2">(?i)^user_writable$</field>
+    <field name="THXApprovedChange" type="pcre2" negate="yes">(?i)^true$</field>
+    <description>THX 09 Registry Autoruns event candidate</description>
+    <mitre>
+      <id>T1547.001</id>
+    </mitre>
+  </rule>
+  <rule id="100110" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^windows$</field>
+    <field name="THXEventId" type="pcre2">(?i)^21$</field>
+    <field name="THXAction" type="pcre2">(?i)^wmi_binding$</field>
+    <field name="THXNamespace" type="pcre2">(?i)^root/subscription$</field>
+    <field name="THXOwnerState" type="pcre2">(?i)^unknown$</field>
+    <description>THX 10 WMI Subscription event candidate</description>
+    <mitre>
+      <id>T1546.003</id>
+    </mitre>
+  </rule>
+  <rule id="100111" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^identity$</field>
+    <field name="THXAction" type="pcre2">(?i)^token_use$</field>
+    <field name="THXSessionContext" type="pcre2">(?i)^new_asn_unmanaged$</field>
+    <field name="THXRiskLevel" type="pcre2">(?i)^high$</field>
+    <description>THX 11 Token Theft event candidate</description>
+    <mitre>
+      <id>T1550.001</id>
+    </mitre>
+  </rule>
+  <rule id="100112" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^windows$</field>
+    <field name="THXEventId" type="pcre2">(?i)^10$</field>
+    <field name="THXTargetProcess" type="pcre2">(?i)^lsass\.exe$</field>
+    <field name="THXAccessClass" type="pcre2">(?i)^read_memory$</field>
+    <field name="THXPublisherStatus" type="pcre2">(?i)^unverified$</field>
+    <description>THX 12 Credential Dumping event candidate</description>
+    <mitre>
+      <id>T1003.001</id>
+    </mitre>
+  </rule>
+  <rule id="100113" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^windows$</field>
+    <field name="THXEventId" type="pcre2">(?i)^4769$</field>
+    <field name="THXAction" type="pcre2">(?i)^service_ticket_request$</field>
+    <field name="THXTicketEncryption" type="pcre2">(?i)^rc4$</field>
+    <field name="THXRequesterClass" type="pcre2">(?i)^user$</field>
+    <description>THX 13 Kerberoasting event candidate</description>
+    <mitre>
+      <id>T1558.003</id>
+    </mitre>
+  </rule>
+  <rule id="100114" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^windows$</field>
+    <field name="THXEventId" type="pcre2">(?i)^4624$</field>
+    <field name="THXAuthPackage" type="pcre2">(?i)^ntlm$</field>
+    <field name="THXLogonType" type="pcre2">(?i)^3$</field>
+    <field name="THXPeerZone" type="pcre2">(?i)^workstations$</field>
+    <field name="THXAccountClass" type="pcre2">(?i)^local_admin$</field>
+    <field name="THXApprovedChange" type="pcre2" negate="yes">(?i)^true$</field>
+    <description>THX 14 Pass-the-Hash event candidate</description>
+    <mitre>
+      <id>T1550.002</id>
+    </mitre>
+  </rule>
+  <rule id="100115" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^linux$</field>
+    <field name="THXAction" type="pcre2">(?i)^privilege_transition$</field>
+    <field name="THXEffectiveUid" type="pcre2">(?i)^0$</field>
+    <field name="THXActorClass" type="pcre2">(?i)^regular$</field>
+    <field name="THXParentTrust" type="pcre2">(?i)^unknown$</field>
+    <description>THX 15 Privilege Escalation event candidate</description>
+    <mitre>
+      <id>T1068</id>
+    </mitre>
+  </rule>
+  <rule id="100116" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^windows$</field>
+    <field name="THXAction" type="pcre2">(?i)^remote_session$</field>
+    <field name="THXOutcome" type="pcre2">(?i)^success$</field>
+    <field name="THXService" type="pcre2">(?i)^(?:rdp|smb|winrm)$</field>
+    <field name="THXPeerZone" type="pcre2">(?i)^workstations$</field>
+    <field name="THXAdminLogon" type="pcre2">(?i)^true$</field>
+    <description>THX 16 RDP/SMB/WinRM Abuse event candidate</description>
+    <mitre>
+      <id>T1021</id>
+    </mitre>
+  </rule>
+  <rule id="100117" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^windows$</field>
+    <field name="THXEventId" type="pcre2">(?i)^1$</field>
+    <field name="THXProcess" type="pcre2">(?i)^(?:rundll32\.exe|regsvr32\.exe)$</field>
+    <field name="THXParentProcess" type="pcre2">(?i)^(?:winword\.exe|outlook\.exe)$</field>
+    <field name="THXContentOrigin" type="pcre2">(?i)^user_writable$</field>
+    <description>THX 17 LOLBins/LOLBAS event candidate</description>
+    <mitre>
+      <id>T1218</id>
+    </mitre>
+  </rule>
+  <rule id="100118" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^windows$</field>
+    <field name="THXEventId" type="pcre2">(?i)^7036$</field>
+    <field name="THXServiceClass" type="pcre2">(?i)^endpoint_protection$</field>
+    <field name="THXNewState" type="pcre2">(?i)^stopped$</field>
+    <field name="THXChangeContext" type="pcre2" negate="yes">(?i)^approved_upgrade$</field>
+    <description>THX 18 Disable Security Tools event candidate</description>
+    <mitre>
+      <id>T1685</id>
+    </mitre>
+  </rule>
+  <rule id="100119" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^network$</field>
+    <field name="THXAction" type="pcre2">(?i)^dns_query$</field>
+    <field name="THXLabelEntropyClass" type="pcre2">(?i)^high$</field>
+    <field name="THXDomainPopularity" type="pcre2">(?i)^rare$</field>
+    <description>THX 19 HTTPS/DNS Command &amp; Control event candidate</description>
+    <mitre>
+      <id>T1071.004</id>
+    </mitre>
+  </rule>
+  <rule id="100120" level="7">
+    <if_sid>100100</if_sid>
+    <field name="THXSource" type="pcre2">^cloud$</field>
+    <field name="THXAction" type="pcre2">(?i)^role_grant$</field>
+    <field name="THXOutcome" type="pcre2">(?i)^success$</field>
+    <field name="THXRoleClass" type="pcre2">(?i)^administrative$</field>
+    <field name="THXActorClass" type="pcre2">(?i)^interactive$</field>
+    <field name="THXChangeContext" type="pcre2" negate="yes">(?i)^approved_breakglass$</field>
+    <description>THX 20 Cloud IAM Abuse event candidate</description>
+    <mitre>
+      <id>T1098.003</id>
+    </mitre>
+  </rule>
+</group>

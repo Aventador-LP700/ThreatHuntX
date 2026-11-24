@@ -1,0 +1,86 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "19-positive-01",
+    "record": {
+      "ts": "2025-08-14T13:56:00Z",
+      "sensor": "host-19.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "dns_query",
+      "verdict": "observed",
+      "signature_id": "DNS"
+    },
+    "context": {
+      "domain": "training.example"
+    },
+    "observables": {
+      "label_entropy_class": "low",
+      "domain_popularity": "common",
+      "query_id": "19-observation-01"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "19-positive-02",
+    "record": {
+      "ts": "2025-08-14T13:56:32Z",
+      "sensor": "host-19.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "dns_query",
+      "verdict": "observed",
+      "signature_id": "DNS"
+    },
+    "context": {
+      "domain": "sample-beacon.invalid"
+    },
+    "observables": {
+      "label_entropy_class": "high",
+      "domain_popularity": "rare",
+      "query_id": "19-observation-02"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "19-positive-03",
+    "record": {
+      "ts": "2025-08-14T13:57:04Z",
+      "sensor": "host-19.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "dns_query",
+      "verdict": "observed",
+      "signature_id": "DNS"
+    },
+    "context": {
+      "domain": "sample-beacon.invalid"
+    },
+    "observables": {
+      "label_entropy_class": "high",
+      "domain_popularity": "rare",
+      "query_id": "19-observation-03"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "19-positive-04",
+    "record": {
+      "ts": "2025-08-14T13:57:36Z",
+      "sensor": "host-19.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "dns_query",
+      "verdict": "observed",
+      "signature_id": "DNS"
+    },
+    "context": {
+      "domain": "sample-beacon.invalid"
+    },
+    "observables": {
+      "label_entropy_class": "high",
+      "domain_popularity": "rare",
+      "query_id": "19-observation-04"
+    }
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "mail",
+    "record_id": "01-negative-01",
+    "record": {
+      "Timestamp": "2025-08-14T09:44:00Z",
+      "Relay": "relay-01.training.example",
+      "RecipientEmailAddress": "analyst-sample@training.example",
+      "Activity": "url_inspection",
+      "DeliveryAction": "allowed",
+      "EventType": "MailUrlAssessment"
+    },
+    "context": {
+      "domain": "forwarder.training.example"
+    },
+    "observables": {
+      "sender_alignment": "fail",
+      "url_category": "business"
+    }
+  }
+]

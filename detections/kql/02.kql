@@ -1,0 +1,9 @@
+// THX-02 MFA Fatigue | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "identity"
+| where THXAction =~ "mfa_challenge"
+| where THXOutcome =~ "denied"
+| where THXAuthMethod =~ "push"
+| where not(coalesce((THXChangeContext =~ "approved_enrollment"), false))
+| summarize Observations=dcount(THXChallengeId), Evidence=make_set(THXRecordId, 100) by THXUser, bin(TimeGenerated, 300s)
+| where Observations >= 3

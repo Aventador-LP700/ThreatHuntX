@@ -1,0 +1,5 @@
+<decoder name="threathuntx_json">
+  <type>syslog</type>
+  <prematch type="pcre2">^THX_JSON\s+</prematch>
+  <plugin_decoder offset="after_prematch">JSON_Decoder</plugin_decoder>
+</decoder>

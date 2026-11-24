@@ -1,0 +1,8 @@
+// THX-04 Public-Facing Application Exploits | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "network"
+| where THXAction =~ "waf_decision"
+| where THXOutcome =~ "blocked"
+| where THXSignatureFamily =~ "injection"
+| where not(coalesce((THXAuthorizedScan == true), false))
+| project TimeGenerated, THXSource, THXRecordId, THXAction, THXAuthorizedScan, THXSignatureFamily, THXOutcome, THXUser

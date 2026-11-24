@@ -1,0 +1,1 @@
+type=SYSCALL msg=audit(1755169200.125:1008): arch=c000003e syscall=257 success=yes exit=3 auid=1001 uid=1001 comm="crontab" exe="/usr/bin/crontab" key="training_cron_review"

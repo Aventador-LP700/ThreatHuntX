@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "28-negative-01",
+    "record": {
+      "TimeCreated": "2025-08-14T16:02:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "file_access",
+      "Status": "success",
+      "EventID": "FileAccessSummary"
+    },
+    "context": {
+      "process": "sample-helper.exe"
+    },
+    "observables": {
+      "target_type": "browser_session_store",
+      "actor_type": "browser",
+      "operation": "read"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "28-negative-02",
+    "record": {
+      "TimeCreated": "2025-08-14T16:02:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "file_access",
+      "Status": "success",
+      "EventID": "FileAccessSummary"
+    },
+    "context": {
+      "process": "browser.exe"
+    },
+    "observables": {
+      "target_type": "browser_session_store",
+      "actor_type": "browser",
+      "operation": "read"
+    }
+  }
+]

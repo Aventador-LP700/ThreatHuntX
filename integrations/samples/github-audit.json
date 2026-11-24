@@ -1,0 +1,1 @@
+{"@timestamp":1755169080000,"_document_id":"training-github-33","action":"workflows.prepared_workflow_job","actor":"training-developer","repo":"training/example","workflow_name":"Unit checks","job_name":"test","head_branch":"main"}

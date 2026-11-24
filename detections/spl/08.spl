@@ -1,0 +1,3 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="linux"
+| where (lower(tostring(THXAction)) = "cron_change") AND (lower(tostring(THXScheduleOwner)) = "root") AND (lower(tostring(THXOriginClass)) = "user_write")
+| table _time THXSource THXRecordId THXAction THXOriginClass THXScheduleOwner THXUser

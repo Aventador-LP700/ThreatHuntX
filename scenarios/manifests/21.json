@@ -1,0 +1,89 @@
+{
+  "id": "21",
+  "title": "Active Directory Enumeration",
+  "category": "Discovery & Impact",
+  "overview": "Separate expected directory inventory from repeated user enumeration by a workstation account.",
+  "objective": "Map users and trusts.",
+  "platform": "AD",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of AD auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1087.002",
+    "name": "Domain Account",
+    "url": "https://attack.mitre.org/techniques/T1087/002",
+    "tactics": [
+      "discovery"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "Unusual LDAP query patterns"
+  ],
+  "hypothesis": "A workstation actor issuing repeated directory-wide user-listing queries warrants a directory discovery hunt.",
+  "evidence": "Compare actor, LDAP query class, query scope and client role. Check how often that actor normally queries the directory.",
+  "false_positive": "Auditors, administrators and inventory jobs can enumerate users legitimately.",
+  "tuning": "Separate registered inventory jobs and narrow approvals by actor, source and expected scope.",
+  "response": "Scope the account, verify its authorization and examine accompanying authentication and access activity.",
+  "prevention": "Audit directory queries for sensitive objects and reduce the reach of unmanaged directory clients.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "Provider-specific query result shape and attribution vary. The dataset supplies aggregate scope rather than raw LDAP filters.",
+  "questions": [
+    {
+      "prompt": "Which distinction is helpful?",
+      "options": [
+        "Ordinary workstation versus managed inventory source",
+        "Long versus short host name"
+      ],
+      "answer": 0,
+      "explanation": "Client role can distinguish unscheduled discovery from an approved inventory task."
+    },
+    {
+      "prompt": "What checks scope?",
+      "options": [
+        "An alert severity alone",
+        "The query class and breadth"
+      ],
+      "answer": 1,
+      "explanation": "Query scope determines why the event matters and how to investigate it."
+    }
+  ],
+  "rule": {
+    "id": "THX-21",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "ldap_query_summary"
+      },
+      {
+        "field": "observables.query_class",
+        "op": "eq",
+        "value": "user_listing"
+      },
+      {
+        "field": "observables.client_class",
+        "op": "eq",
+        "value": "workstation"
+      },
+      {
+        "field": "observables.breadth_class",
+        "op": "eq",
+        "value": "directory_wide"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 2,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1087/002",
+  "license": "MIT"
+}

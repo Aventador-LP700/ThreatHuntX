@@ -1,0 +1,29 @@
+title: RMM Tool Abuse observation
+name: threathuntx_39
+id: 9ff17eaf-3aa5-528f-9a58-325acd5f5c55
+status: test
+description: An external remote-support session using an unapproved tool should be
+  matched to a valid support case.
+references:
+- https://attack.mitre.org/techniques/T1219/002
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1219.002
+logsource:
+  product: windows
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXAction: remote_support_session
+    THXOutcome: success
+    THXToolApproval: unapproved
+    THXPeerZone: external
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXChangeContext: approved_support
+falsepositives:
+- A current vendor support case may temporarily require a third-party tool.
+level: medium

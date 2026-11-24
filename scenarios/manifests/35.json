@@ -1,0 +1,101 @@
+{
+  "id": "35",
+  "title": "Kubernetes RBAC Abuse",
+  "category": "Supply Chain & CI/CD",
+  "overview": "Review a Kubernetes audit record for an unexpected grant of cluster-wide administrative access.",
+  "objective": "Elevate cluster permissions.",
+  "platform": "Kubernetes",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and kubernetes audit projection fields.",
+  "attack": {
+    "id": "T1098.006",
+    "name": "Additional Container Cluster Roles",
+    "url": "https://attack.mitre.org/techniques/T1098/006",
+    "tactics": [
+      "persistence",
+      "privilege_escalation"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Kubernetes audit projection",
+  "data_sources": [
+    "Kubernetes audit projection",
+    "RoleBinding change audits"
+  ],
+  "hypothesis": "An interactive actor granting cluster-admin through a ClusterRoleBinding needs immediate authorization review.",
+  "evidence": "Check the request actor, role reference, subject and API response. Review later activity by the new subject.",
+  "false_positive": "An approved bootstrap or break-glass action can grant high privileges temporarily.",
+  "tuning": "Allow vetted controller identities and track expiration of temporary bindings. Audit edits as a separate behavior.",
+  "response": "Preserve audit events and revoke the confirmed unauthorized binding. Inventory later access by the subject.",
+  "prevention": "Use least-privilege RBAC, change review for privileged bindings, and admission controls where appropriate.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "Fields summarize a Kubernetes audit event. The lab neither connects to a cluster nor mutates roles.",
+  "questions": [
+    {
+      "prompt": "Why is this binding high impact?",
+      "options": [
+        "ClusterRoleBinding and cluster-admin grant broad privileges",
+        "It sorts first in the list"
+      ],
+      "answer": 0,
+      "explanation": "Both binding scope and referenced role matter for effective access."
+    },
+    {
+      "prompt": "Who may use the new permissions?",
+      "options": [
+        "Only the actor who submitted the request",
+        "The subject named in the binding"
+      ],
+      "answer": 1,
+      "explanation": "The actor performs the grant. The subject receives access."
+    }
+  ],
+  "rule": {
+    "id": "THX-35",
+    "severity": "high",
+    "source": "kubernetes",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "create_binding"
+      },
+      {
+        "field": "outcome",
+        "op": "eq",
+        "value": "success"
+      },
+      {
+        "field": "observables.resource",
+        "op": "eq",
+        "value": "clusterrolebindings"
+      },
+      {
+        "field": "observables.role_ref",
+        "op": "eq",
+        "value": "cluster-admin"
+      },
+      {
+        "field": "observables.actor_class",
+        "op": "eq",
+        "value": "interactive"
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.change_context",
+        "op": "eq",
+        "value": "approved_bootstrap"
+      }
+    ],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": true,
+  "reference": "https://attack.mitre.org/techniques/T1098/006",
+  "license": "MIT"
+}

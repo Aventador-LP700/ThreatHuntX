@@ -1,0 +1,17 @@
+[
+  {"id":"01","pivot":"Use the mail message ID and sender domain to trace the inspection outcome.","check":"Contrast a failing verdict with an approved business sender before proposing a block."},
+  {"id":"02","pivot":"Group denied push requests by user and count distinct challenge IDs over five minutes.","check":"Separate duplicate IDs and approved enrollment from repeated unsolicited prompts."},
+  {"id":"03","pivot":"Sort identity failures by source IP and count the affected accounts.","check":"Check whether the failures concentrate on a shared approved service or recur across unrelated users."},
+  {"id":"06","pivot":"Use parent process and script logging context to scope the same host and user.","check":"Compare an approved administration context with unexpected child process lineage."},
+  {"id":"09","pivot":"Compare the registry target, originating image and host across the three batches.","check":"Check whether the change belongs to a known signed software rollout before escalating."},
+  {"id":"10","pivot":"Group new WMI subscription records by host and connect the filter and consumer contexts.","check":"Compare the same event family in a scheduled inventory or approved management workflow."},
+  {"id":"16","pivot":"Trace remote-service activity by source and destination host, then check account context.","check":"Compare the pivot with known maintenance windows and the documented management route."},
+  {"id":"18","pivot":"Link a security-service state change to the originating process and host.","check":"Check whether a signed update explains the stop and whether the service state recovered."},
+  {"id":"20","pivot":"Compare the principal and the resulting IAM permission change in the same audit record.","check":"Look for an approved provisioning identity and change ticket before concluding privilege abuse."},
+  {"id":"21","pivot":"Group directory searches by actor and examine the lookup scope and request context.","check":"Compare with the volume and source of approved inventory or identity maintenance."},
+  {"id":"22","pivot":"Trace the object storage principal, destination, and access-volume indicators.","check":"Compare with an approved backup or export before escalating possible exfiltration."},
+  {"id":"23","pivot":"Find the host and process attached to the unusual synthetic file activity, then compare timing.","check":"Compare with an authorized backup or build process to rule out benign bulk writes."},
+  {"id":"33","pivot":"Join the audit action to the actor, repository, and reviewed workflow diff metadata.","check":"Require confirmation of what changed and whether the change used an approved review path."},
+  {"id":"35","pivot":"Check the Kubernetes actor, binding name and assigned role in the same audit record.","check":"Review the namespace, provisioning identity and authorization record for expected changes."},
+  {"id":"40","pivot":"Group the SaaS audit records by actor and share scope, then compare file access volume.","check":"Compare a known compliance export or approved collaboration with the unusual destination and volume."}
+]

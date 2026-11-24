@@ -1,0 +1,29 @@
+title: Infostealers observation
+name: threathuntx_29
+id: 703e3fa6-98cb-50f8-8996-3d42bd74f8af
+status: test
+description: An unapproved non-browser reader accessing credential storage should
+  be correlated with process provenance and account risk.
+references:
+- https://attack.mitre.org/techniques/T1555/003
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1555.003
+logsource:
+  product: windows
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXAction: file_access
+    THXTargetType: browser_credential_store
+    THXActorType: unapproved_nonbrowser
+    THXOperation: read
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXMigrationApproved: true
+falsepositives:
+- A sanctioned migration or endpoint backup could read profile storage.
+level: medium

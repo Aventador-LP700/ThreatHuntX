@@ -1,0 +1,52 @@
+title: RDP/SMB/WinRM Abuse observation
+name: threathuntx_16
+id: 414964af-adb9-5500-833d-f5e9b8c5b75d
+status: test
+description: Three administrative sessions to distinct targets from a peer source
+  within ten minutes warrant a lateral movement hunt.
+references:
+- https://attack.mitre.org/techniques/T1021
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1021
+logsource:
+  product: windows
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXAction: remote_session
+    THXOutcome: success
+    THXService:
+    - rdp
+    - smb
+    - winrm
+    THXPeerZone: workstations
+    THXAdminLogon: true
+  condition: selection
+falsepositives:
+- An approved desktop-support activity can touch several systems within minutes.
+level: medium
+---
+title: RDP/SMB/WinRM Abuse correlation
+id: 120cf71a-bced-5255-a4c8-03d5c4470b7e
+status: test
+description: Compare the service, source zone and distinct target IDs. Review authorization
+  and process activity on both sides.
+references:
+- https://attack.mitre.org/techniques/T1021
+tags:
+- attack.t1021
+correlation:
+  type: value_count
+  rules:
+  - threathuntx_16
+  group-by:
+  - THXSourceIp
+  timespan: 10m
+  condition:
+    gte: 3
+    field: THXTargetId
+level: medium

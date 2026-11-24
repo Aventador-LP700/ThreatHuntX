@@ -1,0 +1,40 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "13-baseline-01",
+    "record": {
+      "TimeCreated": "2025-08-14T12:32:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "service_ticket_request",
+      "Status": "success",
+      "EventID": "4769"
+    },
+    "context": {},
+    "observables": {
+      "ticket_encryption": "aes256",
+      "requester_class": "user",
+      "service_name": "13-observation-01"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "13-baseline-02",
+    "record": {
+      "TimeCreated": "2025-08-14T12:32:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "service_ticket_request",
+      "Status": "success",
+      "EventID": "4769"
+    },
+    "context": {},
+    "observables": {
+      "ticket_encryption": "aes256",
+      "requester_class": "user",
+      "service_name": "13-observation-02"
+    }
+  }
+]

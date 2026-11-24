@@ -1,0 +1,28 @@
+title: Credential Dumping observation
+name: threathuntx_12
+id: 3f4c403a-2ca0-5624-812e-3fb62b24352f
+status: test
+description: Memory-read access to LSASS from an unverified caller warrants examination
+  of the process and endpoint evidence.
+references:
+- https://attack.mitre.org/techniques/T1003/001
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1003.001
+logsource:
+  product: windows
+  service: sysmon
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXEventId: '10'
+    THXTargetProcess: lsass.exe
+    THXAccessClass: read_memory
+    THXPublisherStatus: unverified
+  condition: selection
+falsepositives:
+- Approved security tooling can legitimately inspect sensitive processes.
+level: medium

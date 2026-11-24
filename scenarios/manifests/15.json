@@ -1,0 +1,89 @@
+{
+  "id": "15",
+  "title": "Privilege Escalation",
+  "category": "Privilege Escalation & Credentials",
+  "overview": "Investigate an unexpected transition to root privilege alongside process provenance.",
+  "objective": "Abuse local flaws/rights.",
+  "platform": "Linux",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of Linux auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1068",
+    "name": "Exploitation for Privilege Escalation",
+    "url": "https://attack.mitre.org/techniques/T1068",
+    "tactics": [
+      "privilege_escalation"
+    ],
+    "confidence": "related",
+    "rationale": "Unexpected elevation motivates a T1068 investigation. A privilege transition can have other causes."
+  },
+  "telemetry": "Linux audit projection",
+  "data_sources": [
+    "Linux audit projection",
+    "Privilege-change events"
+  ],
+  "hypothesis": "A regular actor gaining effective UID 0 under an unknown parent warrants review of the authorization path.",
+  "evidence": "Confirm the effective UID, original actor and parent provenance. Compare audit, package and change records.",
+  "false_positive": "A controlled privilege broker may intentionally mediate administrative access.",
+  "tuning": "Verify the expected broker identity, signed package and authorization trail before excluding a transition.",
+  "response": "Preserve audit and process lineage, scope follow-on actions and isolate if unauthorized activity is confirmed.",
+  "prevention": "Patch OS and packages, constrain privilege brokers and review privileged execution policies.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The privilege transition by itself is a weak proxy for exploitation and is supplied as an inert audit record.",
+  "questions": [
+    {
+      "prompt": "Which field reflects privileges after the transition?",
+      "options": [
+        "Effective UID",
+        "The file extension"
+      ],
+      "answer": 0,
+      "explanation": "Effective UID is used for privilege checks. The original actor gives accountability."
+    },
+    {
+      "prompt": "What helps distinguish a valid transition?",
+      "options": [
+        "The host name suffix",
+        "A verified privilege broker and authorization record"
+      ],
+      "answer": 1,
+      "explanation": "Confirm how privileges were delegated before concluding exploitation."
+    }
+  ],
+  "rule": {
+    "id": "THX-15",
+    "severity": "medium",
+    "source": "linux",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "privilege_transition"
+      },
+      {
+        "field": "observables.effective_uid",
+        "op": "eq",
+        "value": 0
+      },
+      {
+        "field": "observables.actor_class",
+        "op": "eq",
+        "value": "regular"
+      },
+      {
+        "field": "observables.parent_trust",
+        "op": "eq",
+        "value": "unknown"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1068",
+  "license": "MIT"
+}

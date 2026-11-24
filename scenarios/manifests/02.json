@@ -1,6 +1,6 @@
 {
   "id": "02",
-  "title": "MFA fatigue",
+  "title": "MFA Fatigue",
   "category": "Initial Access",
   "overview": "An employee receives repeated, unexpected sign-in approval prompts. Inspect identity logs and decide when repeated denials deserve investigation.",
   "objective": "Repeated approval prompts.",

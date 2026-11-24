@@ -1,0 +1,49 @@
+title: Cloud Exfiltration observation
+name: threathuntx_22
+id: c9f341ca-0487-5e10-aca1-9800a644db11
+status: test
+description: Repeated high-volume GetObject activity on restricted data by one identity
+  warrants verifying purpose and destination.
+references:
+- https://attack.mitre.org/techniques/T1530
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1530
+logsource:
+  product: aws
+  service: cloudtrail
+  definition: Cloud audit projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: cloud
+    THXAction: object_read_summary
+    THXOperation: GetObject
+    THXDataClass: restricted
+    THXObjectsRead|gte: 200
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXJobContext: approved_backup
+falsepositives:
+- An approved backup, restore or analytics load can read numerous restricted objects.
+level: medium
+---
+title: Cloud Exfiltration correlation
+id: 784c0cbb-77cc-52e7-a662-657c3aa7613d
+status: test
+description: Check the principal, data classification, object count and bucket. Compare
+  workload history and transfer logs.
+references:
+- https://attack.mitre.org/techniques/T1530
+tags:
+- attack.t1530
+correlation:
+  type: event_count
+  rules:
+  - threathuntx_22
+  group-by:
+  - THXUser
+  timespan: 5m
+  condition:
+    gte: 2
+level: medium

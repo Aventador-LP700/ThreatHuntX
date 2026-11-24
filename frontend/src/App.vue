@@ -1,29 +1,29 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { Activity, BookOpen, ChevronRight, CircleHelp, ClipboardList, Code2, Compass, FlaskConical, Github, Grid3X3, Home, Menu, Moon, Radar, ScanSearch, Shield, ShieldAlert, Sun, X } from 'lucide-vue-next'
+import { Workflow, Activity, BookOpen, ChevronRight, CircleHelp, ClipboardList, Code2, Compass, FlaskConical, Github, Grid3X3, Home, Menu, Moon, Radar, ScanSearch, Shield, ShieldAlert, Sun, X } from 'lucide-vue-next'
 import { loadError, loading, refresh, showcase } from './api'
 
 const groups = [
   { name: 'Learning', items: [
-    { text: 'Start Here', path: '/', icon: Home }, { text: 'Learn', path: '/learn', icon: BookOpen },
-    { text: 'Technique Explorer', path: '/techniques', icon: Compass }, { text: 'Simulate', path: '/simulate', icon: FlaskConical },
+    { text: 'Home', path: '/', icon: Home }, { text: 'Learning Paths', path: '/learn', icon: BookOpen },
+    { text: 'Technique Map', path: '/techniques', icon: Compass }, { text: 'Guided Hunt', path: '/simulate', icon: FlaskConical },
   ] },
   { name: 'Investigate', items: [
-    { text: 'Alerts', path: '/alerts', icon: ShieldAlert }, { text: 'Hunt Workspace', path: '/hunt', icon: ScanSearch },
-    { text: 'ATT&CK Matrix', path: '/matrix', icon: Grid3X3 }, { text: 'Investigations', path: '/investigations', icon: ClipboardList },
-    { text: 'Detection Rules', path: '/rules', icon: Code2 }, { text: 'Playbooks', path: '/playbooks', icon: Shield },
+    { text: 'Alerts', path: '/alerts', icon: ShieldAlert }, { text: 'Investigation Workspace', path: '/hunt', icon: ScanSearch },
+    { text: 'MITRE Matrix', path: '/matrix', icon: Grid3X3 }, { text: 'Recent Investigations', path: '/investigations', icon: ClipboardList },
+    { text: 'Detection Studio', path: '/rules', icon: Code2 }, { text: 'Playbooks', path: '/playbooks', icon: Shield },
   ] },
   { name: 'Resources', items: [
-    { text: 'Learning Progress', path: '/progress', icon: Activity }, { text: 'Deployment Help', path: '/deployment', icon: CircleHelp },
-    { text: 'About / Contribute', path: '/about', icon: Github },
+    { text: 'Reports', path: '/progress', icon: Activity }, { text: 'Reference Architecture', path: '/architecture', icon: Workflow }, { text: 'Deployment Help', path: '/deployment', icon: CircleHelp },
+    { text: 'Community', path: '/about', icon: Github },
   ] },
 ]
 const route = useRoute()
 const menu = ref(false)
 const theme = ref('dark')
 const main = ref<HTMLElement>()
-const pageName = computed(() => route.meta.title ?? 'Start Here')
+const pageName = computed(() => route.meta.title ?? 'Home')
 function setTheme(value: string) {
   theme.value = value
   document.documentElement.dataset.theme = value

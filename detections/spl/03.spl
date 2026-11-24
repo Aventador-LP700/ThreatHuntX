@@ -1,0 +1,5 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="identity"
+| where (lower(tostring(THXAction)) = "sign_in") AND (lower(tostring(THXOutcome)) = "failure") AND (lower(tostring(THXFailureReason)) = "bad_password")
+| bin _time span=600s
+| stats dc(THXUser) AS observations values(THXRecordId) AS evidence BY _time THXSourceIp
+| where observations >= 4

@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "linux",
+    "record_id": "15-baseline-01",
+    "record": {
+      "timestamp": "2025-08-14T13:00:00Z",
+      "node": "linux-05.training.example",
+      "acct": "analyst-sample@training.example",
+      "type": "privilege_transition",
+      "res": "success",
+      "serial": "SYSCALL"
+    },
+    "context": {
+      "process": "approved-service"
+    },
+    "observables": {
+      "effective_uid": 0,
+      "actor_class": "admin",
+      "parent_trust": "managed"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "linux",
+    "record_id": "15-baseline-02",
+    "record": {
+      "timestamp": "2025-08-14T13:00:32Z",
+      "node": "linux-05.training.example",
+      "acct": "analyst-sample@training.example",
+      "type": "privilege_transition",
+      "res": "success",
+      "serial": "SYSCALL"
+    },
+    "context": {
+      "process": "approved-service"
+    },
+    "observables": {
+      "effective_uid": 0,
+      "actor_class": "admin",
+      "parent_trust": "managed"
+    }
+  }
+]

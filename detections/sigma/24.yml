@@ -1,0 +1,27 @@
+title: Data Staging observation
+name: threathuntx_24
+id: 485404fd-7900-5ca3-9e78-a143ba5a64b4
+status: test
+description: A large archive of sensitive files written to a shared staging area should
+  be compared with authorized workflows.
+references:
+- https://attack.mitre.org/techniques/T1560/001
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1560.001
+logsource:
+  product: linux
+  service: auditd
+  definition: Linux audit projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: linux
+    THXAction: archive_summary
+    THXInputClass: sensitive
+    THXDestinationClass: shared_staging
+    THXInputCount|gte: 20
+  condition: selection
+falsepositives:
+- An authorized support bundle or export can build a temporary archive.
+level: medium

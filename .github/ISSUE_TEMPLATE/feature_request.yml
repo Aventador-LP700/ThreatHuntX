@@ -1,0 +1,15 @@
+name: Feature request
+description: Propose a learning or contributor improvement
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome and audience
+      description: Describe the learner or contributor task this feature would support.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: How can we verify the improvement?
+      description: Include a reproducible fixture or interaction where relevant.

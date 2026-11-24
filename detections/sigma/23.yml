@@ -1,0 +1,49 @@
+title: Ransomware-Like Activity observation
+name: threathuntx_23
+id: 3841320c-81d1-5c22-a98e-74332bda05b6
+status: test
+description: Four distinct renames to one unexpected extension pattern on a shared
+  document host in two minutes warrant rapid triage.
+references:
+- https://attack.mitre.org/techniques/T1486
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1486
+logsource:
+  product: windows
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXAction: file_rename
+    THXDirectoryClass: shared_documents
+    THXExtensionPattern: unexpected_uniform
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXJobContext: approved_conversion
+falsepositives:
+- Controlled migrations and testing can perform bulk renames on a mapped share.
+level: high
+---
+title: Ransomware-Like Activity correlation
+id: 4299e670-965d-56fb-b120-847920cab135
+status: test
+description: Check distinct file identifiers, extension pattern, process lineage and
+  the affected share. Confirm recoverability with backups.
+references:
+- https://attack.mitre.org/techniques/T1486
+tags:
+- attack.t1486
+correlation:
+  type: value_count
+  rules:
+  - threathuntx_23
+  group-by:
+  - THXHost
+  timespan: 2m
+  condition:
+    gte: 4
+    field: THXFileId
+level: high

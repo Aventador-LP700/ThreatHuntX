@@ -1,0 +1,3 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="identity"
+| where (lower(tostring(THXAction)) = "token_use") AND (lower(tostring(THXSessionContext)) = "new_asn_unmanaged") AND (lower(tostring(THXRiskLevel)) = "high")
+| table _time THXSource THXRecordId THXAction THXRiskLevel THXSessionContext THXUser

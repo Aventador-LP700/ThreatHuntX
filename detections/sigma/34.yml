@@ -1,0 +1,25 @@
+title: Secrets in Git/Artifacts observation
+name: threathuntx_34
+id: 79200164-fc19-59c6-883f-d87f248b32ce
+status: test
+description: A credential-like finding in a shared artifact merits checking ownership
+  and publication scope.
+references:
+- https://attack.mitre.org/techniques/T1552/001
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1552.001
+logsource:
+  category: application
+  definition: Secret scanner projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: scanner
+    THXAction: finding_created
+    THXFindingClass: credential_like
+    THXArtifactExposure: shared
+  condition: selection
+falsepositives:
+- Documentation placeholders and test strings commonly match scanner patterns.
+level: medium

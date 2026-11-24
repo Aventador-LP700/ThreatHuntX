@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "linux",
+    "record_id": "24-positive-01",
+    "record": {
+      "timestamp": "2025-08-14T15:06:00Z",
+      "node": "linux-05.training.example",
+      "acct": "analyst-sample@training.example",
+      "type": "archive_summary",
+      "res": "success",
+      "serial": "ArchiveSummary"
+    },
+    "context": {
+      "process": "archive-utility"
+    },
+    "observables": {
+      "input_class": "sensitive",
+      "destination_class": "managed_backup",
+      "input_count": 72
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "linux",
+    "record_id": "24-positive-02",
+    "record": {
+      "timestamp": "2025-08-14T15:06:32Z",
+      "node": "linux-05.training.example",
+      "acct": "analyst-sample@training.example",
+      "type": "archive_summary",
+      "res": "success",
+      "serial": "ArchiveSummary"
+    },
+    "context": {
+      "process": "archive-utility"
+    },
+    "observables": {
+      "input_class": "sensitive",
+      "destination_class": "shared_staging",
+      "input_count": 72
+    }
+  }
+]

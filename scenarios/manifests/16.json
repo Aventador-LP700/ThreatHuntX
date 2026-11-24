@@ -1,0 +1,98 @@
+{
+  "id": "16",
+  "title": "RDP/SMB/WinRM Abuse",
+  "category": "Lateral Movement & Command",
+  "overview": "Find repeated administrative sessions between a peer and multiple destinations outside a managed jump-host path.",
+  "objective": "Unauthorized remote sessions.",
+  "platform": "Windows",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and windows security or sysmon projection fields.",
+  "attack": {
+    "id": "T1021",
+    "name": "Remote Services",
+    "url": "https://attack.mitre.org/techniques/T1021",
+    "tactics": [
+      "lateral_movement"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "East-west session correlation"
+  ],
+  "hypothesis": "Three administrative sessions to distinct targets from a peer source within ten minutes warrant a lateral movement hunt.",
+  "evidence": "Compare the service, source zone and distinct target IDs. Review authorization and process activity on both sides.",
+  "false_positive": "An approved desktop-support activity can touch several systems within minutes.",
+  "tuning": "Maintain separate jump infrastructure and allowlist formally approved tools and accounts by destination class.",
+  "response": "Verify authorization out of band and scope the account and peer host. Terminate confirmed unauthorized sessions.",
+  "prevention": "Require segmented management paths, MFA for remote access and monitored privileged accounts.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fields represent a correlated telemetry projection. Individual Windows log types vary by remote service.",
+  "questions": [
+    {
+      "prompt": "What links the sessions for this rule?",
+      "options": [
+        "A common source IP and distinct targets",
+        "The target IDs are identical"
+      ],
+      "answer": 0,
+      "explanation": "The rule groups the peer and explores lateral fan-out."
+    },
+    {
+      "prompt": "What should you verify first?",
+      "options": [
+        "Whether the user interface was dark",
+        "Whether the source and account are approved for those targets"
+      ],
+      "answer": 1,
+      "explanation": "Authorization context distinguishes support activity from a suspicious pivot."
+    }
+  ],
+  "rule": {
+    "id": "THX-16",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "remote_session"
+      },
+      {
+        "field": "outcome",
+        "op": "eq",
+        "value": "success"
+      },
+      {
+        "field": "observables.service",
+        "op": "in",
+        "value": [
+          "rdp",
+          "smb",
+          "winrm"
+        ]
+      },
+      {
+        "field": "observables.peer_zone",
+        "op": "eq",
+        "value": "workstations"
+      },
+      {
+        "field": "observables.admin_logon",
+        "op": "eq",
+        "value": true
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "source_ip",
+    "threshold": 3,
+    "window_seconds": 600,
+    "distinct": "observables.target_id"
+  },
+  "core_lesson": true,
+  "reference": "https://attack.mitre.org/techniques/T1021",
+  "license": "MIT"
+}

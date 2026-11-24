@@ -1,0 +1,90 @@
+{
+  "id": "23",
+  "title": "Ransomware-Like Activity",
+  "category": "Discovery & Impact",
+  "overview": "Determine whether repeated rename observations resemble ransomware impact or an approved file operation.",
+  "objective": "Simulated bulk file changes.",
+  "platform": "Windows",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and windows security or sysmon projection fields.",
+  "attack": {
+    "id": "T1486",
+    "name": "Data Encrypted for Impact",
+    "url": "https://attack.mitre.org/techniques/T1486",
+    "tactics": [
+      "impact"
+    ],
+    "confidence": "related",
+    "rationale": "Mass renames can be consistent with encryption for impact. Rename evidence alone does not show that content was encrypted."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "High-volume file event patterns"
+  ],
+  "hypothesis": "Four distinct renames to one unexpected extension pattern on a shared document host in two minutes warrant rapid triage.",
+  "evidence": "Check distinct file identifiers, extension pattern, process lineage and the affected share. Confirm recoverability with backups.",
+  "false_positive": "Controlled migrations and testing can perform bulk renames on a mapped share.",
+  "tuning": "Allow narrowly scoped, scheduled conversions with an accountable owner. Alert on activity outside that window.",
+  "response": "Preserve timestamps and writer evidence, isolate confirmed affected systems and validate recoverable backups.",
+  "prevention": "Use offline tested backups, application control, staged share permissions and fast endpoint isolation procedures.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture is inert. It contains only rename observations and does not create, modify or encrypt learner files.",
+  "questions": [
+    {
+      "prompt": "Which evidence supports the alert?",
+      "options": [
+        "Four distinct file IDs with an unexpected uniform extension",
+        "The presence of a .tmp extension alone"
+      ],
+      "answer": 0,
+      "explanation": "Distinct paths and clustered rename behavior create the signal."
+    },
+    {
+      "prompt": "What should you confirm before recovery?",
+      "options": [
+        "The writer process name looks short",
+        "Backups are recent, isolated and recoverable"
+      ],
+      "answer": 1,
+      "explanation": "Restoration planning depends on tested backups and affected scope."
+    }
+  ],
+  "rule": {
+    "id": "THX-23",
+    "severity": "high",
+    "source": "windows",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "file_rename"
+      },
+      {
+        "field": "observables.directory_class",
+        "op": "eq",
+        "value": "shared_documents"
+      },
+      {
+        "field": "observables.extension_pattern",
+        "op": "eq",
+        "value": "unexpected_uniform"
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.job_context",
+        "op": "eq",
+        "value": "approved_conversion"
+      }
+    ],
+    "group_by": "host",
+    "threshold": 4,
+    "window_seconds": 120,
+    "distinct": "observables.file_id"
+  },
+  "core_lesson": true,
+  "reference": "https://attack.mitre.org/techniques/T1486",
+  "license": "MIT"
+}

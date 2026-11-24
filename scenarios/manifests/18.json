@@ -1,0 +1,90 @@
+{
+  "id": "18",
+  "title": "Disable Security Tools",
+  "category": "Lateral Movement & Command",
+  "overview": "Review a defensive tool state change and determine whether it is supported by a change record.",
+  "objective": "Disable AV/EDR/logging.",
+  "platform": "Windows",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and windows security or sysmon projection fields.",
+  "attack": {
+    "id": "T1685",
+    "name": "Disable or Modify Tools",
+    "url": "https://attack.mitre.org/techniques/T1685",
+    "tactics": [
+      "defense_impairment"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "Stopped-service alerts"
+  ],
+  "hypothesis": "An unexpected stopped state for an endpoint protection service warrants checking management heartbeat and actor.",
+  "evidence": "Check the service, new state, surrounding activity, managed heartbeat and any maintenance authorization.",
+  "false_positive": "An approved upgrade can temporarily stop an agent.",
+  "tuning": "Treat the maintenance window as expiring context, and check for restart and protection recovery.",
+  "response": "Preserve logs, verify endpoint health from a separate source and restore protection through approved administration.",
+  "prevention": "Enable tamper protection and retain service and security logs off the endpoint.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture records a state transition. It does not exercise tamper behavior or prove deliberate defense impairment.",
+  "questions": [
+    {
+      "prompt": "Which corroboration helps assess impact?",
+      "options": [
+        "Agent heartbeat or management status",
+        "The taskbar layout"
+      ],
+      "answer": 0,
+      "explanation": "An independent health source helps verify the service outage and eventual recovery."
+    },
+    {
+      "prompt": "When should a maintenance exception expire?",
+      "options": [
+        "Whenever the first alert is closed",
+        "When the approved change ends"
+      ],
+      "answer": 1,
+      "explanation": "An expiring exception keeps visibility of unexpected outages."
+    }
+  ],
+  "rule": {
+    "id": "THX-18",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "event_id",
+        "op": "eq",
+        "value": "7036"
+      },
+      {
+        "field": "observables.service_class",
+        "op": "eq",
+        "value": "endpoint_protection"
+      },
+      {
+        "field": "observables.new_state",
+        "op": "eq",
+        "value": "stopped"
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.change_context",
+        "op": "eq",
+        "value": "approved_upgrade"
+      }
+    ],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1685",
+  "license": "MIT"
+}

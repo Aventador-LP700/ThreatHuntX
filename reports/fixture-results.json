@@ -1,0 +1,976 @@
+{
+  "dataset": "Bundled synthetic fixture batches",
+  "cases": [
+    {
+      "scenario_id": "01",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "01",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "01",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "02",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "02",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "02",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "03",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "03",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "03",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "04",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "04",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "04",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "05",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "05",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "05",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "06",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "06",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "06",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "07",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "07",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "07",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "08",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "08",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "08",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "09",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "09",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "09",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "10",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "10",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "10",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "11",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "11",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "11",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "12",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "12",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "12",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "13",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "13",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "13",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "14",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "14",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "14",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "15",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "15",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "15",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "16",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "16",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "16",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "17",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "17",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "17",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "18",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "18",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "18",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "19",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "19",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "19",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "20",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "20",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "20",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "21",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "21",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "21",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "22",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "22",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "22",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "23",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "23",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "23",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "24",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "24",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "24",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "25",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "25",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "25",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "26",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "26",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "26",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "27",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "27",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "27",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "28",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "28",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "28",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "29",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "29",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "29",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "30",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "30",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "30",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "31",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "31",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "31",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "32",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "32",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "32",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "33",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "33",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "33",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "34",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "34",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "34",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "35",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "35",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "35",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "36",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "36",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "36",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "37",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "37",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "37",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "38",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "38",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "38",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "39",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "39",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "39",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "40",
+      "mode": "positive",
+      "expected": true,
+      "actual": true,
+      "alerts": 1,
+      "passed": true
+    },
+    {
+      "scenario_id": "40",
+      "mode": "negative",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    },
+    {
+      "scenario_id": "40",
+      "mode": "baseline",
+      "expected": false,
+      "actual": false,
+      "alerts": 0,
+      "passed": true
+    }
+  ],
+  "metrics": {
+    "tp": 40,
+    "fp": 0,
+    "tn": 80,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "passed": 120,
+    "total": 120,
+    "pass_rate": 1.0
+  }
+}

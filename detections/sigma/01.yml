@@ -1,0 +1,27 @@
+title: Phishing observation
+name: threathuntx_01
+id: cb4dd1f0-9b52-599d-af88-0184c2c758bd
+status: test
+description: A credential-lure verdict and failed sender alignment on the same inspected
+  link justify reviewing the message.
+references:
+- https://attack.mitre.org/techniques/T1566/002
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1566.002
+logsource:
+  category: email
+  definition: Mail gateway or attachment projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: mail
+    THXAction: url_inspection
+    THXSenderAlignment: fail
+    THXUrlCategory: credential_lure
+  condition: selection
+falsepositives:
+- Legitimate forwarded mail can fail alignment. Use independent URL inspection before
+  escalating.
+level: medium

@@ -1,0 +1,27 @@
+title: Privilege Escalation observation
+name: threathuntx_15
+id: a922f8e8-cc0b-59be-a4e8-62f19e6ea504
+status: test
+description: A regular actor gaining effective UID 0 under an unknown parent warrants
+  review of the authorization path.
+references:
+- https://attack.mitre.org/techniques/T1068
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1068
+logsource:
+  product: linux
+  service: auditd
+  definition: Linux audit projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: linux
+    THXAction: privilege_transition
+    THXEffectiveUid: 0
+    THXActorClass: regular
+    THXParentTrust: unknown
+  condition: selection
+falsepositives:
+- A controlled privilege broker may intentionally mediate administrative access.
+level: medium

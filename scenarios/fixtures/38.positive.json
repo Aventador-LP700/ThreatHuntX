@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "38-positive-01",
+    "record": {
+      "TimeCreated": "2025-08-14T18:22:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "driver_load",
+      "Status": "observed",
+      "EventID": "6"
+    },
+    "context": {
+      "process": "approved-driver.sys"
+    },
+    "observables": {
+      "signature_status": "signed",
+      "vulnerability_catalog": "clear",
+      "image_origin": "system"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "38-positive-02",
+    "record": {
+      "TimeCreated": "2025-08-14T18:22:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "driver_load",
+      "Status": "observed",
+      "EventID": "6"
+    },
+    "context": {
+      "process": "sample-driver.sys"
+    },
+    "observables": {
+      "signature_status": "signed",
+      "vulnerability_catalog": "listed",
+      "image_origin": "user_writable"
+    }
+  }
+]

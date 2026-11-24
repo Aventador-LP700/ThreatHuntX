@@ -1,0 +1,45 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "kubernetes",
+    "record_id": "35-negative-01",
+    "record": {
+      "stageTimestamp": "2025-08-14T17:40:00Z",
+      "cluster": "training-cluster",
+      "username": "analyst-sample@training.example",
+      "verb": "create_binding",
+      "responseStatus": "success",
+      "auditType": "ClusterRoleBinding"
+    },
+    "context": {},
+    "observables": {
+      "resource": "clusterrolebindings",
+      "role_ref": "cluster-admin",
+      "actor_class": "interactive",
+      "subject": "sample-service-account",
+      "namespace": "training",
+      "change_context": "approved_bootstrap"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "kubernetes",
+    "record_id": "35-negative-02",
+    "record": {
+      "stageTimestamp": "2025-08-14T17:40:32Z",
+      "cluster": "training-cluster",
+      "username": "analyst-sample@training.example",
+      "verb": "create_binding",
+      "responseStatus": "success",
+      "auditType": "RoleBinding"
+    },
+    "context": {},
+    "observables": {
+      "resource": "rolebindings",
+      "role_ref": "view",
+      "actor_class": "approved_controller",
+      "subject": "sample-reader",
+      "namespace": "training"
+    }
+  }
+]

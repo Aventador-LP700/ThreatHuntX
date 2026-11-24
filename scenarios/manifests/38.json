@@ -1,0 +1,89 @@
+{
+  "id": "38",
+  "title": "BYOVD Driver Abuse",
+  "category": "Cloud, Host & SaaS",
+  "overview": "Triage a driver-load record with a vulnerability classification supplied by the endpoint inventory.",
+  "objective": "Abuse vulnerable drivers.",
+  "platform": "Windows",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of Windows auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1068",
+    "name": "Exploitation for Privilege Escalation",
+    "url": "https://attack.mitre.org/techniques/T1068",
+    "tactics": [
+      "privilege_escalation"
+    ],
+    "confidence": "related",
+    "rationale": "Driver vulnerability can be relevant to privilege escalation. The fixture does not establish driver exploitation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "Suspicious driver-load alerts"
+  ],
+  "hypothesis": "A driver load flagged by vulnerability inventory and sourced from a user-writable path warrants escalation and driver review.",
+  "evidence": "Check Sysmon driver event, image provenance and independent version or hash data against approved blocklist policy.",
+  "false_positive": "A legacy peripheral may install a signed driver later classified as vulnerable.",
+  "tuning": "Use reviewed inventory and verifiable metadata rather than filenames. Handle approved remediation windows with scope and expiry.",
+  "response": "Preserve driver metadata, scope affected assets, and coordinate removal or reboot through endpoint response.",
+  "prevention": "Enforce recommended vulnerable driver blocklists, HVCI where supported, and update drivers from trusted sources.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture contains a made-up driver name and inventory verdict. No vulnerable driver or exploit is present.",
+  "questions": [
+    {
+      "prompt": "Why can a signed driver still be risky?",
+      "options": [
+        "Signing does not establish absence of known vulnerabilities",
+        "Signature makes every version vulnerable"
+      ],
+      "answer": 0,
+      "explanation": "Inventory and vulnerability context are needed even for signed drivers."
+    },
+    {
+      "prompt": "What should be verified independently?",
+      "options": [
+        "Only the filename",
+        "The exact version or hash and blocklist match"
+      ],
+      "answer": 1,
+      "explanation": "A precise identity supports defensible scoping and policy decisions."
+    }
+  ],
+  "rule": {
+    "id": "THX-38",
+    "severity": "high",
+    "source": "windows",
+    "match": [
+      {
+        "field": "event_id",
+        "op": "eq",
+        "value": "6"
+      },
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "driver_load"
+      },
+      {
+        "field": "observables.vulnerability_catalog",
+        "op": "eq",
+        "value": "listed"
+      },
+      {
+        "field": "observables.image_origin",
+        "op": "eq",
+        "value": "user_writable"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1068",
+  "license": "MIT"
+}

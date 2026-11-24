@@ -1,0 +1,10 @@
+// THX-14 Pass-the-Hash | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "windows"
+| where THXEventId =~ "4624"
+| where THXAuthPackage =~ "ntlm"
+| where THXLogonType == 3
+| where THXPeerZone =~ "workstations"
+| where THXAccountClass =~ "local_admin"
+| where not(coalesce((THXApprovedChange == true), false))
+| project TimeGenerated, THXSource, THXRecordId, THXEventId, THXHost, THXAccountClass, THXApprovedChange, THXAuthPackage, THXLogonType, THXPeerZone

@@ -1,0 +1,84 @@
+{
+  "id": "37",
+  "title": "Cloud Metadata Credential Theft",
+  "category": "Cloud, Host & SaaS",
+  "overview": "Find a network classification showing an unexpected workload requesting the cloud metadata credential service.",
+  "objective": "Access instance credentials.",
+  "platform": "Cloud",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of Cloud auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1552.005",
+    "name": "Cloud Instance Metadata API",
+    "url": "https://attack.mitre.org/techniques/T1552/005",
+    "tactics": [
+      "credential_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Network sensor or WAF projection",
+  "data_sources": [
+    "Network sensor or WAF projection",
+    "Metadata URL access alerts"
+  ],
+  "hypothesis": "A metadata credential request by an unapproved workload warrants checking workload identity and access policy.",
+  "evidence": "Read the caller classification and verdict, then pivot to cloud audit for any follow-on role activity.",
+  "false_positive": "A deployed agent or SDK may require metadata access to obtain authorized role credentials.",
+  "tuning": "Map approved workloads and separate credential requests from benign metadata classes.",
+  "response": "Preserve application and network records, scope workload identity and remove unauthorized permission or access.",
+  "prevention": "Require IMDSv2 where supported, constrain metadata access and limit instance-role privileges.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture uses a classification. It sends no metadata requests and includes neither credential values nor live target addresses.",
+  "questions": [
+    {
+      "prompt": "Which context matters beyond metadata access?",
+      "options": [
+        "What was requested and which workload made the request",
+        "The URL text color"
+      ],
+      "answer": 0,
+      "explanation": "Authorized agents make some requests. Caller and request type add context."
+    },
+    {
+      "prompt": "Which source helps determine if a role was used afterward?",
+      "options": [
+        "Only the WAF signature name",
+        "Cloud audit records"
+      ],
+      "answer": 1,
+      "explanation": "Cloud audit can show subsequent API activity by the role."
+    }
+  ],
+  "rule": {
+    "id": "THX-37",
+    "severity": "medium",
+    "source": "network",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "metadata_request"
+      },
+      {
+        "field": "observables.request_class",
+        "op": "eq",
+        "value": "instance_credentials"
+      },
+      {
+        "field": "observables.caller_class",
+        "op": "eq",
+        "value": "unexpected_workload"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1552/005",
+  "license": "MIT"
+}

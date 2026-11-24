@@ -1,0 +1,51 @@
+title: MFA Fatigue observation
+name: threathuntx_02
+id: a2fc4253-48ce-517a-87d7-5e9983583b24
+status: test
+description: Three distinct denied push prompts for one user within five minutes warrant
+  investigation.
+references:
+- https://attack.mitre.org/techniques/T1621
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1621
+logsource:
+  product: azure
+  service: signinlogs
+  definition: Entra sign-in or audit projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: identity
+    THXAction: mfa_challenge
+    THXOutcome: denied
+    THXAuthMethod: push
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXChangeContext: approved_enrollment
+falsepositives:
+- Someone re-enrolling a phone can deny repeated prompts. An approved enrollment test
+  is recorded with a change context.
+level: medium
+---
+title: MFA Fatigue correlation
+id: 9951e5c6-2b7d-506e-b13a-4538b501d73a
+status: test
+description: Confirm the user, method and outcome. Three distinct challenge IDs within
+  five minutes link the alert to individual requests.
+references:
+- https://attack.mitre.org/techniques/T1621
+tags:
+- attack.t1621
+correlation:
+  type: value_count
+  rules:
+  - threathuntx_02
+  group-by:
+  - THXUser
+  timespan: 5m
+  condition:
+    gte: 3
+    field: THXChallengeId
+level: medium

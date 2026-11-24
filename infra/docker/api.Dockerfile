@@ -1,4 +1,4 @@
-FROM python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+FROM python:3.12.14-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 THREATHUNTX_ROOT=/opt/threathuntx
 WORKDIR /opt/threathuntx
 COPY infra/docker/requirements.txt ./requirements.txt
@@ -14,6 +14,7 @@ RUN --mount=type=secret,id=threathuntx_build_ca,mode=0444 \
     && install -d -o lab -g lab /var/lib/threathuntx
 COPY --chown=10001:10001 backend/app ./app
 COPY --chown=10001:10001 scenarios ./scenarios
+COPY --chown=10001:10001 detections ./detections
 USER 10001:10001
 EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-proxy-headers"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-proxy-headers", "--limit-concurrency", "64"]

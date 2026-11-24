@@ -1,0 +1,32 @@
+title: LOLBins/LOLBAS observation
+name: threathuntx_17
+id: d2c0ae2c-01e6-56dc-8627-1b2cb0831503
+status: test
+description: A signed proxy binary launched by an office parent with user-writable
+  content warrants process-chain review.
+references:
+- https://attack.mitre.org/techniques/T1218
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1218
+logsource:
+  product: windows
+  service: sysmon
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXEventId: '1'
+    THXProcess:
+    - rundll32.exe
+    - regsvr32.exe
+    THXParentProcess:
+    - winword.exe
+    - outlook.exe
+    THXContentOrigin: user_writable
+  condition: selection
+falsepositives:
+- A legacy business application can invoke these Windows binaries from Office automation.
+level: medium

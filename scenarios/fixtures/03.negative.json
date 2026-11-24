@@ -1,0 +1,78 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-negative-01",
+    "record": {
+      "createdDateTime": "2025-08-14T10:12:00Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "failure",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "bad_password"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-negative-02",
+    "record": {
+      "createdDateTime": "2025-08-14T10:12:32Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "failure",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "bad_password"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-negative-03",
+    "record": {
+      "createdDateTime": "2025-08-14T10:13:04Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "failure",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "bad_password"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-negative-04",
+    "record": {
+      "createdDateTime": "2025-08-14T10:13:36Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "failure",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "bad_password"
+    }
+  }
+]

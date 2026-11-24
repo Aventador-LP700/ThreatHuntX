@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "11-negative-01",
+    "record": {
+      "createdDateTime": "2025-08-14T12:04:00Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "token_use",
+      "result": "success",
+      "id": "SessionUse"
+    },
+    "context": {
+      "source_ip": "203.0.113.31"
+    },
+    "observables": {
+      "session_context": "new_asn_unmanaged",
+      "risk_level": "low",
+      "session_id": "training-session-11"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "11-negative-02",
+    "record": {
+      "createdDateTime": "2025-08-14T12:04:32Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "token_use",
+      "result": "success",
+      "id": "SessionUse"
+    },
+    "context": {
+      "source_ip": "198.51.100.35"
+    },
+    "observables": {
+      "session_context": "known_managed",
+      "risk_level": "low",
+      "session_id": "training-session-11"
+    }
+  }
+]

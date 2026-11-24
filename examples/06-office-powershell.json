@@ -1,0 +1,78 @@
+{
+  "synthetic_only": true,
+  "id": "example-06",
+  "scenario_id": "06",
+  "mode": "positive",
+  "created_at": "2025-08-14T10:54:00Z",
+  "events": [
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T10:54:00Z",
+      "source": "windows",
+      "host": "workstation-02.training.example",
+      "user": "analyst-sample@training.example",
+      "process": "powershell.exe",
+      "command_line": null,
+      "parent_process": "explorer.exe",
+      "event_id": "4104",
+      "record_id": "06-positive-01",
+      "source_ip": null,
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "script_block",
+      "outcome": "observed",
+      "evidence_reference": "scenarios/fixtures/06.positive.json#06-positive-01",
+      "scenario_id": "06",
+      "technique_id": "T1059.001",
+      "alert_id": null,
+      "synthetic": true,
+      "observables": {
+        "script_class": "administration"
+      }
+    },
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T10:54:32Z",
+      "source": "windows",
+      "host": "workstation-02.training.example",
+      "user": "analyst-sample@training.example",
+      "process": "powershell.exe",
+      "command_line": null,
+      "parent_process": "winword.exe",
+      "event_id": "4104",
+      "record_id": "06-positive-02",
+      "source_ip": null,
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "script_block",
+      "outcome": "observed",
+      "evidence_reference": "scenarios/fixtures/06.positive.json#06-positive-02",
+      "scenario_id": "06",
+      "technique_id": "T1059.001",
+      "alert_id": "example-06-1",
+      "synthetic": true,
+      "observables": {
+        "script_class": "obfuscated",
+        "script_label": "summarized fixture only"
+      }
+    }
+  ],
+  "alerts": [
+    {
+      "id": "example-06-1",
+      "rule_id": "THX-06",
+      "scenario_id": "06",
+      "title": "PowerShell Abuse",
+      "severity": "medium",
+      "group": "analyst-sample@training.example",
+      "first_seen": "2025-08-14T10:54:32Z",
+      "last_seen": "2025-08-14T10:54:32Z",
+      "event_count": 1,
+      "evidence": [
+        "06-positive-02"
+      ]
+    }
+  ]
+}

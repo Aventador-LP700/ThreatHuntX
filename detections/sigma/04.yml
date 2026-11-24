@@ -1,0 +1,28 @@
+title: Public-Facing Application Exploits observation
+name: threathuntx_04
+id: 47beec0d-c95c-5799-a187-797108f4ce78
+status: test
+description: A blocked request classified as injection on an exposed route merits
+  a review for origin-side impact.
+references:
+- https://attack.mitre.org/techniques/T1190
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1190
+logsource:
+  category: network_connection
+  definition: Network sensor or WAF projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: network
+    THXAction: waf_decision
+    THXOutcome: blocked
+    THXSignatureFamily: injection
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXAuthorizedScan: true
+falsepositives:
+- A penetration test or scanner authorized for that service can trip the same rule.
+level: medium

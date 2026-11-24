@@ -1,0 +1,46 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "cloud",
+    "record_id": "22-baseline-01",
+    "record": {
+      "eventTime": "2025-08-14T14:38:00Z",
+      "recipientAccountId": "training-account",
+      "userIdentity": "analyst-sample@training.example",
+      "eventName": "object_read_summary",
+      "result": "success",
+      "eventSource": "s3.amazonaws.com"
+    },
+    "context": {
+      "source_ip": "192.0.2.92"
+    },
+    "observables": {
+      "operation": "GetObject",
+      "data_class": "restricted",
+      "objects_read": 12,
+      "bucket": "training-restricted"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "cloud",
+    "record_id": "22-baseline-02",
+    "record": {
+      "eventTime": "2025-08-14T14:38:32Z",
+      "recipientAccountId": "training-account",
+      "userIdentity": "analyst-sample@training.example",
+      "eventName": "object_read_summary",
+      "result": "success",
+      "eventSource": "s3.amazonaws.com"
+    },
+    "context": {
+      "source_ip": "192.0.2.92"
+    },
+    "observables": {
+      "operation": "GetObject",
+      "data_class": "restricted",
+      "objects_read": 12,
+      "bucket": "training-restricted"
+    }
+  }
+]

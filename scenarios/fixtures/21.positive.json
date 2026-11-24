@@ -1,0 +1,59 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "21-positive-01",
+    "record": {
+      "TimeCreated": "2025-08-14T14:24:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "ldap_query_summary",
+      "Status": "success",
+      "EventID": "LDAPQuerySummary"
+    },
+    "context": {},
+    "observables": {
+      "query_class": "user_listing",
+      "client_class": "managed_inventory",
+      "breadth_class": "directory_wide"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "21-positive-02",
+    "record": {
+      "TimeCreated": "2025-08-14T14:24:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "ldap_query_summary",
+      "Status": "success",
+      "EventID": "LDAPQuerySummary"
+    },
+    "context": {},
+    "observables": {
+      "query_class": "user_listing",
+      "client_class": "workstation",
+      "breadth_class": "directory_wide"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "21-positive-03",
+    "record": {
+      "TimeCreated": "2025-08-14T14:25:04Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "ldap_query_summary",
+      "Status": "success",
+      "EventID": "LDAPQuerySummary"
+    },
+    "context": {},
+    "observables": {
+      "query_class": "user_listing",
+      "client_class": "workstation",
+      "breadth_class": "directory_wide"
+    }
+  }
+]

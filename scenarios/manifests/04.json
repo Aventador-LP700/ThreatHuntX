@@ -1,0 +1,90 @@
+{
+  "id": "04",
+  "title": "Public-Facing Application Exploits",
+  "category": "Initial Access",
+  "overview": "Inspect a web application firewall finding against the telemetry of a fictional public application.",
+  "objective": "Target internet-facing flaws.",
+  "platform": "Cloud",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and network sensor or waf projection fields.",
+  "attack": {
+    "id": "T1190",
+    "name": "Exploit Public-Facing Application",
+    "url": "https://attack.mitre.org/techniques/T1190",
+    "tactics": [
+      "initial_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Network sensor or WAF projection",
+  "data_sources": [
+    "Network sensor or WAF projection",
+    "WAF/web-server telemetry"
+  ],
+  "hypothesis": "A blocked request classified as injection on an exposed route merits a review for origin-side impact.",
+  "evidence": "Check WAF action, signature family, route and origin status. Look for paired application errors in an owned environment.",
+  "false_positive": "A penetration test or scanner authorized for that service can trip the same rule.",
+  "tuning": "Restrict approved-test exceptions by source and time. Retain blocked events for trend analysis.",
+  "response": "Preserve WAF and origin logs, correlate request IDs, and verify the affected application version and patch status.",
+  "prevention": "Reduce exposure, maintain a patch SLA and monitor WAF policy changes.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture contains a classification only. It contains no request payload or evidence of successful exploitation.",
+  "questions": [
+    {
+      "prompt": "What does the WAF verdict show?",
+      "options": [
+        "The simulated request was blocked",
+        "The server was definitely compromised"
+      ],
+      "answer": 0,
+      "explanation": "Blocked activity supports triage, while origin evidence establishes impact."
+    },
+    {
+      "prompt": "Which source helps check impact?",
+      "options": [
+        "Endpoint wallpaper policy",
+        "Correlated origin application logs"
+      ],
+      "answer": 1,
+      "explanation": "Origin logs can show whether the request reached and affected the service."
+    }
+  ],
+  "rule": {
+    "id": "THX-04",
+    "severity": "medium",
+    "source": "network",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "waf_decision"
+      },
+      {
+        "field": "outcome",
+        "op": "eq",
+        "value": "blocked"
+      },
+      {
+        "field": "observables.signature_family",
+        "op": "eq",
+        "value": "injection"
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.authorized_scan",
+        "op": "eq",
+        "value": true
+      }
+    ],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1190",
+  "license": "MIT"
+}

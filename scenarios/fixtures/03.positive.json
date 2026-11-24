@@ -1,0 +1,97 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-positive-01",
+    "record": {
+      "createdDateTime": "2025-08-14T10:12:00Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "user-01@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "success",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "none"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-positive-02",
+    "record": {
+      "createdDateTime": "2025-08-14T10:12:32Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "user-02@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "failure",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "bad_password"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-positive-03",
+    "record": {
+      "createdDateTime": "2025-08-14T10:13:04Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "user-03@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "failure",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "bad_password"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-positive-04",
+    "record": {
+      "createdDateTime": "2025-08-14T10:13:36Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "user-04@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "failure",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "bad_password"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-positive-05",
+    "record": {
+      "createdDateTime": "2025-08-14T10:14:08Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "user-05@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "failure",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "bad_password"
+    }
+  }
+]

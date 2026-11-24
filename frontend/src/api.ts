@@ -1,14 +1,18 @@
 import { computed, ref } from 'vue'
-import type { Catalog, Coverage, LessonData, ReplayMode, Run } from './types'
+import type { Artifact, ArtifactKind, Catalog, Coverage, LessonData, Mode, ReplayMode, Run, TrialResult, TrialSettings } from './types'
 
 export const showcase = import.meta.env.MODE === 'showcase'
-type Snapshot = { catalog: Catalog; coverage: Coverage; runs: Record<string, Run> }
+type Snapshot = { catalog: Catalog; coverage: Coverage; artifacts: Record<string, Artifact>; runs: Record<string, Run>; trials: Record<string, TrialResult> }
 let snapshotPromise: Promise<Snapshot> | undefined
 const showcaseRuns = new Map<string, Run>()
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(path, options)
-  if (!response.ok) throw new Error(`Request failed (${response.status}). Check that the lab is healthy and try again.`)
+  if (!response.ok) {
+    const payload = await response.json().catch(() => null)
+    const detail = payload && typeof payload.detail === 'string' ? payload.detail : `Request failed (${response.status}). Check that the lab is healthy and try again.`
+    throw new Error(detail)
+  }
   return response.json() as Promise<T>
 }
 function snapshot() {
@@ -78,4 +82,29 @@ export function validationStatus(id: string) {
   const cases = coverage.value?.cases.filter(test => test.scenario_id === id) ?? []
   if (!cases.length) return 'Documented'
   return cases.every(test => test.passed) ? 'Synthetic-verified' : 'Fixture checks failed'
+}
+
+export async function ruleArtifact(id: string, kind: ArtifactKind): Promise<Artifact> {
+  if (!showcase) return request(`/api/rules/${encodeURIComponent(id)}/artifacts/${kind}`)
+  const data = await snapshot()
+  const info = data.artifacts[kind === 'wazuh' ? 'wazuh' : `${id}-${kind}`]
+  if (!info) throw new Error('This rule format is unavailable.')
+  return info
+}
+
+export async function sample(id: string, mode: Mode): Promise<Run> {
+  if (!showcase) return request(`/api/scenarios/${encodeURIComponent(id)}/fixtures/${mode}/export`)
+  const runId = mode === 'baseline' ? `baseline-${id}` : `sample-${id}-${mode}`
+  return investigation(runId)
+}
+
+export async function detectionTrial(id: string, settings?: TrialSettings): Promise<TrialResult> {
+  if (showcase) {
+    const result = (await snapshot()).trials[id]
+    if (!result) throw new Error('No fixture comparison is available.')
+    return result
+  }
+  return request(`/api/scenarios/${encodeURIComponent(id)}/trial`, settings ? {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(settings),
+  } : undefined)
 }

@@ -1,0 +1,28 @@
+title: Disable Security Tools observation
+name: threathuntx_18
+id: a5995e9e-f465-5c8f-b7dc-d4317ea7c201
+status: test
+description: An unexpected stopped state for an endpoint protection service warrants
+  checking management heartbeat and actor.
+references:
+- https://attack.mitre.org/techniques/T1685
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1685
+logsource:
+  product: windows
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXEventId: '7036'
+    THXServiceClass: endpoint_protection
+    THXNewState: stopped
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXChangeContext: approved_upgrade
+falsepositives:
+- An approved upgrade can temporarily stop an agent.
+level: medium
