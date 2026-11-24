@@ -1,0 +1,96 @@
+{
+  "id": "20",
+  "title": "Cloud IAM abuse",
+  "category": "Lateral / Evasion / C2",
+  "overview": "Inspect a cloud audit record that grants a privileged role to a principal outside a deployment identity.",
+  "objective": "Misused cloud permissions.",
+  "platform": "Cloud",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and cloud audit projection fields.",
+  "attack": {
+    "id": "T1098.003",
+    "name": "Additional Cloud Roles",
+    "url": "https://attack.mitre.org/techniques/T1098/003",
+    "tactics": [
+      "persistence",
+      "privilege_escalation"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Cloud audit projection",
+  "data_sources": [
+    "Cloud audit projection",
+    "Suspicious role/key changes"
+  ],
+  "hypothesis": "A successful interactive administrative role grant warrants checking change approval and later role use.",
+  "evidence": "Identify granting actor, recipient, account, policy and the authorized deployment process.",
+  "false_positive": "An approved break-glass grant can be necessary during incident response.",
+  "tuning": "Give emergency exceptions an expiry and independent approval. Retain grants even when alerting is suppressed.",
+  "response": "Preserve cloud audit evidence, revoke an unauthorized grant and review resource access by the recipient.",
+  "prevention": "Enforce least privilege, short-lived roles and change approval for administrative grants.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "This is a normalized cloud audit projection. Provider actions and effective permissions require separate verification.",
+  "questions": [
+    {
+      "prompt": "Whose actions should be scoped after a grant?",
+      "options": [
+        "Both the granting actor and target principal",
+        "Only the dashboard viewer"
+      ],
+      "answer": 0,
+      "explanation": "The grant records change accountability and potential downstream impact."
+    },
+    {
+      "prompt": "What qualifies a break-glass exception?",
+      "options": [
+        "Any administrator display name",
+        "Independent approval, defined scope and expiry"
+      ],
+      "answer": 1,
+      "explanation": "Emergency exceptions need accountable scope and a deadline."
+    }
+  ],
+  "rule": {
+    "id": "THX-20",
+    "severity": "medium",
+    "source": "cloud",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "role_grant"
+      },
+      {
+        "field": "outcome",
+        "op": "eq",
+        "value": "success"
+      },
+      {
+        "field": "observables.role_class",
+        "op": "eq",
+        "value": "administrative"
+      },
+      {
+        "field": "observables.actor_class",
+        "op": "eq",
+        "value": "interactive"
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.change_context",
+        "op": "eq",
+        "value": "approved_breakglass"
+      }
+    ],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": true,
+  "reference": "https://attack.mitre.org/techniques/T1098/003",
+  "license": "MIT"
+}

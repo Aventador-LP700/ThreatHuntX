@@ -1,0 +1,89 @@
+{
+  "id": "33",
+  "title": "GitHub Actions tampering",
+  "category": "Supply Chain / Ci-Cd",
+  "overview": "Review a workflow file change that broadened job permissions without corresponding protection or review.",
+  "objective": "Alter workflow security.",
+  "platform": "CI/CD",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and github organization audit projection fields.",
+  "attack": {
+    "id": "T1677",
+    "name": "Poisoned Pipeline Execution",
+    "url": "https://attack.mitre.org/techniques/T1677",
+    "tactics": [
+      "execution"
+    ],
+    "confidence": "related",
+    "rationale": "A risky workflow edit can set up poisoned pipeline execution. The fixture records a configuration change without executing a job."
+  },
+  "telemetry": "GitHub organization audit projection",
+  "data_sources": [
+    "GitHub organization audit projection",
+    "Workflow permission/diff alerts"
+  ],
+  "hypothesis": "A workflow update that adds write permissions outside approved review warrants examining the diff and executed jobs.",
+  "evidence": "Use the changed path, permissions delta and review status. Pivot to revision, branch rules and any resulting run.",
+  "false_positive": "An emergency policy adjustment can add scoped write rights before normal release workflows run.",
+  "tuning": "Require independently recorded emergency approval and expiration. Inspect permissions by individual job.",
+  "response": "Preserve the diff, inspect runner and job logs, revert an unauthorized workflow change and scope token exposure.",
+  "prevention": "Protect workflow paths with CODEOWNERS and required review. Set least-privilege and explicit workflow permissions.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "Changed paths and permission deltas come from a synthetic GitHub audit and diff join. A push alone does not show workflow execution.",
+  "questions": [
+    {
+      "prompt": "What changed the risk of the workflow?",
+      "options": [
+        "Write permissions added without review",
+        "A YAML filename exists"
+      ],
+      "answer": 0,
+      "explanation": "A Git metadata change matters here because it expanded what jobs could do."
+    },
+    {
+      "prompt": "What should you inspect after preserving the diff?",
+      "options": [
+        "Only the repository description",
+        "The run and downstream actions, if any"
+      ],
+      "answer": 1,
+      "explanation": "The resulting workflow runs determine whether the expanded permission was used."
+    }
+  ],
+  "rule": {
+    "id": "THX-33",
+    "severity": "high",
+    "source": "github",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "repository_push"
+      },
+      {
+        "field": "observables.path",
+        "op": "starts_with",
+        "value": ".github/workflows/"
+      },
+      {
+        "field": "observables.permissions_delta",
+        "op": "eq",
+        "value": "write_added"
+      },
+      {
+        "field": "observables.review_status",
+        "op": "eq",
+        "value": "unreviewed"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": true,
+  "reference": "https://attack.mitre.org/techniques/T1677",
+  "license": "MIT"
+}

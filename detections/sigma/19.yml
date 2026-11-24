@@ -1,0 +1,47 @@
+title: HTTPS / DNS C2 observation
+name: threathuntx_19
+id: 4103e0c0-db1e-5120-bf90-315f4917dd72
+status: test
+description: Three distinct observations of high-entropy labels targeting a rare domain
+  justify a DNS activity pivot.
+references:
+- https://attack.mitre.org/techniques/T1071/004
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1071.004
+logsource:
+  category: network_connection
+  definition: Network sensor or WAF projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: network
+    THXAction: dns_query
+    THXLabelEntropyClass: high
+    THXDomainPopularity: rare
+  condition: selection
+falsepositives:
+- CDNs, update networks and security agents can emit opaque DNS labels.
+level: medium
+---
+title: HTTPS / DNS C2 correlation
+id: 94eee734-97bd-511e-ac42-3a73f64280f6
+status: test
+description: Check the DNS host, domain and timestamps, then compare process and egress
+  telemetry for the same host.
+references:
+- https://attack.mitre.org/techniques/T1071/004
+tags:
+- attack.t1071.004
+correlation:
+  type: value_count
+  rules:
+  - threathuntx_19
+  group-by:
+  - THXDomain
+  timespan: 3m
+  condition:
+    gte: 3
+    field: THXQueryId
+level: medium

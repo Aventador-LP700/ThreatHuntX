@@ -1,0 +1,42 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "github",
+    "record_id": "33-positive-01",
+    "record": {
+      "created_at": "2025-08-14T17:12:00Z",
+      "repo": "example-org/training-repo",
+      "actor": "analyst-sample@training.example",
+      "action": "repository_push",
+      "result": "success",
+      "operation_type": "git.push"
+    },
+    "context": {},
+    "observables": {
+      "path": ".github/workflows/checks.yml",
+      "permissions_delta": "unchanged",
+      "review_status": "approved",
+      "protected_ref": true
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "github",
+    "record_id": "33-positive-02",
+    "record": {
+      "created_at": "2025-08-14T17:12:32Z",
+      "repo": "example-org/training-repo",
+      "actor": "analyst-sample@training.example",
+      "action": "repository_push",
+      "result": "success",
+      "operation_type": "git.push"
+    },
+    "context": {},
+    "observables": {
+      "path": ".github/workflows/checks.yml",
+      "permissions_delta": "write_added",
+      "review_status": "unreviewed",
+      "protected_ref": true
+    }
+  }
+]

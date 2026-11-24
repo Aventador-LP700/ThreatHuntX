@@ -1,0 +1,49 @@
+title: Password spraying observation
+name: threathuntx_03
+id: 651394ac-25ee-5271-a294-cf03a147d13f
+status: test
+description: Four distinct users with bad-password failures from one source within
+  ten minutes warrant a password-spray hunt.
+references:
+- https://attack.mitre.org/techniques/T1110/003
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1110.003
+logsource:
+  product: azure
+  service: signinlogs
+  definition: Entra sign-in or audit projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: identity
+    THXAction: sign_in
+    THXOutcome: failure
+    THXFailureReason: bad_password
+  condition: selection
+falsepositives:
+- A shared proxy or SSO outage can make unrelated failures appear to have the same
+  source.
+level: medium
+---
+title: Password spraying correlation
+id: 144c9441-1451-5657-8dfe-75b9e714bcb8
+status: test
+description: Group by source IP, count distinct usernames, and pivot to subsequent
+  successful sign-ins.
+references:
+- https://attack.mitre.org/techniques/T1110/003
+tags:
+- attack.t1110.003
+correlation:
+  type: value_count
+  rules:
+  - threathuntx_03
+  group-by:
+  - THXSourceIp
+  timespan: 10m
+  condition:
+    gte: 4
+    field: THXUser
+level: medium

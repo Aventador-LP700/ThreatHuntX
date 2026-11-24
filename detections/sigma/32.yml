@@ -1,0 +1,29 @@
+title: CI/CD token theft observation
+name: threathuntx_32
+id: 036f6cc7-85da-52e6-8fa9-a7e1cb9c89ca
+status: test
+description: Repository-write token use on an unapproved runner should be correlated
+  to workflow identity and job context.
+references:
+- https://attack.mitre.org/techniques/T1550/001
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1550.001
+logsource:
+  product: github
+  service: audit
+  definition: GitHub organization audit projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: github
+    THXAction: automation_token_use
+    THXOutcome: success
+    THXRunnerTrust: unapproved
+    THXScopeClass: repository_write
+  condition: selection
+falsepositives:
+- A scheduled migration to a new runner pool can look anomalous before inventory catches
+  up.
+level: medium

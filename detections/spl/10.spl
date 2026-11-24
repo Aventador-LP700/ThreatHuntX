@@ -1,0 +1,3 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="windows"
+| where (lower(tostring(THXEventId)) = "21") AND (lower(tostring(THXAction)) = "wmi_binding") AND (lower(tostring(THXNamespace)) = "root/subscription") AND (lower(tostring(THXOwnerState)) = "unknown")
+| table _time THXSource THXRecordId THXAction THXEventId THXHost THXNamespace THXOwnerState

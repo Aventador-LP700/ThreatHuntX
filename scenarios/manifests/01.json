@@ -1,0 +1,84 @@
+{
+  "id": "01",
+  "title": "Phishing",
+  "category": "Initial Access",
+  "overview": "Review a suspicious email link through mail-gateway and URL inspection signals.",
+  "objective": "Deceptive email credential capture.",
+  "platform": "Identity",
+  "difficulty": "Beginner",
+  "minutes": 8,
+  "prerequisites": "Read the baseline and compare event fields. No external tools are required.",
+  "attack": {
+    "id": "T1566.002",
+    "name": "Spearphishing Link",
+    "url": "https://attack.mitre.org/techniques/T1566/002",
+    "tactics": [
+      "initial_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Mail gateway or attachment projection",
+  "data_sources": [
+    "Mail gateway or attachment projection",
+    "Mail/URL anomaly alerts"
+  ],
+  "hypothesis": "A credential-lure verdict and failed sender alignment on the same inspected link justify reviewing the message.",
+  "evidence": "Check the recipient, sender alignment, URL verdict and destination domain. Keep the domain as evidence text.",
+  "false_positive": "Legitimate forwarded mail can fail alignment. Use independent URL inspection before escalating.",
+  "tuning": "Scope exceptions to a known sender and forwarding flow. Review the redirect and expiration of any allowlist entry.",
+  "response": "Quarantine matching messages, review clicks and sign-ins, and reset sessions if the recipient entered credentials.",
+  "prevention": "Enforce DMARC with SPF and DKIM, inspect URLs, and require phishing-resistant authentication.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "URL classification is supplied by the simulated gateway. The lab never contacts the destination.",
+  "questions": [
+    {
+      "prompt": "Which fields matter together?",
+      "options": [
+        "URL verdict and sender alignment",
+        "Mailbox size and recipient display name"
+      ],
+      "answer": 0,
+      "explanation": "The detection combines a lure verdict with failed sender alignment."
+    },
+    {
+      "prompt": "Where do you look for account impact?",
+      "options": [
+        "The original email subject alone",
+        "Follow-up sign-in and session evidence"
+      ],
+      "answer": 1,
+      "explanation": "A blocked message has different impact from subsequent account activity."
+    }
+  ],
+  "rule": {
+    "id": "THX-01",
+    "severity": "medium",
+    "source": "mail",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "url_inspection"
+      },
+      {
+        "field": "observables.sender_alignment",
+        "op": "eq",
+        "value": "fail"
+      },
+      {
+        "field": "observables.url_category",
+        "op": "eq",
+        "value": "credential_lure"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": true,
+  "reference": "https://attack.mitre.org/techniques/T1566/002",
+  "license": "MIT"
+}

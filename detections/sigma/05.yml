@@ -1,0 +1,28 @@
+title: OAuth consent phishing observation
+name: threathuntx_05
+id: 82dca3e3-0109-56c7-b2b5-b2dfd2189e88
+status: test
+description: A grant to an unverified publisher with offline access warrants review
+  for unauthorized delegated access.
+references:
+- https://attack.mitre.org/techniques/T1528
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1528
+logsource:
+  product: azure
+  service: signinlogs
+  definition: Entra sign-in or audit projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: identity
+    THXAction: consent_grant
+    THXPublisherVerified: false
+    THXGrantedScope|contains: offline_access
+  condition: selection
+falsepositives:
+- Internal development applications can have unverified publishers and planned offline
+  access.
+level: medium

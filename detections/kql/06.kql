@@ -1,0 +1,9 @@
+// THX-06 PowerShell abuse | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "windows"
+| where THXEventId =~ "4104"
+| where THXProcess in~ ("powershell.exe", "pwsh.exe")
+| where THXParentProcess in~ ("winword.exe", "excel.exe")
+| where THXScriptClass =~ "obfuscated"
+| where not(coalesce((THXApprovedAutomation == true), false))
+| project TimeGenerated, THXSource, THXRecordId, THXEventId, THXApprovedAutomation, THXScriptClass, THXParentProcess, THXProcess, THXUser

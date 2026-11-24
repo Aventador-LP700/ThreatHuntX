@@ -1,0 +1,432 @@
+{
+  "$defs": {
+    "Mapping": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "enum": [
+            "direct",
+            "related"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^T\\d{4}(?:\\.\\d{3})?$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "rationale": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "tactics": {
+          "items": {
+            "pattern": "^[a-z][a-z0-9_]{0,79}$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Tactics",
+          "type": "array"
+        },
+        "url": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "url",
+        "tactics",
+        "confidence",
+        "rationale"
+      ],
+      "title": "Mapping",
+      "type": "object"
+    },
+    "Predicate": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "pattern": "^(?:source|host|user|process|command_line|parent_process|event_id|source_ip|destination_ip|url|domain|outcome|action|observables\\.[a-z][a-z0-9_]*)$",
+          "title": "Field",
+          "type": "string"
+        },
+        "op": {
+          "default": "eq",
+          "enum": [
+            "eq",
+            "in",
+            "contains",
+            "starts_with",
+            "ends_with",
+            "gte"
+          ],
+          "title": "Op",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "type": "array"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "field",
+        "value"
+      ],
+      "title": "Predicate",
+      "type": "object"
+    },
+    "Question": {
+      "additionalProperties": false,
+      "properties": {
+        "answer": {
+          "minimum": 0,
+          "title": "Answer",
+          "type": "integer"
+        },
+        "explanation": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "options": {
+          "items": {
+            "maxLength": 300,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 4,
+          "minItems": 2,
+          "title": "Options",
+          "type": "array"
+        },
+        "prompt": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Prompt",
+          "type": "string"
+        }
+      },
+      "required": [
+        "prompt",
+        "options",
+        "answer",
+        "explanation"
+      ],
+      "title": "Question",
+      "type": "object"
+    },
+    "Rule": {
+      "additionalProperties": false,
+      "properties": {
+        "distinct": {
+          "anyOf": [
+            {
+              "pattern": "^(?:source|host|user|process|command_line|parent_process|event_id|source_ip|destination_ip|url|domain|outcome|action|observables\\.[a-z][a-z0-9_]*)$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Distinct"
+        },
+        "group_by": {
+          "pattern": "^(?:source|host|user|process|command_line|parent_process|event_id|source_ip|destination_ip|url|domain|outcome|action|observables\\.[a-z][a-z0-9_]*)$",
+          "title": "Group By",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^THX-\\d{2}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "match": {
+          "items": {
+            "$ref": "#/$defs/Predicate"
+          },
+          "minItems": 2,
+          "title": "Match",
+          "type": "array"
+        },
+        "severity": {
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "identity",
+            "windows",
+            "linux",
+            "mail",
+            "network",
+            "cloud",
+            "github",
+            "kubernetes",
+            "saas",
+            "scanner"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "suppress_when": {
+          "items": {
+            "$ref": "#/$defs/Predicate"
+          },
+          "title": "Suppress When",
+          "type": "array"
+        },
+        "threshold": {
+          "maximum": 30,
+          "minimum": 1,
+          "title": "Threshold",
+          "type": "integer"
+        },
+        "window_seconds": {
+          "maximum": 86400,
+          "minimum": 1,
+          "title": "Window Seconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "severity",
+        "source",
+        "match",
+        "group_by",
+        "threshold",
+        "window_seconds"
+      ],
+      "title": "Rule",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attack": {
+      "$ref": "#/$defs/Mapping"
+    },
+    "category": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Category",
+      "type": "string"
+    },
+    "core_lesson": {
+      "title": "Core Lesson",
+      "type": "boolean"
+    },
+    "data_sources": {
+      "items": {
+        "maxLength": 300,
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Data Sources",
+      "type": "array"
+    },
+    "difficulty": {
+      "enum": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ],
+      "title": "Difficulty",
+      "type": "string"
+    },
+    "evidence": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Evidence",
+      "type": "string"
+    },
+    "false_positive": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "False Positive",
+      "type": "string"
+    },
+    "hypothesis": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Hypothesis",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^\\d{2}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "license": {
+      "const": "MIT",
+      "default": "MIT",
+      "title": "License",
+      "type": "string"
+    },
+    "limitations": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Limitations",
+      "type": "string"
+    },
+    "minutes": {
+      "maximum": 45,
+      "minimum": 1,
+      "title": "Minutes",
+      "type": "integer"
+    },
+    "objective": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Objective",
+      "type": "string"
+    },
+    "overview": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Overview",
+      "type": "string"
+    },
+    "platform": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Platform",
+      "type": "string"
+    },
+    "prerequisites": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Prerequisites",
+      "type": "string"
+    },
+    "prevention": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Prevention",
+      "type": "string"
+    },
+    "questions": {
+      "items": {
+        "$ref": "#/$defs/Question"
+      },
+      "maxItems": 3,
+      "minItems": 2,
+      "title": "Questions",
+      "type": "array"
+    },
+    "reference": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Reference",
+      "type": "string"
+    },
+    "response": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Response",
+      "type": "string"
+    },
+    "rule": {
+      "$ref": "#/$defs/Rule"
+    },
+    "telemetry": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Telemetry",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "tuning": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Tuning",
+      "type": "string"
+    },
+    "validation": {
+      "maxLength": 300,
+      "minLength": 1,
+      "title": "Validation",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "title",
+    "category",
+    "overview",
+    "objective",
+    "platform",
+    "difficulty",
+    "minutes",
+    "prerequisites",
+    "attack",
+    "telemetry",
+    "data_sources",
+    "hypothesis",
+    "evidence",
+    "false_positive",
+    "tuning",
+    "response",
+    "prevention",
+    "validation",
+    "limitations",
+    "questions",
+    "rule",
+    "core_lesson",
+    "reference"
+  ],
+  "title": "Scenario",
+  "type": "object"
+}

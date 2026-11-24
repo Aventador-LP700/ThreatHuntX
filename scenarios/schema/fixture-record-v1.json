@@ -1,0 +1,65 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "context": {
+      "additionalProperties": true,
+      "title": "Context",
+      "type": "object"
+    },
+    "format": {
+      "const": "threathuntx.synthetic.v1",
+      "title": "Format",
+      "type": "string"
+    },
+    "observables": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "title": "Observables",
+      "type": "object"
+    },
+    "record": {
+      "additionalProperties": true,
+      "title": "Record",
+      "type": "object"
+    },
+    "record_id": {
+      "title": "Record Id",
+      "type": "string"
+    },
+    "source": {
+      "enum": [
+        "identity",
+        "windows",
+        "linux",
+        "mail",
+        "network",
+        "cloud",
+        "github",
+        "kubernetes",
+        "saas",
+        "scanner"
+      ],
+      "title": "Source",
+      "type": "string"
+    }
+  },
+  "required": [
+    "format",
+    "source",
+    "record_id",
+    "record"
+  ],
+  "title": "Raw",
+  "type": "object"
+}

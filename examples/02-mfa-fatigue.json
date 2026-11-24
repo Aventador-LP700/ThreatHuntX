@@ -1,0 +1,139 @@
+{
+  "synthetic_only": true,
+  "id": "example-02",
+  "scenario_id": "02",
+  "mode": "positive",
+  "created_at": "2025-08-14T09:58:00Z",
+  "events": [
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T09:58:00Z",
+      "source": "identity",
+      "host": "identity-provider.training.example",
+      "user": "analyst-sample@training.example",
+      "process": null,
+      "command_line": null,
+      "parent_process": null,
+      "event_id": "MFAChallenge",
+      "record_id": "02-positive-01",
+      "source_ip": "192.0.2.34",
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "mfa_challenge",
+      "outcome": "success",
+      "evidence_reference": "scenarios/fixtures/02.positive.json#02-positive-01",
+      "scenario_id": "02",
+      "technique_id": "T1621",
+      "alert_id": null,
+      "synthetic": true,
+      "observables": {
+        "auth_method": "fido2",
+        "client_app": "Corporate portal",
+        "challenge_id": "02-observation-01"
+      }
+    },
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T09:58:32Z",
+      "source": "identity",
+      "host": "identity-provider.training.example",
+      "user": "analyst-sample@training.example",
+      "process": null,
+      "command_line": null,
+      "parent_process": null,
+      "event_id": "MFAChallenge",
+      "record_id": "02-positive-02",
+      "source_ip": "192.0.2.34",
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "mfa_challenge",
+      "outcome": "denied",
+      "evidence_reference": "scenarios/fixtures/02.positive.json#02-positive-02",
+      "scenario_id": "02",
+      "technique_id": "T1621",
+      "alert_id": "example-02-1",
+      "synthetic": true,
+      "observables": {
+        "auth_method": "push",
+        "client_app": "Corporate portal",
+        "challenge_id": "02-observation-02"
+      }
+    },
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T09:59:04Z",
+      "source": "identity",
+      "host": "identity-provider.training.example",
+      "user": "analyst-sample@training.example",
+      "process": null,
+      "command_line": null,
+      "parent_process": null,
+      "event_id": "MFAChallenge",
+      "record_id": "02-positive-03",
+      "source_ip": "192.0.2.34",
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "mfa_challenge",
+      "outcome": "denied",
+      "evidence_reference": "scenarios/fixtures/02.positive.json#02-positive-03",
+      "scenario_id": "02",
+      "technique_id": "T1621",
+      "alert_id": "example-02-1",
+      "synthetic": true,
+      "observables": {
+        "auth_method": "push",
+        "client_app": "Corporate portal",
+        "challenge_id": "02-observation-03"
+      }
+    },
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T09:59:36Z",
+      "source": "identity",
+      "host": "identity-provider.training.example",
+      "user": "analyst-sample@training.example",
+      "process": null,
+      "command_line": null,
+      "parent_process": null,
+      "event_id": "MFAChallenge",
+      "record_id": "02-positive-04",
+      "source_ip": "192.0.2.34",
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "mfa_challenge",
+      "outcome": "denied",
+      "evidence_reference": "scenarios/fixtures/02.positive.json#02-positive-04",
+      "scenario_id": "02",
+      "technique_id": "T1621",
+      "alert_id": "example-02-1",
+      "synthetic": true,
+      "observables": {
+        "auth_method": "push",
+        "client_app": "Corporate portal",
+        "challenge_id": "02-observation-04"
+      }
+    }
+  ],
+  "alerts": [
+    {
+      "id": "example-02-1",
+      "rule_id": "THX-02",
+      "scenario_id": "02",
+      "title": "MFA fatigue",
+      "severity": "medium",
+      "group": "analyst-sample@training.example",
+      "first_seen": "2025-08-14T09:58:32Z",
+      "last_seen": "2025-08-14T09:59:36Z",
+      "event_count": 3,
+      "evidence": [
+        "02-positive-02",
+        "02-positive-03",
+        "02-positive-04"
+      ]
+    }
+  ]
+}

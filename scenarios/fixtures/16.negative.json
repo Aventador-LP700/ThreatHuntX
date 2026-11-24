@@ -1,0 +1,90 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "16-negative-01",
+    "record": {
+      "TimeCreated": "2025-08-14T13:14:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "remote_session",
+      "Status": "success",
+      "EventID": "RemoteAdminSession"
+    },
+    "context": {
+      "source_ip": "198.51.100.55"
+    },
+    "observables": {
+      "service": "rdp",
+      "peer_zone": "workstations",
+      "admin_logon": true,
+      "target_id": "training-host-1"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "16-negative-02",
+    "record": {
+      "TimeCreated": "2025-08-14T13:14:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "remote_session",
+      "Status": "success",
+      "EventID": "RemoteAdminSession"
+    },
+    "context": {
+      "source_ip": "198.51.100.55"
+    },
+    "observables": {
+      "service": "rdp",
+      "peer_zone": "workstations",
+      "admin_logon": true,
+      "target_id": "training-host-1"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "16-negative-03",
+    "record": {
+      "TimeCreated": "2025-08-14T13:15:04Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "remote_session",
+      "Status": "success",
+      "EventID": "RemoteAdminSession"
+    },
+    "context": {
+      "source_ip": "198.51.100.55"
+    },
+    "observables": {
+      "service": "rdp",
+      "peer_zone": "workstations",
+      "admin_logon": true,
+      "target_id": "training-host-1"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "16-negative-04",
+    "record": {
+      "TimeCreated": "2025-08-14T13:15:36Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "remote_session",
+      "Status": "success",
+      "EventID": "RemoteAdminSession"
+    },
+    "context": {
+      "source_ip": "198.51.100.55"
+    },
+    "observables": {
+      "service": "rdp",
+      "peer_zone": "workstations",
+      "admin_logon": true,
+      "target_id": "training-host-1"
+    }
+  }
+]

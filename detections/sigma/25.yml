@@ -1,0 +1,28 @@
+title: Wiper-like activity observation
+name: threathuntx_25
+id: ba279be0-9fb6-5f90-9e24-5a0919611ce2
+status: test
+description: A mass-delete observation affecting protected resources without approved
+  maintenance needs immediate integrity triage.
+references:
+- https://attack.mitre.org/techniques/T1485
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1485
+logsource:
+  product: linux
+  service: auditd
+  definition: Linux audit projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: linux
+    THXAction: delete_summary
+    THXTargetClass: protected
+    THXObjectsAffected|gte: 100
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXChangeContext: approved_disposal
+falsepositives:
+- Retention enforcement or approved disposal can affect large datasets.
+level: high

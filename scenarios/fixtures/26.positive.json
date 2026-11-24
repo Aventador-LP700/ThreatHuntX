@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "26-positive-01",
+    "record": {
+      "createdDateTime": "2025-08-14T15:34:00Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "session_transition",
+      "result": "success",
+      "id": "SignInContextSummary"
+    },
+    "context": {
+      "source_ip": "192.0.2.10"
+    },
+    "observables": {
+      "session_delta": "managed_network_switch",
+      "time_class": "normal",
+      "session_id": "sample-baseline-26"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "26-positive-02",
+    "record": {
+      "createdDateTime": "2025-08-14T15:34:32Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "session_transition",
+      "result": "success",
+      "id": "SignInContextSummary"
+    },
+    "context": {
+      "source_ip": "203.0.113.10"
+    },
+    "observables": {
+      "session_delta": "new_ip_unmanaged",
+      "time_class": "rapid",
+      "session_id": "sample-relay-26"
+    }
+  }
+]

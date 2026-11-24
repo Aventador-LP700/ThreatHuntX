@@ -1,0 +1,47 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "14-negative-01",
+    "record": {
+      "TimeCreated": "2025-08-14T12:46:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "network_logon",
+      "Status": "success",
+      "EventID": "4624"
+    },
+    "context": {
+      "source_ip": "192.0.2.88"
+    },
+    "observables": {
+      "auth_package": "ntlm",
+      "logon_type": 3,
+      "peer_zone": "workstations",
+      "account_class": "local_admin",
+      "approved_change": true
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "14-negative-02",
+    "record": {
+      "TimeCreated": "2025-08-14T12:46:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "network_logon",
+      "Status": "success",
+      "EventID": "4624"
+    },
+    "context": {
+      "source_ip": "192.0.2.18"
+    },
+    "observables": {
+      "auth_package": "kerberos",
+      "logon_type": 3,
+      "peer_zone": "managed_services",
+      "account_class": "service"
+    }
+  }
+]

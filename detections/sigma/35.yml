@@ -1,0 +1,30 @@
+title: Kubernetes RBAC abuse observation
+name: threathuntx_35
+id: deff3942-2192-54b3-a0df-9b8d092382e3
+status: test
+description: An interactive actor granting cluster-admin through a ClusterRoleBinding
+  needs immediate authorization review.
+references:
+- https://attack.mitre.org/techniques/T1098/006
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1098.006
+logsource:
+  product: kubernetes
+  service: audit
+  definition: Kubernetes audit projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: kubernetes
+    THXAction: create_binding
+    THXOutcome: success
+    THXResource: clusterrolebindings
+    THXRoleRef: cluster-admin
+    THXActorClass: interactive
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXChangeContext: approved_bootstrap
+falsepositives:
+- An approved bootstrap or break-glass action can grant high privileges temporarily.
+level: high

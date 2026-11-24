@@ -1,0 +1,40 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "05-baseline-01",
+    "record": {
+      "createdDateTime": "2025-08-14T10:40:00Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "consent_grant",
+      "result": "success",
+      "id": "ConsentToApplication"
+    },
+    "context": {},
+    "observables": {
+      "publisher_verified": true,
+      "granted_scope": "User.Read",
+      "app_id": "approved-portal"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "05-baseline-02",
+    "record": {
+      "createdDateTime": "2025-08-14T10:40:32Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "consent_grant",
+      "result": "success",
+      "id": "ConsentToApplication"
+    },
+    "context": {},
+    "observables": {
+      "publisher_verified": true,
+      "granted_scope": "User.Read",
+      "app_id": "approved-portal"
+    }
+  }
+]

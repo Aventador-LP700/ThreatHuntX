@@ -1,0 +1,8 @@
+// THX-15 Privilege escalation | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "linux"
+| where THXAction =~ "privilege_transition"
+| where THXEffectiveUid == 0
+| where THXActorClass =~ "regular"
+| where THXParentTrust =~ "unknown"
+| project TimeGenerated, THXSource, THXRecordId, THXAction, THXActorClass, THXEffectiveUid, THXParentTrust, THXUser

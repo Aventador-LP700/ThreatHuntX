@@ -1,0 +1,33 @@
+title: Registry autoruns observation
+name: threathuntx_09
+id: 99f6a7c7-30d8-5fe8-a4c2-9e551e0f9e6c
+status: test
+description: A Run or RunOnce value written by a process of user-writable origin requires
+  checking the executable and autorun target.
+references:
+- https://attack.mitre.org/techniques/T1547/001
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1547.001
+logsource:
+  product: windows
+  service: sysmon
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXEventId: '13'
+    THXAction: registry_value_set
+    THXRegistryArea:
+    - run
+    - run_once
+    THXImageOrigin: user_writable
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXApprovedChange: true
+falsepositives:
+- Legitimate per-user installers can add logon entries outside centrally managed application
+  paths.
+level: medium

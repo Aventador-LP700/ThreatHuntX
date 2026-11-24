@@ -1,0 +1,95 @@
+{
+  "id": "17",
+  "title": "Living-off-the-land",
+  "category": "Lateral / Evasion / C2",
+  "overview": "Triage a signed Windows binary invoked by an unusual parent and directed at an untrusted content location.",
+  "objective": "Abuse trusted system tools.",
+  "platform": "Windows",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and windows security or sysmon projection fields.",
+  "attack": {
+    "id": "T1218",
+    "name": "System Binary Proxy Execution",
+    "url": "https://attack.mitre.org/techniques/T1218",
+    "tactics": [
+      "stealth"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "Parent-child process anomalies"
+  ],
+  "hypothesis": "A signed proxy binary launched by an office parent with user-writable content warrants process-chain review.",
+  "evidence": "Inspect parent, path provenance and signer. Review any related child process and connection events.",
+  "false_positive": "A legacy business application can invoke these Windows binaries from Office automation.",
+  "tuning": "Constrain an exception to an approved process chain and module path, with review when either changes.",
+  "response": "Preserve lineage and metadata. Scope unintended effects before isolating the endpoint.",
+  "prevention": "Use application control and audit document applications that launch child processes.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The record contains process names and context only. It provides no executable arguments.",
+  "questions": [
+    {
+      "prompt": "Why does the signed executable still deserve review?",
+      "options": [
+        "Its parent and content provenance are unusual",
+        "A signature means it is always unauthorized"
+      ],
+      "answer": 0,
+      "explanation": "Context distinguishes trustworthy software from unsafe use of it."
+    },
+    {
+      "prompt": "What should tuning preserve?",
+      "options": [
+        "An exception for all signed binaries",
+        "Visibility of unapproved parent and content combinations"
+      ],
+      "answer": 1,
+      "explanation": "Broad trust loses the relationship the rule relies on."
+    }
+  ],
+  "rule": {
+    "id": "THX-17",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "event_id",
+        "op": "eq",
+        "value": "1"
+      },
+      {
+        "field": "process",
+        "op": "in",
+        "value": [
+          "rundll32.exe",
+          "regsvr32.exe"
+        ]
+      },
+      {
+        "field": "parent_process",
+        "op": "in",
+        "value": [
+          "winword.exe",
+          "outlook.exe"
+        ]
+      },
+      {
+        "field": "observables.content_origin",
+        "op": "eq",
+        "value": "user_writable"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1218",
+  "license": "MIT"
+}

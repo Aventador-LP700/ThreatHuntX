@@ -1,0 +1,3 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="linux"
+| where (lower(tostring(THXAction)) = "privilege_transition") AND (lower(tostring(THXEffectiveUid)) = "0") AND (lower(tostring(THXActorClass)) = "regular") AND (lower(tostring(THXParentTrust)) = "unknown")
+| table _time THXSource THXRecordId THXAction THXActorClass THXEffectiveUid THXParentTrust THXUser

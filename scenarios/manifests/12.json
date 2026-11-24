@@ -1,0 +1,89 @@
+{
+  "id": "12",
+  "title": "Credential dumping",
+  "category": "Privilege & Credentials",
+  "overview": "Triage a Sysmon process access record involving the authentication subsystem.",
+  "objective": "Secrets from host memory.",
+  "platform": "Windows",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and windows security or sysmon projection fields.",
+  "attack": {
+    "id": "T1003.001",
+    "name": "LSASS Memory",
+    "url": "https://attack.mitre.org/techniques/T1003/001",
+    "tactics": [
+      "credential_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "Sensitive process access"
+  ],
+  "hypothesis": "Memory-read access to LSASS from an unverified caller warrants examination of the process and endpoint evidence.",
+  "evidence": "Inspect source and target process, normalized access class and publisher. Check whether other records show suspicious output.",
+  "false_positive": "Approved security tooling can legitimately inspect sensitive processes.",
+  "tuning": "Use a verified publisher and deployed product identity for exceptions. Review vendor releases that change access behavior.",
+  "response": "Preserve endpoint evidence, isolate if supporting evidence exists and assess credential exposure before rotation.",
+  "prevention": "Enable Credential Guard and LSASS protection where appropriate and audit their status.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The sample contains process-access metadata, with no dump, memory content or credential extraction.",
+  "questions": [
+    {
+      "prompt": "Which target makes the behavior sensitive?",
+      "options": [
+        "lsass.exe",
+        "A text editor"
+      ],
+      "answer": 0,
+      "explanation": "LSASS handles sensitive authentication material."
+    },
+    {
+      "prompt": "Can the observation alone identify exposed credentials?",
+      "options": [
+        "Every read event proves credentials were collected",
+        "Additional endpoint evidence is required"
+      ],
+      "answer": 1,
+      "explanation": "Process access is an indicator. Scope exposure from corroborating artifacts."
+    }
+  ],
+  "rule": {
+    "id": "THX-12",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "event_id",
+        "op": "eq",
+        "value": "10"
+      },
+      {
+        "field": "observables.target_process",
+        "op": "eq",
+        "value": "lsass.exe"
+      },
+      {
+        "field": "observables.access_class",
+        "op": "eq",
+        "value": "read_memory"
+      },
+      {
+        "field": "observables.publisher_status",
+        "op": "eq",
+        "value": "unverified"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1003/001",
+  "license": "MIT"
+}

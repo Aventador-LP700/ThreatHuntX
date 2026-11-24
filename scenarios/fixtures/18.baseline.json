@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "18-baseline-01",
+    "record": {
+      "TimeCreated": "2025-08-14T13:42:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "service_state_change",
+      "Status": "success",
+      "EventID": "7036"
+    },
+    "context": {
+      "process": "services.exe"
+    },
+    "observables": {
+      "service_class": "endpoint_protection",
+      "new_state": "running",
+      "change_context": "startup"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "18-baseline-02",
+    "record": {
+      "TimeCreated": "2025-08-14T13:42:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "service_state_change",
+      "Status": "success",
+      "EventID": "7036"
+    },
+    "context": {
+      "process": "services.exe"
+    },
+    "observables": {
+      "service_class": "endpoint_protection",
+      "new_state": "running",
+      "change_context": "startup"
+    }
+  }
+]

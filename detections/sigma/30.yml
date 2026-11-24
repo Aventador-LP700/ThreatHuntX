@@ -1,0 +1,27 @@
+title: QR phishing observation
+name: threathuntx_30
+id: 6eb0662f-9a6f-55ed-9514-9a1f44ea55bf
+status: test
+description: A QR-derived redirect classified as a credential lure supports a message
+  and click investigation.
+references:
+- https://attack.mitre.org/techniques/T1566/002
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1566.002
+logsource:
+  category: email
+  definition: Mail gateway or attachment projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: mail
+    THXAction: qr_url_assessment
+    THXLinkOrigin: qr
+    THXRedirectVerdict: credential_lure
+  condition: selection
+falsepositives:
+- A legitimate event registration or facilities email can also contain a redirecting
+  QR code.
+level: medium

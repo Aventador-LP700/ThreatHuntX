@@ -1,0 +1,89 @@
+{
+  "id": "24",
+  "title": "Data staging",
+  "category": "Discovery / Exfil / Impact",
+  "overview": "Triage an archive audit record when an unusual actor stages multiple sensitive files together.",
+  "objective": "Archive files before transfer.",
+  "platform": "Linux",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and linux audit projection fields.",
+  "attack": {
+    "id": "T1560.001",
+    "name": "Archive via Utility",
+    "url": "https://attack.mitre.org/techniques/T1560/001",
+    "tactics": [
+      "collection"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Linux audit projection",
+  "data_sources": [
+    "Linux audit projection",
+    "Archive/transfer correlation"
+  ],
+  "hypothesis": "A large archive of sensitive files written to a shared staging area should be compared with authorized workflows.",
+  "evidence": "Review input classification, output location and actor, then pivot to transfer telemetry.",
+  "false_positive": "An authorized support bundle or export can build a temporary archive.",
+  "tuning": "Correlate staging paths and approval metadata. Use baselines for file count and data class.",
+  "response": "Identify who owns the archive, confirm its destination and preserve evidence before deleting any temporary copies.",
+  "prevention": "Limit staging access, use DLP and monitor outbound transfers from systems with sensitive datasets.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "An archive observation does not show that a transfer occurred. No files are bundled or archived by the lab.",
+  "questions": [
+    {
+      "prompt": "What scopes potential data exposure?",
+      "options": [
+        "Input class and staging destination",
+        "Only the archive filename suffix"
+      ],
+      "answer": 0,
+      "explanation": "Data class and destination describe sensitivity and who could access it."
+    },
+    {
+      "prompt": "Which follow-up distinguishes staging from export?",
+      "options": [
+        "Another archive with the same extension",
+        "A corresponding transfer or delivery event"
+      ],
+      "answer": 1,
+      "explanation": "Transfer evidence confirms movement beyond the staging location."
+    }
+  ],
+  "rule": {
+    "id": "THX-24",
+    "severity": "medium",
+    "source": "linux",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "archive_summary"
+      },
+      {
+        "field": "observables.input_class",
+        "op": "eq",
+        "value": "sensitive"
+      },
+      {
+        "field": "observables.destination_class",
+        "op": "eq",
+        "value": "shared_staging"
+      },
+      {
+        "field": "observables.input_count",
+        "op": "gte",
+        "value": 20
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1560/001",
+  "license": "MIT"
+}

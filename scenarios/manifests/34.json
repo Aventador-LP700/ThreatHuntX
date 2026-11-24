@@ -1,0 +1,84 @@
+{
+  "id": "34",
+  "title": "Secrets in Git/artifacts",
+  "category": "Supply Chain / Ci-Cd",
+  "overview": "Triage a secret-scanner finding based on its classification and artifact exposure.",
+  "objective": "Leak sensitive credentials.",
+  "platform": "CI/CD",
+  "difficulty": "Beginner",
+  "minutes": 8,
+  "prerequisites": "Read the baseline and compare event fields. No external tools are required.",
+  "attack": {
+    "id": "T1552.001",
+    "name": "Credentials In Files",
+    "url": "https://attack.mitre.org/techniques/T1552/001",
+    "tactics": [
+      "credential_access"
+    ],
+    "confidence": "related",
+    "rationale": "Credentials in Files models discovery of credentials in files. The lab detects potential exposure only."
+  },
+  "telemetry": "Secret scanner projection",
+  "data_sources": [
+    "Secret scanner projection",
+    "Secret-scanner findings"
+  ],
+  "hypothesis": "A credential-like finding in a shared artifact merits checking ownership and publication scope.",
+  "evidence": "Read scanner rule, path and exposure. Preserve only redacted findings and check whether the artifact was distributed.",
+  "false_positive": "Documentation placeholders and test strings commonly match scanner patterns.",
+  "tuning": "Allowlist exact, reviewed examples with safe meaning and location. Leave generic formats covered.",
+  "response": "Verify the finding privately, revoke or rotate a real credential if confirmed, and scope any access after disclosure.",
+  "prevention": "Run secret scanning before release and use short-lived credentials or workload identity.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture contains an inert scanner label. No secret or token-looking value is included.",
+  "questions": [
+    {
+      "prompt": "What should be shared in a report?",
+      "options": [
+        "The redacted finding and affected path",
+        "An actual secret value"
+      ],
+      "answer": 0,
+      "explanation": "Redacted metadata supports triage without exposing a credential."
+    },
+    {
+      "prompt": "What changes the response priority?",
+      "options": [
+        "The UI theme",
+        "Distribution or exposure of the artifact"
+      ],
+      "answer": 1,
+      "explanation": "Sharing increases who can access a valid credential."
+    }
+  ],
+  "rule": {
+    "id": "THX-34",
+    "severity": "medium",
+    "source": "scanner",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "finding_created"
+      },
+      {
+        "field": "observables.finding_class",
+        "op": "eq",
+        "value": "credential_like"
+      },
+      {
+        "field": "observables.artifact_exposure",
+        "op": "eq",
+        "value": "shared"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1552/001",
+  "license": "MIT"
+}

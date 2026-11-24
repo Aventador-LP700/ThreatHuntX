@@ -1,0 +1,84 @@
+{
+  "id": "11",
+  "title": "Token theft",
+  "category": "Privilege & Credentials",
+  "overview": "Investigate synthetic use of one application session fingerprint from different context and risk signals.",
+  "objective": "Misuse captured sessions.",
+  "platform": "Identity",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of Identity auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1550.001",
+    "name": "Application Access Token",
+    "url": "https://attack.mitre.org/techniques/T1550/001",
+    "tactics": [
+      "lateral_movement"
+    ],
+    "confidence": "related",
+    "rationale": "Observed reuse can be consistent with application token abuse. It does not establish how the token was obtained."
+  },
+  "telemetry": "Entra sign-in or audit projection",
+  "data_sources": [
+    "Entra sign-in or audit projection",
+    "Risky token/session reuse"
+  ],
+  "hypothesis": "Successful application session use from an unmanaged context and a new ASN merits a pivot to the original sign-in.",
+  "evidence": "Compare session identifiers, network and device posture enrichments, then check data or control-plane actions.",
+  "false_positive": "A legitimate device replacement or roaming user may appear in a new context.",
+  "tuning": "Combine ASN drift with device confidence and prior sign-in evidence. Avoid treating geography as a sole signal.",
+  "response": "Verify user activity out of band, revoke suspicious sessions and scope subsequent access.",
+  "prevention": "Enforce phishing-resistant authentication, managed device policy and token binding where supported.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "This lesson observes possible token reuse. The fingerprint is an inert label and identifies no real token.",
+  "questions": [
+    {
+      "prompt": "What should link the records?",
+      "options": [
+        "A common session reference",
+        "A matching timestamp alone"
+      ],
+      "answer": 0,
+      "explanation": "The session, actor and surrounding context support the pivot."
+    },
+    {
+      "prompt": "Which response closes an active session?",
+      "options": [
+        "Update the alert title",
+        "Revoke sessions using the identity provider"
+      ],
+      "answer": 1,
+      "explanation": "Session revocation addresses access already established."
+    }
+  ],
+  "rule": {
+    "id": "THX-11",
+    "severity": "medium",
+    "source": "identity",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "token_use"
+      },
+      {
+        "field": "observables.session_context",
+        "op": "eq",
+        "value": "new_asn_unmanaged"
+      },
+      {
+        "field": "observables.risk_level",
+        "op": "eq",
+        "value": "high"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1550/001",
+  "license": "MIT"
+}

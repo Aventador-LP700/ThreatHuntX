@@ -1,0 +1,84 @@
+{
+  "id": "31",
+  "title": "Malicious dependencies",
+  "category": "Supply Chain / Ci-Cd",
+  "overview": "Investigate a dependency review that added a lifecycle hook and lost expected provenance.",
+  "objective": "Tamper with packages.",
+  "platform": "CI/CD",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of CI/CD auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1195.001",
+    "name": "Compromise Software Dependencies and Development Tools",
+    "url": "https://attack.mitre.org/techniques/T1195/001",
+    "tactics": [
+      "initial_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "GitHub organization audit projection",
+  "data_sources": [
+    "GitHub organization audit projection",
+    "Dependency diff + integrity"
+  ],
+  "hypothesis": "A new package version with an installation hook and missing provenance merits a review before approving a build.",
+  "evidence": "Compare lockfile diff, package identity, introduced hook metadata and publisher assertions.",
+  "false_positive": "A legitimate dependency may add build-time setup before enabling provenance.",
+  "tuning": "Approve package changes by version and registry identity. Maintain a recovery strategy for pinning older versions.",
+  "response": "Pause the update, preserve the diff, verify upstream provenance and review existing builds for the version.",
+  "prevention": "Use dependency review, pinned lockfiles, restricted install scripts and verified provenance.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "No package is fetched or run during replay. The event summarizes review metadata only.",
+  "questions": [
+    {
+      "prompt": "Which combination triggers review?",
+      "options": [
+        "New install hook and missing provenance",
+        "Any change in lockfile line count"
+      ],
+      "answer": 0,
+      "explanation": "Both behavior and provenance affect build trust."
+    },
+    {
+      "prompt": "What should be inspected before approval?",
+      "options": [
+        "Only the package logo",
+        "Package identity, source and lockfile diff"
+      ],
+      "answer": 1,
+      "explanation": "Review the precise version and its intended behavior."
+    }
+  ],
+  "rule": {
+    "id": "THX-31",
+    "severity": "medium",
+    "source": "github",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "dependency_review"
+      },
+      {
+        "field": "observables.lifecycle_change",
+        "op": "eq",
+        "value": "new_install_hook"
+      },
+      {
+        "field": "observables.provenance_status",
+        "op": "eq",
+        "value": "missing"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1195/001",
+  "license": "MIT"
+}

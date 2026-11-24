@@ -43,7 +43,7 @@ class Store:
 
     def _seed(self, db: sqlite3.Connection, catalog: Catalog):
         for scenario in catalog.scenarios.values():
-            self._insert(db, catalog, scenario, "baseline", f"baseline-{scenario.id}")
+            self.insert(db, catalog, scenario, "baseline", f"baseline-{scenario.id}")
 
     def reset(self, catalog: Catalog):
         with self.connect() as db:
@@ -51,7 +51,7 @@ class Store:
             db.execute("DELETE FROM runs")
             self._seed(db, catalog)
 
-    def _insert(
+    def insert(
         self, db: sqlite3.Connection, catalog: Catalog, scenario: Scenario, mode: Mode, run_id: str
     ):
         events = catalog.fixtures[scenario.id, mode]
@@ -88,7 +88,7 @@ class Store:
 
     def replay(self, catalog: Catalog, scenario: Scenario, mode: Mode):
         with self.connect() as db:
-            return self._insert(db, catalog, scenario, mode, uuid4().hex)
+            return self.insert(db, catalog, scenario, mode, uuid4().hex)
 
     def _unpack(self, row: sqlite3.Row) -> dict:
         return dict(row) | {

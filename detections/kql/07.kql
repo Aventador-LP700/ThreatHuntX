@@ -1,0 +1,7 @@
+// THX-07 HTML smuggling | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "mail"
+| where THXAction =~ "attachment_scan"
+| where THXFileExt in~ (".html", ".htm")
+| where THXSandboxTrait =~ "embedded_file_materialization"
+| project TimeGenerated, THXSource, THXRecordId, THXAction, THXFileExt, THXSandboxTrait, THXUser

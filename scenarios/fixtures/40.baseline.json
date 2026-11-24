@@ -1,0 +1,42 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "saas",
+    "record_id": "40-baseline-01",
+    "record": {
+      "CreationTime": "2025-08-14T18:50:00Z",
+      "OrganizationId": "training-tenant",
+      "UserId": "analyst-sample@training.example",
+      "Operation": "bulk_share_summary",
+      "ResultStatus": "success",
+      "RecordType": "SharingSummary"
+    },
+    "context": {},
+    "observables": {
+      "destination_class": "internal",
+      "data_class": "restricted",
+      "file_count": 155,
+      "app_name": "Training Files"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "saas",
+    "record_id": "40-baseline-02",
+    "record": {
+      "CreationTime": "2025-08-14T18:50:32Z",
+      "OrganizationId": "training-tenant",
+      "UserId": "analyst-sample@training.example",
+      "Operation": "bulk_share_summary",
+      "ResultStatus": "success",
+      "RecordType": "SharingSummary"
+    },
+    "context": {},
+    "observables": {
+      "destination_class": "internal",
+      "data_class": "restricted",
+      "file_count": 155,
+      "app_name": "Training Files"
+    }
+  }
+]

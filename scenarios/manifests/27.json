@@ -1,0 +1,94 @@
+{
+  "id": "27",
+  "title": "Device-code phishing",
+  "category": "Modern Identity",
+  "overview": "Inspect device-flow sign-in records for successful use on an app outside an expected device policy.",
+  "objective": "Abuse OAuth device flow.",
+  "platform": "Identity",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and entra sign-in or audit projection fields.",
+  "attack": {
+    "id": "T1566.002",
+    "name": "Spearphishing Link",
+    "url": "https://attack.mitre.org/techniques/T1566/002",
+    "tactics": [
+      "initial_access"
+    ],
+    "confidence": "related",
+    "rationale": "T1566.002 represents link-based phishing delivery that can lead to a device grant. The fixture observes the grant only."
+  },
+  "telemetry": "Entra sign-in or audit projection",
+  "data_sources": [
+    "Entra sign-in or audit projection",
+    "Suspicious device-code grants"
+  ],
+  "hypothesis": "An unmanaged device-flow grant to an unapproved application merits checking user intent and policy.",
+  "evidence": "Locate application ID, flow type, device posture and user, then review follow-on token use by that application.",
+  "false_positive": "Headless device onboarding and some administrator tools legitimately use device flow.",
+  "tuning": "Constrain allowed applications and devices, and sample approved flows to make narrow exceptions.",
+  "response": "Confirm the user initiated the action, revoke suspicious sessions and review the associated application activity.",
+  "prevention": "Limit device authorization flow to approved applications with conditional access and user education.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The grant may reflect abuse without showing the delivery mechanism. No codes or tokens are present.",
+  "questions": [
+    {
+      "prompt": "What provides context beyond the flow type?",
+      "options": [
+        "Application trust and device posture",
+        "The size of the sign-in table"
+      ],
+      "answer": 0,
+      "explanation": "Device flow is legitimate for some applications. Context identifies unexpected use."
+    },
+    {
+      "prompt": "What should you ask the account owner?",
+      "options": [
+        "Whether they know the event ID by heart",
+        "Whether they initiated the device authorization"
+      ],
+      "answer": 1,
+      "explanation": "User intent helps distinguish phishing from a sanctioned grant."
+    }
+  ],
+  "rule": {
+    "id": "THX-27",
+    "severity": "medium",
+    "source": "identity",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "oauth_grant"
+      },
+      {
+        "field": "outcome",
+        "op": "eq",
+        "value": "success"
+      },
+      {
+        "field": "observables.flow",
+        "op": "eq",
+        "value": "device_code"
+      },
+      {
+        "field": "observables.device_class",
+        "op": "eq",
+        "value": "unmanaged"
+      },
+      {
+        "field": "observables.app_trust",
+        "op": "eq",
+        "value": "unknown"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1566/002",
+  "license": "MIT"
+}

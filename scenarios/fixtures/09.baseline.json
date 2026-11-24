@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "09-baseline-01",
+    "record": {
+      "TimeCreated": "2025-08-14T11:36:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "registry_value_set",
+      "Status": "success",
+      "EventID": "13"
+    },
+    "context": {
+      "process": "approved-installer.exe"
+    },
+    "observables": {
+      "registry_area": "run",
+      "target_object": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrustedUpdate",
+      "image_origin": "signed_install"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "09-baseline-02",
+    "record": {
+      "TimeCreated": "2025-08-14T11:36:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "registry_value_set",
+      "Status": "success",
+      "EventID": "13"
+    },
+    "context": {
+      "process": "approved-installer.exe"
+    },
+    "observables": {
+      "registry_area": "run",
+      "target_object": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrustedUpdate",
+      "image_origin": "signed_install"
+    }
+  }
+]

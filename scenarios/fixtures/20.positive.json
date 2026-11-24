@@ -1,0 +1,42 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "cloud",
+    "record_id": "20-positive-01",
+    "record": {
+      "eventTime": "2025-08-14T14:10:00Z",
+      "recipientAccountId": "training-account",
+      "userIdentity": "analyst-sample@training.example",
+      "eventName": "role_grant",
+      "result": "success",
+      "eventSource": "iam.amazonaws.com"
+    },
+    "context": {},
+    "observables": {
+      "role_class": "read_only",
+      "actor_class": "approved_pipeline",
+      "target_principal": "reader-service",
+      "policy_name": "TrainingReadOnly"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "cloud",
+    "record_id": "20-positive-02",
+    "record": {
+      "eventTime": "2025-08-14T14:10:32Z",
+      "recipientAccountId": "training-account",
+      "userIdentity": "analyst-sample@training.example",
+      "eventName": "role_grant",
+      "result": "success",
+      "eventSource": "iam.amazonaws.com"
+    },
+    "context": {},
+    "observables": {
+      "role_class": "administrative",
+      "actor_class": "interactive",
+      "target_principal": "sample-operator",
+      "policy_name": "TrainingAdministrator"
+    }
+  }
+]

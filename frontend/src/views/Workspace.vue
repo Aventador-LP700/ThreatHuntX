@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { ArrowRight, Download, Play } from 'lucide-vue-next'
-import { coverage, replay, runs, scenarios, showcase } from '../api'
-import { download, learningReport, progress, titleCase } from '../learning'
+import { replay, runs, scenarios, showcase } from '../api'
+import { download, learningReport, titleCase } from '../learning'
 import PageHeading from '../components/PageHeading.vue'
+import Matrix from './Matrix.vue'
+import Hunt from './Hunt.vue'
+import Rules from './Rules.vue'
+import Resources from './Resources.vue'
 import type { ReplayMode } from '../types'
 
 const props = defineProps<{ page: string; id?: string }>()
@@ -12,9 +16,7 @@ const mode = ref<ReplayMode>('positive')
 const running = ref(false)
 const error = ref('')
 const replayed = ref('')
-const scenario = computed(() => scenarios.value.find(entry => entry.id === props.id))
 const report = computed(() => learningReport(scenarios.value))
-const metrics = computed(() => coverage.value?.metrics)
 const recentAlerts = computed(() => runs.value.flatMap(run => run.alerts.map(alert => ({ run, alert }))))
 async function simulate() {
   error.value = ''
@@ -41,17 +43,8 @@ async function simulate() {
     <section class="panel list-stack" v-else-if="page === 'investigations' && runs.length"><RouterLink v-for="run in runs" :key="run.id" class="list-row" :to="`/investigations/${run.id}`"><span>{{ scenarios.find(s => s.id === run.scenario_id)?.title ?? run.scenario_id }}<small>{{ titleCase(run.mode) }} · {{ run.events.length }} events · {{ run.alerts.length }} alerts</small></span><ArrowRight :size="17" aria-hidden="true" /></RouterLink></section>
     <section v-else class="panel empty"><h2>No {{ page }} yet</h2><p>Run a lesson or a fixture to populate this view.</p><RouterLink class="button primary" to="/simulate">Open Simulate</RouterLink></section>
   </template>
-  <template v-else-if="page === 'rules'">
-    <PageHeading :title="scenario ? `${scenario.rule.id} · ${scenario.title}` : 'Detection rules'" description="Inspect the logic applied to the normalized fixtures." />
-    <section v-if="scenario" class="panel"><h2>Local rule</h2><p>{{ scenario.hypothesis }}</p><pre><code>{{ JSON.stringify(scenario.rule, null, 2) }}</code></pre><p>{{ scenario.tuning }}</p></section>
-    <section v-else class="panel list-stack"><RouterLink v-for="entry in scenarios" :key="entry.id" class="list-row" :to="`/rules/${entry.id}`"><span>{{ entry.title }}<small>{{ entry.rule.id }} · {{ entry.rule.source }}</small></span><ArrowRight :size="17" aria-hidden="true" /></RouterLink></section>
-  </template>
-  <template v-else-if="page === 'matrix'">
-    <PageHeading title="ATT&CK Matrix" description="Technique mappings and synthetic validation across the lab." />
-    <section class="panel" v-if="metrics"><h2>Fixture results</h2><p>{{ metrics.passed }} of {{ metrics.total }} fixture batches matched their expected outcome.</p></section>
-  </template>
-  <template v-else>
-    <PageHeading :title="titleCase(page)" description="Resources for the ThreatHuntX Community Lab." />
-    <section class="panel"><a href="https://github.com/Aventador-LP700/ThreatHuntX" target="_blank" rel="noopener noreferrer">Repository and documentation</a></section>
-  </template>
+  <Rules v-else-if="page === 'rules'" :id="props.id" />
+  <Matrix v-else-if="page === 'matrix'" />
+  <Hunt v-else-if="page === 'hunt'" />
+  <Resources v-else :page="page" />
 </template>

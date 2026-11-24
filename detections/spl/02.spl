@@ -1,0 +1,6 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="identity"
+| where (lower(tostring(THXAction)) = "mfa_challenge") AND (lower(tostring(THXOutcome)) = "denied") AND (lower(tostring(THXAuthMethod)) = "push")
+| where NOT coalesce((lower(tostring(THXChangeContext)) = "approved_enrollment"), false())
+| bin _time span=300s
+| stats dc(THXChallengeId) AS observations values(THXRecordId) AS evidence BY _time THXUser
+| where observations >= 3

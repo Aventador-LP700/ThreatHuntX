@@ -1,0 +1,7 @@
+// THX-08 Scheduled tasks / cron | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "linux"
+| where THXAction =~ "cron_change"
+| where THXScheduleOwner =~ "root"
+| where THXOriginClass =~ "user_write"
+| project TimeGenerated, THXSource, THXRecordId, THXAction, THXOriginClass, THXScheduleOwner, THXUser

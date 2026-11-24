@@ -1,0 +1,87 @@
+{
+  "id": "07",
+  "title": "HTML smuggling",
+  "category": "Execution & Persistence",
+  "overview": "Compare attachment-inspection results for normal HTML and a sandbox-classified generated artifact.",
+  "objective": "Payload via attachment.",
+  "platform": "Windows",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and mail gateway or attachment projection fields.",
+  "attack": {
+    "id": "T1027.006",
+    "name": "HTML Smuggling",
+    "url": "https://attack.mitre.org/techniques/T1027/006",
+    "tactics": [
+      "stealth"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Mail gateway or attachment projection",
+  "data_sources": [
+    "Mail gateway or attachment projection",
+    "Attachment + browser telemetry"
+  ],
+  "hypothesis": "An HTML attachment that materializes an embedded file in sandbox telemetry warrants message triage.",
+  "evidence": "Identify attachment type, sandbox trait and message ID. Correlate delivery and endpoint follow-on evidence.",
+  "false_positive": "An internal export can embed a harmless downloadable report.",
+  "tuning": "Distinguish allowed publishers and sandbox artifact traits. Test exceptions against archived positive examples.",
+  "response": "Quarantine matching messages, preserve sandbox metadata and review user interaction and downloaded-file events.",
+  "prevention": "Apply HTML attachment controls, approved sandboxes and browser download policy.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The event is a sandbox verdict. No HTML attachment or active content is included.",
+  "questions": [
+    {
+      "prompt": "Which field separates the two HTML records?",
+      "options": [
+        "Sandbox trait",
+        "The extension alone"
+      ],
+      "answer": 0,
+      "explanation": "Both examples are HTML. Materialization is the differentiating observation."
+    },
+    {
+      "prompt": "How do you check user impact?",
+      "options": [
+        "Assume a gateway verdict proves execution",
+        "Correlate delivery with endpoint and click evidence"
+      ],
+      "answer": 1,
+      "explanation": "Message scanning and endpoint execution refer to different stages."
+    }
+  ],
+  "rule": {
+    "id": "THX-07",
+    "severity": "medium",
+    "source": "mail",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "attachment_scan"
+      },
+      {
+        "field": "observables.file_ext",
+        "op": "in",
+        "value": [
+          ".html",
+          ".htm"
+        ]
+      },
+      {
+        "field": "observables.sandbox_trait",
+        "op": "eq",
+        "value": "embedded_file_materialization"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1027/006",
+  "license": "MIT"
+}

@@ -1,0 +1,89 @@
+{
+  "id": "32",
+  "title": "CI/CD token theft",
+  "category": "Supply Chain / Ci-Cd",
+  "overview": "Review a workflow token-use audit projection when privileged actions come from an unapproved runner pool.",
+  "objective": "Abuse pipeline credentials.",
+  "platform": "CI/CD",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of CI/CD auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1550.001",
+    "name": "Application Access Token",
+    "url": "https://attack.mitre.org/techniques/T1550/001",
+    "tactics": [
+      "lateral_movement"
+    ],
+    "confidence": "related",
+    "rationale": "T1550.001 applies to use of an application access token. The sample does not show theft itself."
+  },
+  "telemetry": "GitHub organization audit projection",
+  "data_sources": [
+    "GitHub organization audit projection",
+    "Token-use/runners anomalies"
+  ],
+  "hypothesis": "Repository-write token use on an unapproved runner should be correlated to workflow identity and job context.",
+  "evidence": "Review runner pool, scope, workflow and actor. Match to an expected job and inspect resulting repository actions.",
+  "false_positive": "A scheduled migration to a new runner pool can look anomalous before inventory catches up.",
+  "tuning": "Join runner identity and policy history. Review write permissions separately from read-only builds.",
+  "response": "Stop the affected workflow through approved controls, revoke the credential or session and review resulting changes.",
+  "prevention": "Prefer short-lived workload identity and narrowly scoped job tokens. Require approved runner images and pools.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The event contains no authentication material. It models suspicious use, not token acquisition.",
+  "questions": [
+    {
+      "prompt": "Which permission raises the impact?",
+      "options": [
+        "Repository write",
+        "The runner display name"
+      ],
+      "answer": 0,
+      "explanation": "Write privileges can modify content or production configuration."
+    },
+    {
+      "prompt": "What relationship supports the investigation?",
+      "options": [
+        "The weekday of the event",
+        "Runner, workflow, job and repository actions"
+      ],
+      "answer": 1,
+      "explanation": "A known job should explain the privilege and observed operation."
+    }
+  ],
+  "rule": {
+    "id": "THX-32",
+    "severity": "medium",
+    "source": "github",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "automation_token_use"
+      },
+      {
+        "field": "outcome",
+        "op": "eq",
+        "value": "success"
+      },
+      {
+        "field": "observables.runner_trust",
+        "op": "eq",
+        "value": "unapproved"
+      },
+      {
+        "field": "observables.scope_class",
+        "op": "eq",
+        "value": "repository_write"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1550/001",
+  "license": "MIT"
+}

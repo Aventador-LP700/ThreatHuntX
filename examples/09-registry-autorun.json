@@ -1,0 +1,81 @@
+{
+  "synthetic_only": true,
+  "id": "example-09",
+  "scenario_id": "09",
+  "mode": "positive",
+  "created_at": "2025-08-14T11:36:00Z",
+  "events": [
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T11:36:00Z",
+      "source": "windows",
+      "host": "workstation-02.training.example",
+      "user": "analyst-sample@training.example",
+      "process": "approved-installer.exe",
+      "command_line": null,
+      "parent_process": null,
+      "event_id": "13",
+      "record_id": "09-positive-01",
+      "source_ip": null,
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "registry_value_set",
+      "outcome": "success",
+      "evidence_reference": "scenarios/fixtures/09.positive.json#09-positive-01",
+      "scenario_id": "09",
+      "technique_id": "T1547.001",
+      "alert_id": null,
+      "synthetic": true,
+      "observables": {
+        "registry_area": "run",
+        "target_object": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrustedUpdate",
+        "image_origin": "signed_install"
+      }
+    },
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T11:36:32Z",
+      "source": "windows",
+      "host": "workstation-02.training.example",
+      "user": "analyst-sample@training.example",
+      "process": "desktop-helper.exe",
+      "command_line": null,
+      "parent_process": null,
+      "event_id": "13",
+      "record_id": "09-positive-02",
+      "source_ip": null,
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "registry_value_set",
+      "outcome": "success",
+      "evidence_reference": "scenarios/fixtures/09.positive.json#09-positive-02",
+      "scenario_id": "09",
+      "technique_id": "T1547.001",
+      "alert_id": "example-09-1",
+      "synthetic": true,
+      "observables": {
+        "registry_area": "run",
+        "target_object": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\TrainingSample",
+        "image_origin": "user_writable"
+      }
+    }
+  ],
+  "alerts": [
+    {
+      "id": "example-09-1",
+      "rule_id": "THX-09",
+      "scenario_id": "09",
+      "title": "Registry autoruns",
+      "severity": "medium",
+      "group": "workstation-02.training.example",
+      "first_seen": "2025-08-14T11:36:32Z",
+      "last_seen": "2025-08-14T11:36:32Z",
+      "event_count": 1,
+      "evidence": [
+        "09-positive-02"
+      ]
+    }
+  ]
+}

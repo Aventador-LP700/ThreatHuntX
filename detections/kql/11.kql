@@ -1,0 +1,7 @@
+// THX-11 Token theft | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "identity"
+| where THXAction =~ "token_use"
+| where THXSessionContext =~ "new_asn_unmanaged"
+| where THXRiskLevel =~ "high"
+| project TimeGenerated, THXSource, THXRecordId, THXAction, THXRiskLevel, THXSessionContext, THXUser

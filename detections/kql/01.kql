@@ -1,0 +1,7 @@
+// THX-01 Phishing | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "mail"
+| where THXAction =~ "url_inspection"
+| where THXSenderAlignment =~ "fail"
+| where THXUrlCategory =~ "credential_lure"
+| project TimeGenerated, THXSource, THXRecordId, THXAction, THXSenderAlignment, THXUrlCategory, THXUser

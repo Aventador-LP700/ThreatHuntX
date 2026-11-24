@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "19-baseline-01",
+    "record": {
+      "ts": "2025-08-14T13:56:00Z",
+      "sensor": "host-19.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "dns_query",
+      "verdict": "observed",
+      "signature_id": "DNS"
+    },
+    "context": {
+      "domain": "training.example"
+    },
+    "observables": {
+      "label_entropy_class": "low",
+      "domain_popularity": "common",
+      "query_id": "19-observation-01"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "19-baseline-02",
+    "record": {
+      "ts": "2025-08-14T13:56:32Z",
+      "sensor": "host-19.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "dns_query",
+      "verdict": "observed",
+      "signature_id": "DNS"
+    },
+    "context": {
+      "domain": "training.example"
+    },
+    "observables": {
+      "label_entropy_class": "low",
+      "domain_popularity": "common",
+      "query_id": "19-observation-02"
+    }
+  }
+]

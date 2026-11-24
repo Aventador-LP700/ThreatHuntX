@@ -3,5 +3,67 @@
   "domain": "Enterprise",
   "commit": "f59b03ecf828579d5f9e93683ce25b7e2e5fd9d7",
   "source": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/f59b03ecf828579d5f9e93683ce25b7e2e5fd9d7/enterprise-attack/enterprise-attack.json",
-  "terms": "https://attack.mitre.org/resources/terms-of-use/"
+  "terms": "https://attack.mitre.org/resources/terms-of-use/",
+  "tactics": [
+    {
+      "id": "reconnaissance",
+      "name": "Reconnaissance"
+    },
+    {
+      "id": "resource_development",
+      "name": "Resource Development"
+    },
+    {
+      "id": "initial_access",
+      "name": "Initial Access"
+    },
+    {
+      "id": "execution",
+      "name": "Execution"
+    },
+    {
+      "id": "persistence",
+      "name": "Persistence"
+    },
+    {
+      "id": "privilege_escalation",
+      "name": "Privilege Escalation"
+    },
+    {
+      "id": "stealth",
+      "name": "Stealth"
+    },
+    {
+      "id": "defense_impairment",
+      "name": "Defense Impairment"
+    },
+    {
+      "id": "credential_access",
+      "name": "Credential Access"
+    },
+    {
+      "id": "discovery",
+      "name": "Discovery"
+    },
+    {
+      "id": "lateral_movement",
+      "name": "Lateral Movement"
+    },
+    {
+      "id": "collection",
+      "name": "Collection"
+    },
+    {
+      "id": "command_and_control",
+      "name": "Command and Control"
+    },
+    {
+      "id": "exfiltration",
+      "name": "Exfiltration"
+    },
+    {
+      "id": "impact",
+      "name": "Impact"
+    }
+  ]
 }

@@ -1,10 +1,297 @@
 {
+  "T1003.001": {
+    "id": "T1003.001",
+    "name": "LSASS Memory",
+    "url": "https://attack.mitre.org/techniques/T1003/001",
+    "tactics": [
+      "credential_access"
+    ]
+  },
+  "T1021": {
+    "id": "T1021",
+    "name": "Remote Services",
+    "url": "https://attack.mitre.org/techniques/T1021",
+    "tactics": [
+      "lateral_movement"
+    ]
+  },
+  "T1027.006": {
+    "id": "T1027.006",
+    "name": "HTML Smuggling",
+    "url": "https://attack.mitre.org/techniques/T1027/006",
+    "tactics": [
+      "stealth"
+    ]
+  },
+  "T1053.003": {
+    "id": "T1053.003",
+    "name": "Cron",
+    "url": "https://attack.mitre.org/techniques/T1053/003",
+    "tactics": [
+      "execution",
+      "persistence",
+      "privilege_escalation"
+    ]
+  },
+  "T1059.001": {
+    "id": "T1059.001",
+    "name": "PowerShell",
+    "url": "https://attack.mitre.org/techniques/T1059/001",
+    "tactics": [
+      "execution"
+    ]
+  },
+  "T1068": {
+    "id": "T1068",
+    "name": "Exploitation for Privilege Escalation",
+    "url": "https://attack.mitre.org/techniques/T1068",
+    "tactics": [
+      "privilege_escalation"
+    ]
+  },
+  "T1071.004": {
+    "id": "T1071.004",
+    "name": "DNS",
+    "url": "https://attack.mitre.org/techniques/T1071/004",
+    "tactics": [
+      "command_and_control"
+    ]
+  },
+  "T1087.002": {
+    "id": "T1087.002",
+    "name": "Domain Account",
+    "url": "https://attack.mitre.org/techniques/T1087/002",
+    "tactics": [
+      "discovery"
+    ]
+  },
+  "T1098.003": {
+    "id": "T1098.003",
+    "name": "Additional Cloud Roles",
+    "url": "https://attack.mitre.org/techniques/T1098/003",
+    "tactics": [
+      "persistence",
+      "privilege_escalation"
+    ]
+  },
+  "T1098.006": {
+    "id": "T1098.006",
+    "name": "Additional Container Cluster Roles",
+    "url": "https://attack.mitre.org/techniques/T1098/006",
+    "tactics": [
+      "persistence",
+      "privilege_escalation"
+    ]
+  },
+  "T1110.003": {
+    "id": "T1110.003",
+    "name": "Password Spraying",
+    "url": "https://attack.mitre.org/techniques/T1110/003",
+    "tactics": [
+      "credential_access"
+    ]
+  },
+  "T1190": {
+    "id": "T1190",
+    "name": "Exploit Public-Facing Application",
+    "url": "https://attack.mitre.org/techniques/T1190",
+    "tactics": [
+      "initial_access"
+    ]
+  },
+  "T1195.001": {
+    "id": "T1195.001",
+    "name": "Compromise Software Dependencies and Development Tools",
+    "url": "https://attack.mitre.org/techniques/T1195/001",
+    "tactics": [
+      "initial_access"
+    ]
+  },
+  "T1218": {
+    "id": "T1218",
+    "name": "System Binary Proxy Execution",
+    "url": "https://attack.mitre.org/techniques/T1218",
+    "tactics": [
+      "stealth"
+    ]
+  },
+  "T1219.002": {
+    "id": "T1219.002",
+    "name": "Remote Desktop Software",
+    "url": "https://attack.mitre.org/techniques/T1219/002",
+    "tactics": [
+      "command_and_control"
+    ]
+  },
+  "T1485": {
+    "id": "T1485",
+    "name": "Data Destruction",
+    "url": "https://attack.mitre.org/techniques/T1485",
+    "tactics": [
+      "impact"
+    ]
+  },
+  "T1486": {
+    "id": "T1486",
+    "name": "Data Encrypted for Impact",
+    "url": "https://attack.mitre.org/techniques/T1486",
+    "tactics": [
+      "impact"
+    ]
+  },
+  "T1528": {
+    "id": "T1528",
+    "name": "Steal Application Access Token",
+    "url": "https://attack.mitre.org/techniques/T1528",
+    "tactics": [
+      "credential_access"
+    ]
+  },
+  "T1530": {
+    "id": "T1530",
+    "name": "Data from Cloud Storage",
+    "url": "https://attack.mitre.org/techniques/T1530",
+    "tactics": [
+      "collection"
+    ]
+  },
+  "T1539": {
+    "id": "T1539",
+    "name": "Steal Web Session Cookie",
+    "url": "https://attack.mitre.org/techniques/T1539",
+    "tactics": [
+      "credential_access"
+    ]
+  },
+  "T1546.003": {
+    "id": "T1546.003",
+    "name": "Windows Management Instrumentation Event Subscription",
+    "url": "https://attack.mitre.org/techniques/T1546/003",
+    "tactics": [
+      "persistence",
+      "privilege_escalation"
+    ]
+  },
+  "T1547.001": {
+    "id": "T1547.001",
+    "name": "Registry Run Keys / Startup Folder",
+    "url": "https://attack.mitre.org/techniques/T1547/001",
+    "tactics": [
+      "persistence",
+      "privilege_escalation"
+    ]
+  },
+  "T1550.001": {
+    "id": "T1550.001",
+    "name": "Application Access Token",
+    "url": "https://attack.mitre.org/techniques/T1550/001",
+    "tactics": [
+      "lateral_movement"
+    ]
+  },
+  "T1550.002": {
+    "id": "T1550.002",
+    "name": "Pass the Hash",
+    "url": "https://attack.mitre.org/techniques/T1550/002",
+    "tactics": [
+      "lateral_movement"
+    ]
+  },
+  "T1552.001": {
+    "id": "T1552.001",
+    "name": "Credentials In Files",
+    "url": "https://attack.mitre.org/techniques/T1552/001",
+    "tactics": [
+      "credential_access"
+    ]
+  },
+  "T1552.005": {
+    "id": "T1552.005",
+    "name": "Cloud Instance Metadata API",
+    "url": "https://attack.mitre.org/techniques/T1552/005",
+    "tactics": [
+      "credential_access"
+    ]
+  },
+  "T1555.003": {
+    "id": "T1555.003",
+    "name": "Credentials from Web Browsers",
+    "url": "https://attack.mitre.org/techniques/T1555/003",
+    "tactics": [
+      "credential_access"
+    ]
+  },
+  "T1557": {
+    "id": "T1557",
+    "name": "Adversary-in-the-Middle",
+    "url": "https://attack.mitre.org/techniques/T1557",
+    "tactics": [
+      "collection",
+      "credential_access"
+    ]
+  },
+  "T1558.003": {
+    "id": "T1558.003",
+    "name": "Kerberoasting",
+    "url": "https://attack.mitre.org/techniques/T1558/003",
+    "tactics": [
+      "credential_access"
+    ]
+  },
+  "T1560.001": {
+    "id": "T1560.001",
+    "name": "Archive via Utility",
+    "url": "https://attack.mitre.org/techniques/T1560/001",
+    "tactics": [
+      "collection"
+    ]
+  },
+  "T1566.002": {
+    "id": "T1566.002",
+    "name": "Spearphishing Link",
+    "url": "https://attack.mitre.org/techniques/T1566/002",
+    "tactics": [
+      "initial_access"
+    ]
+  },
+  "T1567": {
+    "id": "T1567",
+    "name": "Exfiltration Over Web Service",
+    "url": "https://attack.mitre.org/techniques/T1567",
+    "tactics": [
+      "exfiltration"
+    ]
+  },
+  "T1611": {
+    "id": "T1611",
+    "name": "Escape to Host",
+    "url": "https://attack.mitre.org/techniques/T1611",
+    "tactics": [
+      "privilege_escalation"
+    ]
+  },
   "T1621": {
     "id": "T1621",
     "name": "Multi-Factor Authentication Request Generation",
     "url": "https://attack.mitre.org/techniques/T1621",
     "tactics": [
       "credential_access"
+    ]
+  },
+  "T1677": {
+    "id": "T1677",
+    "name": "Poisoned Pipeline Execution",
+    "url": "https://attack.mitre.org/techniques/T1677",
+    "tactics": [
+      "execution"
+    ]
+  },
+  "T1685": {
+    "id": "T1685",
+    "name": "Disable or Modify Tools",
+    "url": "https://attack.mitre.org/techniques/T1685",
+    "tactics": [
+      "defense_impairment"
     ]
   }
 }

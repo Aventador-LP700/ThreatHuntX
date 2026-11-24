@@ -1,0 +1,14 @@
+flowchart LR
+  Bundle[Bundled synthetic source records] --> Parse[Source adapter and schema v1]
+  Parse --> Match[Local selection and correlation]
+  Match --> Store[(SQLite runs and evidence)]
+  Store --> API[FastAPI]
+  API --> Vue[Vue lessons and investigations]
+  Store --> Exports[JSON and CSV evidence]
+  Match --> Check[Fixture checks and ATT&CK matrix]
+  Check --> Vue
+  Bundle --> Snapshot[Deterministic snapshot build]
+  Match --> Snapshot
+  Snapshot --> Static[Read-only public showcase]
+  Bundle -. normalized projection .-> Wazuh[Optional Wazuh event candidates]
+  Match -. reviewed artifacts .-> Pack[Sigma, KQL and SPL specifications]

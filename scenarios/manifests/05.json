@@ -1,0 +1,84 @@
+{
+  "id": "05",
+  "title": "OAuth consent phishing",
+  "category": "Initial Access",
+  "overview": "Review an OAuth consent audit event for an unverified publisher and durable mailbox access.",
+  "objective": "Malicious app permissions.",
+  "platform": "Identity",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and entra sign-in or audit projection fields.",
+  "attack": {
+    "id": "T1528",
+    "name": "Steal Application Access Token",
+    "url": "https://attack.mitre.org/techniques/T1528",
+    "tactics": [
+      "credential_access"
+    ],
+    "confidence": "related",
+    "rationale": "Risky consent may enable theft or misuse of application access tokens. A consent event alone does not demonstrate token theft."
+  },
+  "telemetry": "Entra sign-in or audit projection",
+  "data_sources": [
+    "Entra sign-in or audit projection",
+    "Suspicious app-consent grants"
+  ],
+  "hypothesis": "A grant to an unverified publisher with offline access warrants review for unauthorized delegated access.",
+  "evidence": "Inspect application ID, granting actor, scope and publisher verification. Confirm whether the grant was approved.",
+  "false_positive": "Internal development applications can have unverified publishers and planned offline access.",
+  "tuning": "Join approved applications and reviewed scopes. Flag newly granted scopes even for previously trusted apps.",
+  "response": "Preserve consent evidence, remove the suspicious grant and review mailbox or API activity tied to the app.",
+  "prevention": "Require administrator review for sensitive consent and audit privileged delegated scopes.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The grant can precede token abuse. The fixture contains no token value or evidence of data access.",
+  "questions": [
+    {
+      "prompt": "What is the durable-access clue?",
+      "options": [
+        "The offline_access scope",
+        "The order of the UI columns"
+      ],
+      "answer": 0,
+      "explanation": "Offline access can permit session continuation after initial consent, subject to the provider."
+    },
+    {
+      "prompt": "What should be preserved before revocation?",
+      "options": [
+        "An actual token value",
+        "App ID and the grant audit record"
+      ],
+      "answer": 1,
+      "explanation": "An application identifier and audit record support scoping without retaining credentials."
+    }
+  ],
+  "rule": {
+    "id": "THX-05",
+    "severity": "medium",
+    "source": "identity",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "consent_grant"
+      },
+      {
+        "field": "observables.publisher_verified",
+        "op": "eq",
+        "value": false
+      },
+      {
+        "field": "observables.granted_scope",
+        "op": "contains",
+        "value": "offline_access"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1528",
+  "license": "MIT"
+}

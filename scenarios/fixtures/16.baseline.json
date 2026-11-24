@@ -1,0 +1,46 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "16-baseline-01",
+    "record": {
+      "TimeCreated": "2025-08-14T13:14:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "remote_session",
+      "Status": "success",
+      "EventID": "RemoteAdminSession"
+    },
+    "context": {
+      "source_ip": "192.0.2.77"
+    },
+    "observables": {
+      "service": "rdp",
+      "peer_zone": "jump_hosts",
+      "admin_logon": true,
+      "target_id": "16-observation-01"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "16-baseline-02",
+    "record": {
+      "TimeCreated": "2025-08-14T13:14:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "remote_session",
+      "Status": "success",
+      "EventID": "RemoteAdminSession"
+    },
+    "context": {
+      "source_ip": "192.0.2.77"
+    },
+    "observables": {
+      "service": "rdp",
+      "peer_zone": "jump_hosts",
+      "admin_logon": true,
+      "target_id": "16-observation-02"
+    }
+  }
+]

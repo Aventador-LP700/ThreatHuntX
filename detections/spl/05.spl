@@ -1,0 +1,3 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="identity"
+| where (lower(tostring(THXAction)) = "consent_grant") AND (lower(tostring(THXPublisherVerified)) = "false") AND (match(lower(tostring(THXGrantedScope)), "offline_access"))
+| table _time THXSource THXRecordId THXAction THXGrantedScope THXPublisherVerified THXUser

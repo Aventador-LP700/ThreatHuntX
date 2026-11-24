@@ -1,0 +1,27 @@
+title: Browser cookie theft observation
+name: threathuntx_28
+id: dabc36fb-6346-5f96-9366-4401a28d677e
+status: test
+description: A non-browser process reading the session store without approval warrants
+  checking file and identity telemetry.
+references:
+- https://attack.mitre.org/techniques/T1539
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1539
+logsource:
+  product: windows
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXAction: file_access
+    THXTargetType: browser_session_store
+    THXActorType: unapproved_nonbrowser
+    THXOperation: read
+  condition: selection
+falsepositives:
+- Authorized profile backup, migration or endpoint response tools can read the store.
+level: medium

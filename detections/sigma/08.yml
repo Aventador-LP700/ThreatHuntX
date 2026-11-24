@@ -1,0 +1,26 @@
+title: Scheduled tasks / cron observation
+name: threathuntx_08
+id: 6ec42a8f-1734-5647-9515-a24c044d5dd8
+status: test
+description: A root-owned cron change originating from an interactive write is worth
+  checking against change management.
+references:
+- https://attack.mitre.org/techniques/T1053/003
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1053.003
+logsource:
+  product: linux
+  service: auditd
+  definition: Linux audit projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: linux
+    THXAction: cron_change
+    THXScheduleOwner: root
+    THXOriginClass: user_write
+  condition: selection
+falsepositives:
+- An administrator may create a job during approved maintenance.
+level: medium

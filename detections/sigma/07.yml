@@ -1,0 +1,28 @@
+title: HTML smuggling observation
+name: threathuntx_07
+id: 50cfc0c6-a2d8-510a-ab71-03daf151ff15
+status: test
+description: An HTML attachment that materializes an embedded file in sandbox telemetry
+  warrants message triage.
+references:
+- https://attack.mitre.org/techniques/T1027/006
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1027.006
+logsource:
+  category: email
+  definition: Mail gateway or attachment projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: mail
+    THXAction: attachment_scan
+    THXFileExt:
+    - .html
+    - .htm
+    THXSandboxTrait: embedded_file_materialization
+  condition: selection
+falsepositives:
+- An internal export can embed a harmless downloadable report.
+level: medium

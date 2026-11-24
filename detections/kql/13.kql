@@ -1,0 +1,9 @@
+// THX-13 Kerberoasting | Review-only. Custom normalized schema.
+THXNormalized_CL
+| where THXSource == "windows"
+| where THXEventId =~ "4769"
+| where THXAction =~ "service_ticket_request"
+| where THXTicketEncryption =~ "rc4"
+| where THXRequesterClass =~ "user"
+| summarize Observations=dcount(THXServiceName), Evidence=make_set(THXRecordId, 100) by THXUser, bin(TimeGenerated, 600s)
+| where Observations >= 3

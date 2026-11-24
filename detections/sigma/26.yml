@@ -1,0 +1,27 @@
+title: AiTM phishing observation
+name: threathuntx_26
+id: 2eb1322b-76fd-5e97-bb7a-85512356a9fa
+status: test
+description: An abrupt shift to an unmanaged context on the same session warrants
+  checking sign-in and MFA evidence.
+references:
+- https://attack.mitre.org/techniques/T1557
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1557
+logsource:
+  product: azure
+  service: signinlogs
+  definition: Entra sign-in or audit projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: identity
+    THXAction: session_transition
+    THXSessionDelta: new_ip_unmanaged
+    THXTimeClass: rapid
+  condition: selection
+falsepositives:
+- A VPN or mobile connection handover can change addresses rapidly.
+level: medium

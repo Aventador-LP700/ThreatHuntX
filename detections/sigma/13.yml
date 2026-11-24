@@ -1,0 +1,50 @@
+title: Kerberoasting observation
+name: threathuntx_13
+id: f446bb13-3ff5-5385-8e3c-3f884835c3d1
+status: test
+description: Three distinct legacy-encrypted service tickets requested by one user
+  during ten minutes warrant investigation.
+references:
+- https://attack.mitre.org/techniques/T1558/003
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1558.003
+logsource:
+  product: windows
+  service: security
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXEventId: '4769'
+    THXAction: service_ticket_request
+    THXTicketEncryption: rc4
+    THXRequesterClass: user
+  condition: selection
+falsepositives:
+- Legacy services and trusted inventory jobs can produce bursts of service-ticket
+  requests.
+level: medium
+---
+title: Kerberoasting correlation
+id: 7fe16ad8-4eca-57ed-a94e-fb2f7672de50
+status: test
+description: Check event 4769, encryption type, requesting identity and the distinct
+  service names.
+references:
+- https://attack.mitre.org/techniques/T1558/003
+tags:
+- attack.t1558.003
+correlation:
+  type: value_count
+  rules:
+  - threathuntx_13
+  group-by:
+  - THXUser
+  timespan: 10m
+  condition:
+    gte: 3
+    field: THXServiceName
+level: medium

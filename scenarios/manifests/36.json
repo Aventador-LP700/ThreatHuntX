@@ -1,0 +1,89 @@
+{
+  "id": "36",
+  "title": "Container escape",
+  "category": "Cloud / Host / Saas",
+  "overview": "Inspect an audit projection that records potentially dangerous host access requested by a workload.",
+  "objective": "Cross container boundary.",
+  "platform": "Kubernetes",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of Kubernetes auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1611",
+    "name": "Escape to Host",
+    "url": "https://attack.mitre.org/techniques/T1611",
+    "tactics": [
+      "privilege_escalation"
+    ],
+    "confidence": "related",
+    "rationale": "The exercise observes a risky configuration associated with potential escape. It does not reproduce escape or prove it occurred."
+  },
+  "telemetry": "Kubernetes audit projection",
+  "data_sources": [
+    "Kubernetes audit projection",
+    "Privileged pod/runtime alarms"
+  ],
+  "hypothesis": "A workload-created privileged pod requesting the host PID namespace should trigger review of authorization and runtime evidence.",
+  "evidence": "Review workload actor, namespace, pod privileges and API admission result. Compare authorized runtime observations.",
+  "false_positive": "Infrastructure monitoring or storage agents can require host-level access.",
+  "tuning": "Scope approved infrastructure exceptions by namespace, service account and workload identity.",
+  "response": "Preserve audit and workload definitions, stop unauthorized workloads via approved procedures and assess host exposure.",
+  "prevention": "Use Pod Security Standards, scoped admission exceptions and independent runtime monitoring.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "Exposure is an indicator, not evidence of an escape. No Kubernetes resources are created by replay.",
+  "questions": [
+    {
+      "prompt": "What raised concern together?",
+      "options": [
+        "Privilege and host PID access",
+        "The presence of an application namespace"
+      ],
+      "answer": 0,
+      "explanation": "A privileged workload with host namespace visibility has broader reach."
+    },
+    {
+      "prompt": "What would help confirm host effects?",
+      "options": [
+        "The pod name alone",
+        "Independent runtime and host audit evidence"
+      ],
+      "answer": 1,
+      "explanation": "An admission record describes configuration. Runtime evidence supports impact."
+    }
+  ],
+  "rule": {
+    "id": "THX-36",
+    "severity": "high",
+    "source": "kubernetes",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "create_pod"
+      },
+      {
+        "field": "observables.privileged",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "field": "observables.host_namespace",
+        "op": "eq",
+        "value": "pid"
+      },
+      {
+        "field": "observables.actor_class",
+        "op": "eq",
+        "value": "workload"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1611",
+  "license": "MIT"
+}

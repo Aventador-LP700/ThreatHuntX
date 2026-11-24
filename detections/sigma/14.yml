@@ -1,0 +1,31 @@
+title: Pass-the-hash observation
+name: threathuntx_14
+id: b83e90ce-f57f-5cb8-8b58-52c327118911
+status: test
+description: A successful NTLM network logon by a local administrator from a peer
+  workstation warrants host-to-host review.
+references:
+- https://attack.mitre.org/techniques/T1550/002
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1550.002
+logsource:
+  product: windows
+  service: security
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXEventId: '4624'
+    THXAuthPackage: ntlm
+    THXLogonType: 3
+    THXPeerZone: workstations
+    THXAccountClass: local_admin
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXApprovedChange: true
+falsepositives:
+- An approved help-desk task can use legacy authentication between systems.
+level: medium

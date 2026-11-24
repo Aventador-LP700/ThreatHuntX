@@ -1,0 +1,90 @@
+{
+  "id": "25",
+  "title": "Wiper-like activity",
+  "category": "Discovery / Exfil / Impact",
+  "overview": "Review an inert audit summary for mass deletion of protected resources outside a maintenance scope.",
+  "objective": "Simulated destructive actions.",
+  "platform": "Linux",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of Linux auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1485",
+    "name": "Data Destruction",
+    "url": "https://attack.mitre.org/techniques/T1485",
+    "tactics": [
+      "impact"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Linux audit projection",
+  "data_sources": [
+    "Linux audit projection",
+    "Destructive operation telemetry"
+  ],
+  "hypothesis": "A mass-delete observation affecting protected resources without approved maintenance needs immediate integrity triage.",
+  "evidence": "Review affected resource class, object count, writer and change record. Seek backup and storage audit confirmation.",
+  "false_positive": "Retention enforcement or approved disposal can affect large datasets.",
+  "tuning": "Verify lifecycle policies in advance and never suppress deletion on protected data solely because of volume.",
+  "response": "Preserve storage logs, pause confirmed unauthorized activity and validate backup integrity before restoration.",
+  "prevention": "Protect backups from the same identity plane and require review for large destructive changes.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture comprises descriptive audit fields. No learner assets are deleted.",
+  "questions": [
+    {
+      "prompt": "What distinguishes the positive summary?",
+      "options": [
+        "Protected targets and unverified context",
+        "The raw count alone"
+      ],
+      "answer": 0,
+      "explanation": "Cache lifecycle operations can be high volume without the same impact."
+    },
+    {
+      "prompt": "Why verify backups first?",
+      "options": [
+        "Backups are always present",
+        "Recovery depends on their integrity and isolation"
+      ],
+      "answer": 1,
+      "explanation": "Shared access and untested backups can undermine restoration."
+    }
+  ],
+  "rule": {
+    "id": "THX-25",
+    "severity": "high",
+    "source": "linux",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "delete_summary"
+      },
+      {
+        "field": "observables.target_class",
+        "op": "eq",
+        "value": "protected"
+      },
+      {
+        "field": "observables.objects_affected",
+        "op": "gte",
+        "value": 100
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.change_context",
+        "op": "eq",
+        "value": "approved_disposal"
+      }
+    ],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1485",
+  "license": "MIT"
+}

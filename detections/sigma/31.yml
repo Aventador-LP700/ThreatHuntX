@@ -1,0 +1,27 @@
+title: Malicious dependencies observation
+name: threathuntx_31
+id: 41c4aaaf-34d2-5fd1-bf29-97e360d21787
+status: test
+description: A new package version with an installation hook and missing provenance
+  merits a review before approving a build.
+references:
+- https://attack.mitre.org/techniques/T1195/001
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1195.001
+logsource:
+  product: github
+  service: audit
+  definition: GitHub organization audit projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: github
+    THXAction: dependency_review
+    THXLifecycleChange: new_install_hook
+    THXProvenanceStatus: missing
+  condition: selection
+falsepositives:
+- A legitimate dependency may add build-time setup before enabling provenance.
+level: medium

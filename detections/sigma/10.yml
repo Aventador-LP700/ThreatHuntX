@@ -1,0 +1,28 @@
+title: WMI subscriptions observation
+name: threathuntx_10
+id: 71aa1141-8e47-5ba1-98c8-ab5339acca0f
+status: test
+description: A new permanent WMI binding with unknown ownership warrants a review
+  of the filter, consumer and registration actor.
+references:
+- https://attack.mitre.org/techniques/T1546/003
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1546.003
+logsource:
+  product: windows
+  service: sysmon
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXEventId: '21'
+    THXAction: wmi_binding
+    THXNamespace: root/subscription
+    THXOwnerState: unknown
+  condition: selection
+falsepositives:
+- Managed inventory software can register subscriptions during onboarding.
+level: medium

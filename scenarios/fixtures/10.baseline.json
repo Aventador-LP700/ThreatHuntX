@@ -1,0 +1,42 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "10-baseline-01",
+    "record": {
+      "TimeCreated": "2025-08-14T11:50:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "wmi_binding",
+      "Status": "success",
+      "EventID": "21"
+    },
+    "context": {},
+    "observables": {
+      "namespace": "root/subscription",
+      "consumer_class": "LogFileEventConsumer",
+      "owner_state": "managed",
+      "consumer": "inventory-consumer"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "10-baseline-02",
+    "record": {
+      "TimeCreated": "2025-08-14T11:50:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "wmi_binding",
+      "Status": "success",
+      "EventID": "21"
+    },
+    "context": {},
+    "observables": {
+      "namespace": "root/subscription",
+      "consumer_class": "LogFileEventConsumer",
+      "owner_state": "managed",
+      "consumer": "inventory-consumer"
+    }
+  }
+]

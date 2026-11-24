@@ -1,0 +1,86 @@
+{
+  "id": "08",
+  "title": "Scheduled tasks / cron",
+  "category": "Execution & Persistence",
+  "overview": "Review a synthetic cron modification and compare a user-managed schedule with approved deployment automation.",
+  "objective": "Recurring malicious startup.",
+  "platform": "Linux",
+  "difficulty": "Beginner",
+  "minutes": 8,
+  "prerequisites": "Read the baseline and compare event fields. No external tools are required.",
+  "attack": {
+    "id": "T1053.003",
+    "name": "Cron",
+    "url": "https://attack.mitre.org/techniques/T1053/003",
+    "tactics": [
+      "execution",
+      "persistence",
+      "privilege_escalation"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Linux audit projection",
+  "data_sources": [
+    "Linux audit projection",
+    "Task/cron change alerts"
+  ],
+  "hypothesis": "A root-owned cron change originating from an interactive write is worth checking against change management.",
+  "evidence": "Find the writer, schedule owner, file path and change window. Compare the review record for the host.",
+  "false_positive": "An administrator may create a job during approved maintenance.",
+  "tuning": "Join known deployment identities and documented change windows. Keep unexpected schedule owners visible.",
+  "response": "Preserve the audit trail and job definition, verify the owner, then remove an unauthorized entry according to policy.",
+  "prevention": "Restrict cron directory writes and monitor job definitions and changes.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The Linux case exercises cron. Scheduled Task on Windows requires a different sensor and field map.",
+  "questions": [
+    {
+      "prompt": "Whose schedule was changed?",
+      "options": [
+        "Root",
+        "The package registry"
+      ],
+      "answer": 0,
+      "explanation": "The schedule owner and the actor are distinct fields."
+    },
+    {
+      "prompt": "What can explain the change?",
+      "options": [
+        "Any timestamp during business hours",
+        "A verified maintenance record with matching scope"
+      ],
+      "answer": 1,
+      "explanation": "Authorization requires a change record, accountable actor and matching host."
+    }
+  ],
+  "rule": {
+    "id": "THX-08",
+    "severity": "medium",
+    "source": "linux",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "cron_change"
+      },
+      {
+        "field": "observables.schedule_owner",
+        "op": "eq",
+        "value": "root"
+      },
+      {
+        "field": "observables.origin_class",
+        "op": "eq",
+        "value": "user_write"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1053/003",
+  "license": "MIT"
+}

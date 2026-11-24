@@ -1,8 +1,8 @@
 import { computed, ref } from 'vue'
-import type { Catalog, Coverage, LessonData, ReplayMode, Run } from './types'
+import type { Artifact, ArtifactKind, Catalog, Coverage, LessonData, ReplayMode, Run } from './types'
 
 export const showcase = import.meta.env.MODE === 'showcase'
-type Snapshot = { catalog: Catalog; coverage: Coverage; runs: Record<string, Run> }
+type Snapshot = { catalog: Catalog; coverage: Coverage; artifacts: Record<string, Artifact>; runs: Record<string, Run> }
 let snapshotPromise: Promise<Snapshot> | undefined
 const showcaseRuns = new Map<string, Run>()
 
@@ -78,4 +78,12 @@ export function validationStatus(id: string) {
   const cases = coverage.value?.cases.filter(test => test.scenario_id === id) ?? []
   if (!cases.length) return 'Documented'
   return cases.every(test => test.passed) ? 'Synthetic-verified' : 'Fixture checks failed'
+}
+
+export async function ruleArtifact(id: string, kind: ArtifactKind): Promise<Artifact> {
+  if (!showcase) return request(`/api/rules/${encodeURIComponent(id)}/artifacts/${kind}`)
+  const data = await snapshot()
+  const info = data.artifacts[kind === 'wazuh' ? 'wazuh' : `${id}-${kind}`]
+  if (!info) throw new Error('This rule format is unavailable.')
+  return info
 }

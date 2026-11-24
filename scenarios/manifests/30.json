@@ -1,0 +1,84 @@
+{
+  "id": "30",
+  "title": "QR phishing",
+  "category": "Modern Identity",
+  "overview": "Inspect a normalized URL verdict for a redirect discovered during QR inspection.",
+  "objective": "QR-directed malicious URLs.",
+  "platform": "Identity",
+  "difficulty": "Beginner",
+  "minutes": 8,
+  "prerequisites": "Read the baseline and compare event fields. No external tools are required.",
+  "attack": {
+    "id": "T1566.002",
+    "name": "Spearphishing Link",
+    "url": "https://attack.mitre.org/techniques/T1566/002",
+    "tactics": [
+      "initial_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Mail gateway or attachment projection",
+  "data_sources": [
+    "Mail gateway or attachment projection",
+    "Mail/URL redirect anomalies"
+  ],
+  "hypothesis": "A QR-derived redirect classified as a credential lure supports a message and click investigation.",
+  "evidence": "Review the QR origin, redirect verdict and message identifier. Correlate the recipient’s activity without using the URL.",
+  "false_positive": "A legitimate event registration or facilities email can also contain a redirecting QR code.",
+  "tuning": "Use destination and redirect context. Avoid treating every QR code as suspicious.",
+  "response": "Quarantine related messages, check interactions and review sign-ins if recipients used the destination.",
+  "prevention": "Use QR inspection and phishing-resistant authentication. Teach users to report unexpected QR sign-in prompts.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "No QR image, active URL or credential collection appears in the fixture.",
+  "questions": [
+    {
+      "prompt": "Which evidence distinguishes the fixture from a normal QR message?",
+      "options": [
+        "A redirect verdict indicating a credential lure",
+        "The presence of a QR code alone"
+      ],
+      "answer": 0,
+      "explanation": "QR format is a delivery detail. Destination analysis gives the signal."
+    },
+    {
+      "prompt": "Where could an analyst find follow-on impact?",
+      "options": [
+        "Only the attachment filename",
+        "Identity and click records"
+      ],
+      "answer": 1,
+      "explanation": "A delivery verdict cannot establish whether a recipient interacted."
+    }
+  ],
+  "rule": {
+    "id": "THX-30",
+    "severity": "medium",
+    "source": "mail",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "qr_url_assessment"
+      },
+      {
+        "field": "observables.link_origin",
+        "op": "eq",
+        "value": "qr"
+      },
+      {
+        "field": "observables.redirect_verdict",
+        "op": "eq",
+        "value": "credential_lure"
+      }
+    ],
+    "suppress_when": [],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1566/002",
+  "license": "MIT"
+}

@@ -1,0 +1,30 @@
+title: Device-code phishing observation
+name: threathuntx_27
+id: cb875626-b919-5f62-b621-78532000546f
+status: test
+description: An unmanaged device-flow grant to an unapproved application merits checking
+  user intent and policy.
+references:
+- https://attack.mitre.org/techniques/T1566/002
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1566.002
+logsource:
+  product: azure
+  service: signinlogs
+  definition: Entra sign-in or audit projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: identity
+    THXAction: oauth_grant
+    THXOutcome: success
+    THXFlow: device_code
+    THXDeviceClass: unmanaged
+    THXAppTrust: unknown
+  condition: selection
+falsepositives:
+- Headless device onboarding and some administrator tools legitimately use device
+  flow.
+level: medium

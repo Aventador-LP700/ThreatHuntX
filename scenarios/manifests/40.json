@@ -1,0 +1,95 @@
+{
+  "id": "40",
+  "title": "SaaS exfiltration",
+  "category": "Cloud / Host / Saas",
+  "overview": "Review a cloud application record for a large external share of restricted documents.",
+  "objective": "Mass download/sharing.",
+  "platform": "SaaS",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and saas audit projection fields.",
+  "attack": {
+    "id": "T1567",
+    "name": "Exfiltration Over Web Service",
+    "url": "https://attack.mitre.org/techniques/T1567",
+    "tactics": [
+      "exfiltration"
+    ],
+    "confidence": "related",
+    "rationale": "External sharing can provide a route for exfiltration over a web service. The fixture represents sharing and not confirmed download."
+  },
+  "telemetry": "SaaS audit projection",
+  "data_sources": [
+    "SaaS audit projection",
+    "SaaS audit + DLP alerts"
+  ],
+  "hypothesis": "A large share of restricted SaaS data to external recipients warrants checking access grants and delivery.",
+  "evidence": "Check actor, volume, data classification and destination. Review subsequent access and whether sharing was approved.",
+  "false_positive": "An approved collaboration or e-discovery export can generate a bulk share event.",
+  "tuning": "Scope approvals by destination tenant, actor and data policy. Distinguish access granted from access used.",
+  "response": "Preserve share and access logs, revoke unauthorized links and scope external access or downloads.",
+  "prevention": "Apply DLP, external sharing policy, data classification and conditional access.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The dataset records a synthetic share summary. External access or data transfer needs separate evidence.",
+  "questions": [
+    {
+      "prompt": "What establishes that recipients used the share?",
+      "options": [
+        "Access or delivery audit records after the grant",
+        "The size of a sharing icon"
+      ],
+      "answer": 0,
+      "explanation": "An authorization event can precede access or never be used."
+    },
+    {
+      "prompt": "What helps prioritize the alert?",
+      "options": [
+        "The first letter of the app name",
+        "Data class, destination, actor and volume"
+      ],
+      "answer": 1,
+      "explanation": "Sensitivity and destination provide context beyond record count."
+    }
+  ],
+  "rule": {
+    "id": "THX-40",
+    "severity": "medium",
+    "source": "saas",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "bulk_share_summary"
+      },
+      {
+        "field": "observables.destination_class",
+        "op": "eq",
+        "value": "external"
+      },
+      {
+        "field": "observables.data_class",
+        "op": "eq",
+        "value": "restricted"
+      },
+      {
+        "field": "observables.file_count",
+        "op": "gte",
+        "value": 100
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.change_context",
+        "op": "eq",
+        "value": "approved_discovery"
+      }
+    ],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1567",
+  "license": "MIT"
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "mail",
+    "record_id": "30-positive-01",
+    "record": {
+      "Timestamp": "2025-08-14T16:30:00Z",
+      "Relay": "relay-01.training.example",
+      "RecipientEmailAddress": "analyst-sample@training.example",
+      "Activity": "qr_url_assessment",
+      "DeliveryAction": "allowed",
+      "EventType": "QRInspection"
+    },
+    "context": {
+      "domain": "training.example"
+    },
+    "observables": {
+      "link_origin": "qr",
+      "redirect_verdict": "business",
+      "message_id": "training-business-30"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "mail",
+    "record_id": "30-positive-02",
+    "record": {
+      "Timestamp": "2025-08-14T16:30:32Z",
+      "Relay": "relay-01.training.example",
+      "RecipientEmailAddress": "analyst-sample@training.example",
+      "Activity": "qr_url_assessment",
+      "DeliveryAction": "blocked",
+      "EventType": "QRInspection"
+    },
+    "context": {
+      "domain": "qr-check.invalid"
+    },
+    "observables": {
+      "link_origin": "qr",
+      "redirect_verdict": "credential_lure",
+      "message_id": "training-qr-30"
+    }
+  }
+]

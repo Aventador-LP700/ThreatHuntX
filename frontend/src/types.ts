@@ -1,3 +1,5 @@
+export type ArtifactKind = 'sigma' | 'wazuh' | 'kql' | 'spl'
+export interface Artifact { kind: ArtifactKind; label: string; status: string; code: string }
 export type Scalar = string | number | boolean
 export type Mode = 'baseline' | 'positive' | 'negative'
 export type ReplayMode = Exclude<Mode, 'baseline'>
@@ -86,8 +88,9 @@ export interface Scenario {
   rule: Rule
   core_lesson: boolean
   reference: string
+  artifacts: ArtifactKind[]
 }
-export interface AttackVersion { version: string; domain: string; source: string; terms: string; commit: string }
+export interface AttackVersion { version: string; domain: string; source: string; terms: string; commit: string; tactics: { id: string; name: string }[] }
 export interface Catalog { attack: AttackVersion; scenarios: Scenario[] }
 export interface FixtureCheck { scenario_id: string; mode: Mode; expected: boolean; actual: boolean; alerts: number; passed: boolean }
 export interface Metrics { tp: number; fp: number; tn: number; fn: number; precision: number | null; recall: number | null; passed: number; total: number; pass_rate: number }

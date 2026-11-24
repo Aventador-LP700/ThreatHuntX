@@ -1,0 +1,27 @@
+title: Container escape observation
+name: threathuntx_36
+id: 53798371-237f-51c9-8bba-61373eeb4e8d
+status: test
+description: A workload-created privileged pod requesting the host PID namespace should
+  trigger review of authorization and runtime evidence.
+references:
+- https://attack.mitre.org/techniques/T1611
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1611
+logsource:
+  product: kubernetes
+  service: audit
+  definition: Kubernetes audit projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: kubernetes
+    THXAction: create_pod
+    THXPrivileged: true
+    THXHostNamespace: pid
+    THXActorClass: workload
+  condition: selection
+falsepositives:
+- Infrastructure monitoring or storage agents can require host-level access.
+level: high

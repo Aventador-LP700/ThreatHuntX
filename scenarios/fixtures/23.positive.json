@@ -1,0 +1,112 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "23-positive-01",
+    "record": {
+      "TimeCreated": "2025-08-14T14:52:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "file_rename",
+      "Status": "observed",
+      "EventID": "FileRenameSummary"
+    },
+    "context": {
+      "process": "document-editor.exe"
+    },
+    "observables": {
+      "directory_class": "shared_documents",
+      "extension_after": ".tmp",
+      "extension_pattern": "temporary",
+      "file_id": "23-observation-01"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "23-positive-02",
+    "record": {
+      "TimeCreated": "2025-08-14T14:52:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "file_rename",
+      "Status": "observed",
+      "EventID": "FileRenameSummary"
+    },
+    "context": {
+      "process": "sample-batch-writer.exe"
+    },
+    "observables": {
+      "directory_class": "shared_documents",
+      "extension_after": ".training-locked",
+      "extension_pattern": "unexpected_uniform",
+      "file_id": "23-observation-02"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "23-positive-03",
+    "record": {
+      "TimeCreated": "2025-08-14T14:53:04Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "file_rename",
+      "Status": "observed",
+      "EventID": "FileRenameSummary"
+    },
+    "context": {
+      "process": "sample-batch-writer.exe"
+    },
+    "observables": {
+      "directory_class": "shared_documents",
+      "extension_after": ".training-locked",
+      "extension_pattern": "unexpected_uniform",
+      "file_id": "23-observation-03"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "23-positive-04",
+    "record": {
+      "TimeCreated": "2025-08-14T14:53:36Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "file_rename",
+      "Status": "observed",
+      "EventID": "FileRenameSummary"
+    },
+    "context": {
+      "process": "sample-batch-writer.exe"
+    },
+    "observables": {
+      "directory_class": "shared_documents",
+      "extension_after": ".training-locked",
+      "extension_pattern": "unexpected_uniform",
+      "file_id": "23-observation-04"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "23-positive-05",
+    "record": {
+      "TimeCreated": "2025-08-14T14:54:08Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "file_rename",
+      "Status": "observed",
+      "EventID": "FileRenameSummary"
+    },
+    "context": {
+      "process": "sample-batch-writer.exe"
+    },
+    "observables": {
+      "directory_class": "shared_documents",
+      "extension_after": ".training-locked",
+      "extension_pattern": "unexpected_uniform",
+      "file_id": "23-observation-05"
+    }
+  }
+]

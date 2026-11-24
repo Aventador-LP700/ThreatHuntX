@@ -1,0 +1,40 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "linux",
+    "record_id": "08-positive-01",
+    "record": {
+      "timestamp": "2025-08-14T11:22:00Z",
+      "node": "linux-05.training.example",
+      "acct": "analyst-sample@training.example",
+      "type": "cron_change",
+      "res": "success",
+      "serial": "PATH"
+    },
+    "context": {},
+    "observables": {
+      "schedule_owner": "root",
+      "origin_class": "package_install",
+      "file_path": "/etc/cron.d/training-maintenance"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "linux",
+    "record_id": "08-positive-02",
+    "record": {
+      "timestamp": "2025-08-14T11:22:32Z",
+      "node": "linux-05.training.example",
+      "acct": "analyst-sample@training.example",
+      "type": "cron_change",
+      "res": "success",
+      "serial": "PATH"
+    },
+    "context": {},
+    "observables": {
+      "schedule_owner": "root",
+      "origin_class": "user_write",
+      "file_path": "/etc/cron.d/training-entry"
+    }
+  }
+]

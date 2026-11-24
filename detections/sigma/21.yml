@@ -1,0 +1,47 @@
+title: AD enumeration observation
+name: threathuntx_21
+id: 690fcfc4-f03a-5191-b094-e8ac73b4359c
+status: test
+description: A workstation actor issuing repeated directory-wide user-listing queries
+  warrants a directory discovery hunt.
+references:
+- https://attack.mitre.org/techniques/T1087/002
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1087.002
+logsource:
+  product: windows
+  definition: Windows security or Sysmon projection; ThreatHuntX normalized field
+    mapping required
+detection:
+  selection:
+    THXSource: windows
+    THXAction: ldap_query_summary
+    THXQueryClass: user_listing
+    THXClientClass: workstation
+    THXBreadthClass: directory_wide
+  condition: selection
+falsepositives:
+- Auditors, administrators and inventory jobs can enumerate users legitimately.
+level: medium
+---
+title: AD enumeration correlation
+id: 111f939a-84c4-55c5-9680-088412547583
+status: test
+description: Compare actor, LDAP query class, query scope and client role. Check how
+  often that actor normally queries the directory.
+references:
+- https://attack.mitre.org/techniques/T1087/002
+tags:
+- attack.t1087.002
+correlation:
+  type: event_count
+  rules:
+  - threathuntx_21
+  group-by:
+  - THXUser
+  timespan: 5m
+  condition:
+    gte: 2
+level: medium

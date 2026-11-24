@@ -1,0 +1,40 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "39-positive-01",
+    "record": {
+      "TimeCreated": "2025-08-14T18:36:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "remote_support_session",
+      "Status": "success",
+      "EventID": "RemoteSupportSummary"
+    },
+    "context": {},
+    "observables": {
+      "tool_approval": "approved",
+      "peer_zone": "internal",
+      "tool_name": "approved-support"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "39-positive-02",
+    "record": {
+      "TimeCreated": "2025-08-14T18:36:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "remote_support_session",
+      "Status": "success",
+      "EventID": "RemoteSupportSummary"
+    },
+    "context": {},
+    "observables": {
+      "tool_approval": "unapproved",
+      "peer_zone": "external",
+      "tool_name": "sample-remote-tool"
+    }
+  }
+]

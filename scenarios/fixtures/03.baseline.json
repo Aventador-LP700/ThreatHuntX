@@ -1,0 +1,40 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-baseline-01",
+    "record": {
+      "createdDateTime": "2025-08-14T10:12:00Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "user-01@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "success",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "none"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "03-baseline-02",
+    "record": {
+      "createdDateTime": "2025-08-14T10:12:32Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "user-02@training.example",
+      "activityDisplayName": "sign_in",
+      "result": "success",
+      "id": "SignIn"
+    },
+    "context": {
+      "source_ip": "198.51.100.28"
+    },
+    "observables": {
+      "failure_reason": "none"
+    }
+  }
+]

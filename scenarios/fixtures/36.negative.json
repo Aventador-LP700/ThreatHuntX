@@ -1,0 +1,42 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "kubernetes",
+    "record_id": "36-negative-01",
+    "record": {
+      "stageTimestamp": "2025-08-14T17:54:00Z",
+      "cluster": "training-cluster",
+      "username": "analyst-sample@training.example",
+      "verb": "create_pod",
+      "responseStatus": "success",
+      "auditType": "pods"
+    },
+    "context": {},
+    "observables": {
+      "privileged": true,
+      "host_namespace": "none",
+      "namespace": "training-app",
+      "actor_class": "workload"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "kubernetes",
+    "record_id": "36-negative-02",
+    "record": {
+      "stageTimestamp": "2025-08-14T17:54:32Z",
+      "cluster": "training-cluster",
+      "username": "analyst-sample@training.example",
+      "verb": "create_pod",
+      "responseStatus": "success",
+      "auditType": "pods"
+    },
+    "context": {},
+    "observables": {
+      "privileged": false,
+      "host_namespace": "none",
+      "namespace": "training-app",
+      "actor_class": "workload"
+    }
+  }
+]

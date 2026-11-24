@@ -4,7 +4,6 @@ import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated, Literal
-from urllib.parse import urlsplit
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import JSONResponse, Response
@@ -12,6 +11,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .catalog import Catalog
 from .models import RunRequest
+from .portability import Kind, artifact, present_scenario
 from .store import Store
 
 
@@ -33,7 +33,8 @@ def create_app(db_path: Path | None = None, catalog: Catalog | None = None) -> F
         redoc_url=None,
     )
     api.add_middleware(
-        TrustedHostMiddleware, allowed_hosts=["localhost", "127.0.0.1", "testserver"]
+        TrustedHostMiddleware,
+        allowed_hosts=["localhost", "127.0.0.1"] + (["testserver"] if db_path else []),
     )
 
     def scenario_or_404(request: Request, scenario_id: str):
@@ -53,7 +54,7 @@ def create_app(db_path: Path | None = None, catalog: Catalog | None = None) -> F
         if request.method == "POST":
             origin = request.headers.get("origin")
             host = request.headers.get("host")
-            if origin and (urlsplit(origin).scheme != "http" or urlsplit(origin).netloc != host):
+            if origin and origin != f"http://{host}":
                 return JSONResponse(
                     {"detail": "Replay is available from the local lab origin."}, 403
                 )
@@ -71,16 +72,32 @@ def create_app(db_path: Path | None = None, catalog: Catalog | None = None) -> F
     @api.get("/api/scenarios")
     def list_scenarios(request: Request):
         lab = request.app.state.catalog
-        return {"attack": lab.attack, "scenarios": list(lab.scenarios.values())}
+        return {
+            "attack": lab.attack,
+            "scenarios": [
+                present_scenario(lab.root, scenario) for scenario in lab.scenarios.values()
+            ],
+        }
 
     @api.get("/api/scenarios/{scenario_id}")
     def get_scenario(request: Request, scenario_id: str):
         scenario = scenario_or_404(request, scenario_id)
-        return {"scenario": scenario, "baseline": run_or_404(request, f"baseline-{scenario_id}")}
+        return {
+            "scenario": present_scenario(request.app.state.catalog.root, scenario),
+            "baseline": run_or_404(request, f"baseline-{scenario_id}"),
+        }
 
     @api.get("/api/coverage")
     def coverage(request: Request):
         return request.app.state.catalog.validation
+
+    @api.get("/api/rules/{scenario_id}/artifacts/{kind}")
+    def get_artifact(request: Request, scenario_id: str, kind: Kind):
+        scenario_or_404(request, scenario_id)
+        result = artifact(request.app.state.catalog.root, scenario_id, kind)
+        if result is None:
+            raise HTTPException(404, "No artifact for this detection language")
+        return result
 
     @api.post("/api/replay", status_code=201)
     def replay(request: Request, selection: RunRequest):

@@ -1,0 +1,26 @@
+title: Cloud metadata theft observation
+name: threathuntx_37
+id: 85a08932-b7c6-5789-b377-32910bda0ed6
+status: test
+description: A metadata credential request by an unapproved workload warrants checking
+  workload identity and access policy.
+references:
+- https://attack.mitre.org/techniques/T1552/005
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1552.005
+logsource:
+  category: network_connection
+  definition: Network sensor or WAF projection; ThreatHuntX normalized field mapping
+    required
+detection:
+  selection:
+    THXSource: network
+    THXAction: metadata_request
+    THXRequestClass: instance_credentials
+    THXCallerClass: unexpected_workload
+  condition: selection
+falsepositives:
+- A deployed agent or SDK may require metadata access to obtain authorized role credentials.
+level: medium

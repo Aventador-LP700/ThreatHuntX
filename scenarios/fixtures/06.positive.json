@@ -1,0 +1,43 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "06-positive-01",
+    "record": {
+      "TimeCreated": "2025-08-14T10:54:00Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "script_block",
+      "Status": "observed",
+      "EventID": "4104"
+    },
+    "context": {
+      "process": "powershell.exe",
+      "parent_process": "explorer.exe"
+    },
+    "observables": {
+      "script_class": "administration"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "windows",
+    "record_id": "06-positive-02",
+    "record": {
+      "TimeCreated": "2025-08-14T10:54:32Z",
+      "Computer": "workstation-02.training.example",
+      "User": "analyst-sample@training.example",
+      "Activity": "script_block",
+      "Status": "observed",
+      "EventID": "4104"
+    },
+    "context": {
+      "process": "powershell.exe",
+      "parent_process": "winword.exe"
+    },
+    "observables": {
+      "script_class": "obfuscated",
+      "script_label": "summarized fixture only"
+    }
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "github",
+    "record_id": "32-negative-01",
+    "record": {
+      "created_at": "2025-08-14T16:58:00Z",
+      "repo": "example-org/training-repo",
+      "actor": "analyst-sample@training.example",
+      "action": "automation_token_use",
+      "result": "success",
+      "operation_type": "workflows.token_use"
+    },
+    "context": {},
+    "observables": {
+      "runner_trust": "unapproved",
+      "scope_class": "repository_read",
+      "workflow_id": "training-workflow"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "github",
+    "record_id": "32-negative-02",
+    "record": {
+      "created_at": "2025-08-14T16:58:32Z",
+      "repo": "example-org/training-repo",
+      "actor": "analyst-sample@training.example",
+      "action": "automation_token_use",
+      "result": "success",
+      "operation_type": "workflows.token_use"
+    },
+    "context": {},
+    "observables": {
+      "runner_trust": "managed",
+      "scope_class": "repository_read",
+      "workflow_id": "training-workflow"
+    }
+  }
+]

@@ -1,0 +1,3 @@
+index=threathuntx sourcetype="thx:normalized:json" THXSource="mail"
+| where (lower(tostring(THXAction)) = "attachment_scan") AND (in(lower(tostring(THXFileExt)), ".html", ".htm")) AND (lower(tostring(THXSandboxTrait)) = "embedded_file_materialization")
+| table _time THXSource THXRecordId THXAction THXFileExt THXSandboxTrait THXUser

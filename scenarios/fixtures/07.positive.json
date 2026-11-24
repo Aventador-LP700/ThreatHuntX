@@ -1,0 +1,40 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "mail",
+    "record_id": "07-positive-01",
+    "record": {
+      "Timestamp": "2025-08-14T11:08:00Z",
+      "Relay": "relay-01.training.example",
+      "RecipientEmailAddress": "analyst-sample@training.example",
+      "Activity": "attachment_scan",
+      "DeliveryAction": "allowed",
+      "EventType": "AttachmentInspection"
+    },
+    "context": {},
+    "observables": {
+      "file_ext": ".html",
+      "sandbox_trait": "static_document",
+      "message_id": "business-mail-07"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "mail",
+    "record_id": "07-positive-02",
+    "record": {
+      "Timestamp": "2025-08-14T11:08:32Z",
+      "Relay": "relay-01.training.example",
+      "RecipientEmailAddress": "analyst-sample@training.example",
+      "Activity": "attachment_scan",
+      "DeliveryAction": "blocked",
+      "EventType": "AttachmentInspection"
+    },
+    "context": {},
+    "observables": {
+      "file_ext": ".html",
+      "sandbox_trait": "embedded_file_materialization",
+      "message_id": "sample-mail-07"
+    }
+  }
+]

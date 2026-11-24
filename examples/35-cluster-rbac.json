@@ -1,0 +1,85 @@
+{
+  "synthetic_only": true,
+  "id": "example-35",
+  "scenario_id": "35",
+  "mode": "positive",
+  "created_at": "2025-08-14T17:40:00Z",
+  "events": [
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T17:40:00Z",
+      "source": "kubernetes",
+      "host": "training-cluster",
+      "user": "analyst-sample@training.example",
+      "process": null,
+      "command_line": null,
+      "parent_process": null,
+      "event_id": "RoleBinding",
+      "record_id": "35-positive-01",
+      "source_ip": null,
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "create_binding",
+      "outcome": "success",
+      "evidence_reference": "scenarios/fixtures/35.positive.json#35-positive-01",
+      "scenario_id": "35",
+      "technique_id": "T1098.006",
+      "alert_id": null,
+      "synthetic": true,
+      "observables": {
+        "resource": "rolebindings",
+        "role_ref": "view",
+        "actor_class": "approved_controller",
+        "subject": "sample-reader",
+        "namespace": "training"
+      }
+    },
+    {
+      "schema_version": 1,
+      "event_timestamp": "2025-08-14T17:40:32Z",
+      "source": "kubernetes",
+      "host": "training-cluster",
+      "user": "analyst-sample@training.example",
+      "process": null,
+      "command_line": null,
+      "parent_process": null,
+      "event_id": "ClusterRoleBinding",
+      "record_id": "35-positive-02",
+      "source_ip": null,
+      "destination_ip": null,
+      "url": null,
+      "domain": null,
+      "action": "create_binding",
+      "outcome": "success",
+      "evidence_reference": "scenarios/fixtures/35.positive.json#35-positive-02",
+      "scenario_id": "35",
+      "technique_id": "T1098.006",
+      "alert_id": "example-35-1",
+      "synthetic": true,
+      "observables": {
+        "resource": "clusterrolebindings",
+        "role_ref": "cluster-admin",
+        "actor_class": "interactive",
+        "subject": "sample-service-account",
+        "namespace": "training"
+      }
+    }
+  ],
+  "alerts": [
+    {
+      "id": "example-35-1",
+      "rule_id": "THX-35",
+      "scenario_id": "35",
+      "title": "Kubernetes RBAC abuse",
+      "severity": "high",
+      "group": "training-cluster",
+      "first_seen": "2025-08-14T17:40:32Z",
+      "last_seen": "2025-08-14T17:40:32Z",
+      "event_count": 1,
+      "evidence": [
+        "35-positive-02"
+      ]
+    }
+  ]
+}

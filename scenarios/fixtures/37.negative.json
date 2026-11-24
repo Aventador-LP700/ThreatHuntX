@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "37-negative-01",
+    "record": {
+      "ts": "2025-08-14T18:08:00Z",
+      "sensor": "sensor-01.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "metadata_request",
+      "verdict": "blocked",
+      "signature_id": "MetadataAccessSummary"
+    },
+    "context": {
+      "process": "sample-worker"
+    },
+    "observables": {
+      "request_class": "instance_credentials",
+      "caller_class": "approved_agent",
+      "metadata_zone": "link_local"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "network",
+    "record_id": "37-negative-02",
+    "record": {
+      "ts": "2025-08-14T18:08:32Z",
+      "sensor": "sensor-01.training.example",
+      "principal": "analyst-sample@training.example",
+      "event_type": "metadata_request",
+      "verdict": "allowed",
+      "signature_id": "MetadataAccessSummary"
+    },
+    "context": {
+      "process": "managed-agent"
+    },
+    "observables": {
+      "request_class": "instance_identity",
+      "caller_class": "approved_agent",
+      "metadata_zone": "link_local"
+    }
+  }
+]

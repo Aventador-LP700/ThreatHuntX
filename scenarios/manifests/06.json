@@ -1,0 +1,101 @@
+{
+  "id": "06",
+  "title": "PowerShell abuse",
+  "category": "Execution & Persistence",
+  "overview": "Investigate a PowerShell script-block observation with an unusual document-application parent.",
+  "objective": "Suspicious script execution.",
+  "platform": "Windows",
+  "difficulty": "Intermediate",
+  "minutes": 12,
+  "prerequisites": "Be comfortable reading timestamps and windows security or sysmon projection fields.",
+  "attack": {
+    "id": "T1059.001",
+    "name": "PowerShell",
+    "url": "https://attack.mitre.org/techniques/T1059/001",
+    "tactics": [
+      "execution"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "Script block + process events"
+  ],
+  "hypothesis": "An obfuscated PowerShell observation under an office parent warrants process-tree and document review.",
+  "evidence": "Use event 4104, parent process and script classification, then pivot to process identity and document origin.",
+  "false_positive": "Internal Office automation can invoke maintenance tooling with similar lineage.",
+  "tuning": "Verify a specific signed workflow and execution identity before creating a bounded exception.",
+  "response": "Preserve script-block and process records, scope related executions and isolate if other evidence supports compromise.",
+  "prevention": "Enable script block logging, AMSI integration and application control. Review Office child-process policy.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture uses a preclassified script event with normalized parent context. No script executes.",
+  "questions": [
+    {
+      "prompt": "Which event supplies script-block context?",
+      "options": [
+        "4104",
+        "4624"
+      ],
+      "answer": 0,
+      "explanation": "4104 is a PowerShell script-block logging event, whereas 4624 denotes successful logon."
+    },
+    {
+      "prompt": "What makes the lineage relevant?",
+      "options": [
+        "The machine had a descriptive name",
+        "An office process launched the script interpreter"
+      ],
+      "answer": 1,
+      "explanation": "Parentage helps distinguish the unusual launch context from ordinary interactive administration."
+    }
+  ],
+  "rule": {
+    "id": "THX-06",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "event_id",
+        "op": "eq",
+        "value": "4104"
+      },
+      {
+        "field": "process",
+        "op": "in",
+        "value": [
+          "powershell.exe",
+          "pwsh.exe"
+        ]
+      },
+      {
+        "field": "parent_process",
+        "op": "in",
+        "value": [
+          "winword.exe",
+          "excel.exe"
+        ]
+      },
+      {
+        "field": "observables.script_class",
+        "op": "eq",
+        "value": "obfuscated"
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.approved_automation",
+        "op": "eq",
+        "value": true
+      }
+    ],
+    "group_by": "user",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": true,
+  "reference": "https://attack.mitre.org/techniques/T1059/001",
+  "license": "MIT"
+}

@@ -1,0 +1,95 @@
+{
+  "id": "29",
+  "title": "Infostealers",
+  "category": "Modern Identity",
+  "overview": "Look for unexpected reads of a browser credential-store category by a process without established trust.",
+  "objective": "Harvest browser secrets.",
+  "platform": "Windows",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of Windows auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1555.003",
+    "name": "Credentials from Web Browsers",
+    "url": "https://attack.mitre.org/techniques/T1555/003",
+    "tactics": [
+      "credential_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Windows security or Sysmon projection",
+  "data_sources": [
+    "Windows security or Sysmon projection",
+    "Browser credential access"
+  ],
+  "hypothesis": "An unapproved non-browser reader accessing credential storage should be correlated with process provenance and account risk.",
+  "evidence": "Compare credential-store classification, actor image, trust and related process or network observations.",
+  "false_positive": "A sanctioned migration or endpoint backup could read profile storage.",
+  "tuning": "Tune by verified publisher and reviewed operation. Keep exceptions distinct from browser session-store access.",
+  "response": "Isolate an affected endpoint if corroborated, identify exposed accounts and rotate credentials through approved policy.",
+  "prevention": "Apply endpoint hardening, managed browser policy and monitored credential-store access.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "No secret value or profile database is present. The access record does not show successful credential decryption.",
+  "questions": [
+    {
+      "prompt": "Which store is relevant?",
+      "options": [
+        "Browser credential storage",
+        "The browser cache alone"
+      ],
+      "answer": 0,
+      "explanation": "Credential-store access and session-cookie access are different observations."
+    },
+    {
+      "prompt": "What evidence assists scoping?",
+      "options": [
+        "A single resolution timestamp",
+        "Related process, endpoint and account events"
+      ],
+      "answer": 1,
+      "explanation": "Additional telemetry helps determine whether access led to credential use."
+    }
+  ],
+  "rule": {
+    "id": "THX-29",
+    "severity": "medium",
+    "source": "windows",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "file_access"
+      },
+      {
+        "field": "observables.target_type",
+        "op": "eq",
+        "value": "browser_credential_store"
+      },
+      {
+        "field": "observables.actor_type",
+        "op": "eq",
+        "value": "unapproved_nonbrowser"
+      },
+      {
+        "field": "observables.operation",
+        "op": "eq",
+        "value": "read"
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.migration_approved",
+        "op": "eq",
+        "value": true
+      }
+    ],
+    "group_by": "host",
+    "threshold": 1,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1555/003",
+  "license": "MIT"
+}

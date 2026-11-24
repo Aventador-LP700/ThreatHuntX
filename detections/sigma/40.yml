@@ -1,0 +1,28 @@
+title: SaaS exfiltration observation
+name: threathuntx_40
+id: b403bbc8-fdfd-568b-b0b7-8f002cc5748b
+status: test
+description: A large share of restricted SaaS data to external recipients warrants
+  checking access grants and delivery.
+references:
+- https://attack.mitre.org/techniques/T1567
+author: ThreatHuntX contributors
+license: MIT
+tags:
+- attack.t1567
+logsource:
+  category: application
+  definition: SaaS audit projection; ThreatHuntX normalized field mapping required
+detection:
+  selection:
+    THXSource: saas
+    THXAction: bulk_share_summary
+    THXDestinationClass: external
+    THXDataClass: restricted
+    THXFileCount|gte: 100
+  condition: selection and not 1 of filter_*
+  filter_0:
+    THXChangeContext: approved_discovery
+falsepositives:
+- An approved collaboration or e-discovery export can generate a bulk share event.
+level: medium

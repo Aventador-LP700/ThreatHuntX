@@ -1,0 +1,95 @@
+{
+  "id": "22",
+  "title": "Cloud storage theft",
+  "category": "Discovery / Exfil / Impact",
+  "overview": "Review repeated bulk reads of restricted cloud objects by a principal outside its usual workload.",
+  "objective": "Mass object access/exports.",
+  "platform": "Cloud",
+  "difficulty": "Advanced",
+  "minutes": 15,
+  "prerequisites": "Know the basics of Cloud auditing and how to review authorization context.",
+  "attack": {
+    "id": "T1530",
+    "name": "Data from Cloud Storage",
+    "url": "https://attack.mitre.org/techniques/T1530",
+    "tactics": [
+      "collection"
+    ],
+    "confidence": "related",
+    "rationale": "T1530 describes collection from cloud storage. External transfer requires additional evidence."
+  },
+  "telemetry": "Cloud audit projection",
+  "data_sources": [
+    "Cloud audit projection",
+    "Cloud object-download alerts"
+  ],
+  "hypothesis": "Repeated high-volume GetObject activity on restricted data by one identity warrants verifying purpose and destination.",
+  "evidence": "Check the principal, data classification, object count and bucket. Compare workload history and transfer logs.",
+  "false_positive": "An approved backup, restore or analytics load can read numerous restricted objects.",
+  "tuning": "Separate scheduled jobs by role and baseline expected data volume per role and bucket.",
+  "response": "Confirm scope and destination, preserve object access logs and restrict unauthorized sessions or roles.",
+  "prevention": "Enable object-level audit for restricted storage, scope access and enforce approved destinations.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The fixture contains read summaries. The records do not establish where data went after retrieval.",
+  "questions": [
+    {
+      "prompt": "What telemetry closes the destination question?",
+      "options": [
+        "Transfer, egress or provider delivery records",
+        "A bucket display name"
+      ],
+      "answer": 0,
+      "explanation": "Successful reads establish access. Subsequent transfer evidence clarifies export."
+    },
+    {
+      "prompt": "What should be baselined together?",
+      "options": [
+        "Only the time of day",
+        "Principal, bucket and volume"
+      ],
+      "answer": 1,
+      "explanation": "Expected workload varies by bucket and role."
+    }
+  ],
+  "rule": {
+    "id": "THX-22",
+    "severity": "medium",
+    "source": "cloud",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "object_read_summary"
+      },
+      {
+        "field": "observables.operation",
+        "op": "eq",
+        "value": "GetObject"
+      },
+      {
+        "field": "observables.data_class",
+        "op": "eq",
+        "value": "restricted"
+      },
+      {
+        "field": "observables.objects_read",
+        "op": "gte",
+        "value": 200
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.job_context",
+        "op": "eq",
+        "value": "approved_backup"
+      }
+    ],
+    "group_by": "user",
+    "threshold": 2,
+    "window_seconds": 300,
+    "distinct": null
+  },
+  "core_lesson": false,
+  "reference": "https://attack.mitre.org/techniques/T1530",
+  "license": "MIT"
+}
