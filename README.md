@@ -1,31 +1,58 @@
 # ThreatHuntX
 
-ThreatHuntX is a free, MIT-licensed threat-hunting education platform. Learn to move from a clean baseline to an evidence-backed response using synthetic security telemetry.
+**40 modern threat scenarios · Offensive behavior → Detection → Defensive response**
 
-![ThreatHuntX Community Lab home page with a guided hunt, technique catalog and fixture results](docs/media/intro.webp)
+ThreatHuntX is a **free, MIT-licensed threat-hunting education lab** for students, SOC analysts, penetration testers, purple teamers, and detection engineers. Explore safe, **synthetic** security telemetry; investigate linked evidence; learn to distinguish attacks from benign activity; and export your findings.
 
-## Quickstart
+> **Safety and scope:** The default lab **replays packaged synthetic records only**. It does not execute attacks, collect live endpoint data, or include a production SIEM. Wazuh, Windows Sysmon, and other real-sensor integrations are optional and documented separately. [Read the validation boundaries](docs/TESTING_AND_VALIDATION.md).
 
-**New to threat hunting?** Follow the [10-minute MFA investigation](docs/FIRST_10_MINUTES.md) and export your first completed lesson. **Already comfortable in a SOC?** Browse the [40 scenario lessons and detection coverage](docs/evidence-matrix.md) or choose a [role-based curriculum](docs/curricula/README.md).
+## 1. See the 40-technique offensive × defensive map
 
-The Community Lab runs Vue behind Nginx, a FastAPI service, and a project-local SQLite database. The engine parses bundled records before applying source-specific rules. The dashboard links alerts to the exact records that contributed to them. The optional [static showcase](public-demo/README.md) uses precomputed synthetic examples. Vendor sensors and live validation have their own setup scope.
+[![ThreatHuntX visual map of 40 modern offensive techniques, hunting signals, and defensive countermeasures](docs/media/attack-matrix.webp)](docs/media/attack-matrix.webp)
 
-![Community Lab architecture from bundled records to investigation and exports](docs/media/architecture.png)
+**[View the full-size threat map](docs/media/attack-matrix.webp)** · [Explore every lesson and its validation status](docs/evidence-matrix.md) · [Choose your learning track](docs/curricula/README.md)
 
-Install Docker with the Compose v2 plugin. Use Docker Desktop with Linux containers and WSL2 on Windows. The reference run is Linux x86-64. See [the validation report](reports/validation-summary.md) for measured resource use and other platform status.
+## 2. Understand the lab before installing
+
+[![ThreatHuntX architecture: bundled synthetic event records, detection engine, local application, and evidence exports](docs/media/architecture.png)](docs/media/architecture.png)
+
+**[Open the architecture diagram](docs/media/architecture.png)** · [Detailed reference architecture](docs/REFERENCE_ARCHITECTURE.md)
+
+### Follow the learner's journey
+
+```mermaid
+flowchart LR
+    A["Clone & launch<br/>Docker Compose"] --> B["Select a lesson<br/>40 scenarios"]
+    B --> C["Replay safe<br/>synthetic events"]
+    C --> D["Hunt & investigate<br/>correlated evidence"]
+    D --> E["Compare clean &<br/>noisy controls"]
+    E --> F["Export report<br/>and learn defenses"]
+```
+
+## 3. Deploy the Community Lab
+
+**Prerequisites:** Git and Docker Engine or Docker Desktop with **Docker Compose v2**. The release candidate was tested on Linux x86-64; Windows/macOS smoke tests remain pending. See [supported environments and resource measurements](reports/validation-summary.md).
 
 ```bash
 git clone https://github.com/Aventador-LP700/ThreatHuntX.git
 cd ThreatHuntX
-./scripts/setup.sh doctor  # Optional Bash preflight
 docker compose up -d --build
+```
+
+Once both services are healthy, open **http://127.0.0.1:8080/** and click **Start Learning**.
+
+```bash
 docker compose ps
 curl -fsS http://127.0.0.1:8080/api/health
 ```
 
-Open <http://127.0.0.1:8080/> when both services are healthy. Select **Start Learning**, open the MFA baseline, and click **Replay safe events** to see one alert. The noisy fixture illustrates why retries and approved enrollment need separate handling. Windows PowerShell users can check health with `Invoke-RestMethod http://127.0.0.1:8080/api/health`.
+For a one-command Bash launcher **after cloning**, run `./scripts/setup.sh`. To shut down, run `docker compose down` (preserves local investigation history). Use `./scripts/setup.sh reset` to clear local fixture runs while the lab is running.
 
-For one Bash command from a checkout, run `./scripts/setup.sh`. It builds the app, checks health and prints the loopback URL. Run `docker compose down` to stop the services and keep replay history. Use `./scripts/setup.sh reset` on the running lab to clear investigation history and restore the bundled baselines. [Setup and troubleshooting](docs/GETTING_STARTED.md) · [Upgrade and reset](docs/TROUBLESHOOTING.md)
+**Start with:** [Your first 10-minute MFA investigation](docs/FIRST_10_MINUTES.md) · [Step-by-step setup](docs/GETTING_STARTED.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
+
+[![ThreatHuntX learner interface showing guided threat investigation and evidence timeline](docs/media/intro.webp)](docs/media/intro.webp)
+
+**Already familiar with SIEM investigations?** Open the [hunt workspace guide](docs/HUNT_HYPOTHESES.md), [detection-rule documentation](docs/PORTABLE_DETECTIONS.md), and [response playbooks](docs/analyst-playbooks/README.md). A read-only [static showcase](public-demo/README.md) can also be hosted without exposing the writable local lab.
 
 ## Coverage
 
