@@ -1,0 +1,10 @@
+services:
+  api:
+    build:
+      secrets: [threathuntx_build_ca]
+  web:
+    build:
+      secrets: [threathuntx_build_ca]
+secrets:
+  threathuntx_build_ca:
+    file: ${THREATHUNTX_CA_FILE:?Set THREATHUNTX_CA_FILE to a trusted local PEM certificate}

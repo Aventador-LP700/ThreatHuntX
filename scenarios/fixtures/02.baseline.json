@@ -1,0 +1,44 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "02-baseline-01",
+    "record": {
+      "createdDateTime": "2025-08-14T09:58:00Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "mfa_challenge",
+      "result": "success",
+      "id": "MFAChallenge"
+    },
+    "context": {
+      "source_ip": "192.0.2.34"
+    },
+    "observables": {
+      "auth_method": "fido2",
+      "client_app": "Corporate portal",
+      "challenge_id": "02-observation-01"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "02-baseline-02",
+    "record": {
+      "createdDateTime": "2025-08-14T09:58:32Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "mfa_challenge",
+      "result": "success",
+      "id": "MFAChallenge"
+    },
+    "context": {
+      "source_ip": "192.0.2.34"
+    },
+    "observables": {
+      "auth_method": "fido2",
+      "client_app": "Corporate portal",
+      "challenge_id": "02-observation-02"
+    }
+  }
+]

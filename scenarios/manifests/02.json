@@ -1,0 +1,92 @@
+{
+  "id": "02",
+  "title": "MFA fatigue",
+  "category": "Initial Access",
+  "overview": "An employee receives repeated, unexpected sign-in approval prompts. Inspect identity logs and decide when repeated denials deserve investigation.",
+  "objective": "Repeated approval prompts.",
+  "platform": "Identity",
+  "difficulty": "Beginner",
+  "minutes": 8,
+  "prerequisites": "Read the baseline and compare event fields. No external tools are required.",
+  "attack": {
+    "id": "T1621",
+    "name": "Multi-Factor Authentication Request Generation",
+    "url": "https://attack.mitre.org/techniques/T1621",
+    "tactics": [
+      "credential_access"
+    ],
+    "confidence": "direct",
+    "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+  },
+  "telemetry": "Entra sign-in or audit projection",
+  "data_sources": [
+    "Entra sign-in or audit projection",
+    "MFA push-denial correlation"
+  ],
+  "hypothesis": "Three distinct denied push prompts for one user within five minutes warrant investigation.",
+  "evidence": "Confirm the user, method and outcome. Three distinct challenge IDs within five minutes link the alert to individual requests.",
+  "false_positive": "Someone re-enrolling a phone can deny repeated prompts. An approved enrollment test is recorded with a change context.",
+  "tuning": "Check user impact and enrollment history. Set thresholds from known login behavior and review any training-account exceptions.",
+  "response": "Contact the user through a trusted channel. If a prompt was unexpectedly approved, revoke sessions and review subsequent sign-ins.",
+  "prevention": "Require phishing-resistant MFA where possible. Enable number matching and authentication throttling for remaining push users.",
+  "validation": "Baseline and noisy fixture produce no alerts. The positive fixture produces an alert with linked evidence.",
+  "limitations": "The sample records prompt denials. Confirming account compromise requires independent sign-in and session evidence.",
+  "questions": [
+    {
+      "prompt": "What makes these prompt denials one alert?",
+      "options": [
+        "Three distinct pushes for one user in five minutes",
+        "Three prompts anywhere in the tenant",
+        "A single denied sign-in"
+      ],
+      "answer": 0,
+      "explanation": "The rule groups by user and counts distinct challenge IDs within a five-minute window."
+    },
+    {
+      "prompt": "What should you verify with the user?",
+      "options": [
+        "Whether the account uses a long display name",
+        "Whether the prompts were expected or approved",
+        "Whether the portal was slow"
+      ],
+      "answer": 1,
+      "explanation": "Unexpected prompts can indicate attempted access. Approval changes the response priority."
+    }
+  ],
+  "rule": {
+    "id": "THX-02",
+    "severity": "medium",
+    "source": "identity",
+    "match": [
+      {
+        "field": "action",
+        "op": "eq",
+        "value": "mfa_challenge"
+      },
+      {
+        "field": "outcome",
+        "op": "eq",
+        "value": "denied"
+      },
+      {
+        "field": "observables.auth_method",
+        "op": "eq",
+        "value": "push"
+      }
+    ],
+    "suppress_when": [
+      {
+        "field": "observables.change_context",
+        "op": "eq",
+        "value": "approved_enrollment"
+      }
+    ],
+    "group_by": "user",
+    "threshold": 3,
+    "window_seconds": 300,
+    "distinct": "observables.challenge_id"
+  },
+  "core_lesson": true,
+  "reference": "https://attack.mitre.org/techniques/T1621",
+  "license": "MIT"
+}

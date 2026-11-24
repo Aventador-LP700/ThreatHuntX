@@ -1,0 +1,1 @@
+"""ThreatHuntX local learning lab."""

@@ -1,0 +1,7 @@
+{
+  "version": "20.1",
+  "domain": "Enterprise",
+  "commit": "f59b03ecf828579d5f9e93683ce25b7e2e5fd9d7",
+  "source": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/f59b03ecf828579d5f9e93683ce25b7e2e5fd9d7/enterprise-attack/enterprise-attack.json",
+  "terms": "https://attack.mitre.org/resources/terms-of-use/"
+}

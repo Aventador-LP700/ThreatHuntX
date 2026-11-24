@@ -1,0 +1,10 @@
+{
+  "T1621": {
+    "id": "T1621",
+    "name": "Multi-Factor Authentication Request Generation",
+    "url": "https://attack.mitre.org/techniques/T1621",
+    "tactics": [
+      "credential_access"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+FROM python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 THREATHUNTX_ROOT=/opt/threathuntx
+WORKDIR /opt/threathuntx
+COPY infra/docker/requirements.txt ./requirements.txt
+RUN --mount=type=secret,id=threathuntx_build_ca,mode=0444 \
+    if [ -s /run/secrets/threathuntx_build_ca ]; then \
+        cat /etc/ssl/certs/ca-certificates.crt /run/secrets/threathuntx_build_ca > /tmp/build-ca.pem; \
+        export PIP_CERT=/tmp/build-ca.pem; \
+    fi \
+    && pip install --disable-pip-version-check --no-cache-dir --require-hashes -r requirements.txt \
+    && rm -f /tmp/build-ca.pem \
+    && groupadd --gid 10001 lab \
+    && useradd --uid 10001 --gid 10001 --no-create-home lab \
+    && install -d -o lab -g lab /var/lib/threathuntx
+COPY --chown=10001:10001 backend/app ./app
+COPY --chown=10001:10001 scenarios ./scenarios
+USER 10001:10001
+EXPOSE 8000
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-proxy-headers"]

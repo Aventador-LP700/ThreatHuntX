@@ -1,0 +1,83 @@
+[
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "02-negative-01",
+    "record": {
+      "createdDateTime": "2025-08-14T09:58:00Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "mfa_challenge",
+      "result": "denied",
+      "id": "MFAChallenge"
+    },
+    "context": {
+      "source_ip": "192.0.2.34"
+    },
+    "observables": {
+      "auth_method": "push",
+      "challenge_id": "retry-1"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "02-negative-02",
+    "record": {
+      "createdDateTime": "2025-08-14T09:58:32Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "mfa_challenge",
+      "result": "denied",
+      "id": "MFAChallenge"
+    },
+    "context": {
+      "source_ip": "192.0.2.34"
+    },
+    "observables": {
+      "auth_method": "push",
+      "challenge_id": "retry-1"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "02-negative-03",
+    "record": {
+      "createdDateTime": "2025-08-14T09:59:04Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "mfa_challenge",
+      "result": "denied",
+      "id": "MFAChallenge"
+    },
+    "context": {
+      "source_ip": "192.0.2.34"
+    },
+    "observables": {
+      "auth_method": "push",
+      "challenge_id": "enroll-1",
+      "change_context": "approved_enrollment"
+    }
+  },
+  {
+    "format": "threathuntx.synthetic.v1",
+    "source": "identity",
+    "record_id": "02-negative-04",
+    "record": {
+      "createdDateTime": "2025-08-14T09:59:36Z",
+      "appDisplayName": "identity-provider.training.example",
+      "userPrincipalName": "analyst-sample@training.example",
+      "activityDisplayName": "mfa_challenge",
+      "result": "denied",
+      "id": "MFAChallenge"
+    },
+    "context": {
+      "source_ip": "192.0.2.34"
+    },
+    "observables": {
+      "auth_method": "push",
+      "challenge_id": "retry-2"
+    }
+  }
+]

@@ -1,0 +1,57 @@
+import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
+
+const isShowcase = process.env.THX_SHOWCASE === '1'
+
+test('learner investigates MFA fatigue and exports a completion report', async ({ page }) => {
+  const unexpectedRequests: string[] = []
+  page.on('request', request => {
+    if (!request.url().startsWith('http://127.0.0.1:') && !request.url().startsWith('blob:')) unexpectedRequests.push(request.url())
+    if (isShowcase && (request.method() !== 'GET' || new URL(request.url()).pathname.startsWith('/api/'))) unexpectedRequests.push(request.url())
+  })
+  await page.goto('./')
+  await page.getByRole('link', { name: 'Start Learning' }).click()
+  await expect(page.getByRole('heading', { name: 'MFA fatigue', exact: true })).toBeVisible()
+  await page.getByRole('button', { name: 'Inspect baseline' }).click()
+  await expect(page.getByRole('list', { name: 'Evidence timeline in UTC' }).locator('li')).toHaveCount(2)
+  await page.getByRole('button', { name: 'Continue to replay' }).click()
+  await page.getByRole('button', { name: isShowcase ? 'View positive sample' : 'Replay safe events' }).click()
+  await expect(page.getByText(isShowcase ? '1 alert in sample' : '1 alert generated', { exact: true })).toBeVisible()
+  await expect(page.getByText('Alert evidence', { exact: true })).toHaveCount(3)
+  await page.getByRole('link', { name: 'Open evidence timeline' }).click()
+  await expect(page.getByRole('heading', { name: 'Evidence timeline' })).toBeVisible()
+  await page.locator('summary').nth(1).click()
+  await expect(page.locator('details[open]').getByText('Evidence reference', { exact: true })).toBeVisible()
+  await expect(page.locator('details[open]').getByText('Challenge Id', { exact: true })).toBeVisible()
+  await page.getByRole('link', { name: 'Return to lesson' }).click()
+  await page.getByRole('button', { name: 'Replay & evidence' }).click()
+  await page.getByRole('button', { name: isShowcase ? 'View noisy sample' : 'Replay noisy events' }).click()
+  await expect(page.getByText('0 alerts in noisy fixture', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: 'Continue to response' }).click()
+  await expect(page.getByText('Containment', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: 'Take the knowledge check' }).click()
+  await page.getByLabel('Three distinct pushes for one user in five minutes').check()
+  await page.getByLabel('Whether the prompts were expected or approved').check()
+  await page.getByRole('button', { name: 'Check answers' }).click()
+  await expect(page.getByText('2 of 2 correct.')).toBeVisible()
+  await page.getByRole('button', { name: 'Mark as completed' }).click()
+  await page.getByRole('link', { name: 'View learning report' }).click()
+  await page.reload()
+  await expect(page.getByRole('heading', { name: /^1 of \d+ lessons completed$/ })).toBeVisible()
+  const download = page.waitForEvent('download')
+  await page.getByRole('button', { name: 'Export learning report' }).click()
+  expect((await download).suggestedFilename()).toBe('threathuntx-learning-report.json')
+  expect(unexpectedRequests).toEqual([])
+})
+
+test('start page and first lesson have no detected WCAG A/AA axe violations', async ({ page }) => {
+  await page.goto('./')
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  const scan = () => new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).analyze()
+  expect((await scan()).violations).toEqual([])
+  await page.getByRole('button', { name: 'Switch to light mode' }).click()
+  expect((await scan()).violations).toEqual([])
+  await page.getByRole('link', { name: 'Start Learning' }).click()
+  await expect(page.getByRole('heading', { name: 'MFA fatigue', exact: true })).toBeVisible()
+  expect((await scan()).violations).toEqual([])
+})
