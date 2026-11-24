@@ -2,7 +2,7 @@
 
 ## Framework infographic · 2026-11-24
 
-The original PNG from the supplied archive measures 1536 × 1024 pixels and is stored byte for byte at 2,349,700 bytes. Its SHA-256 is `8a7b2d02868b7ff9b80684ed29492f1fa3b5ff3c49b9d6efb3afc6f24896e60b`. The 1,846,188-byte WebP preview has the same decoded pixels and dimensions. The SVG embeds the original PNG, and the one-page PDF preserves those pixels. [Original PNG](../docs/diagrams/png/threathuntx-v2-40-threat-map.png) · [Download gallery](../docs/diagrams/README.md)
+The framework PNG matches the source image byte for byte. It measures 1536 × 1024 pixels, occupies 2,349,700 bytes, and has SHA-256 `8a7b2d02868b7ff9b80684ed29492f1fa3b5ff3c49b9d6efb3afc6f24896e60b`. The 1,846,188-byte WebP preview has the same decoded pixels and dimensions. The SVG embeds the original PNG, and the one-page PDF preserves those pixels. [Original PNG](../docs/diagrams/png/threathuntx-v2-40-threat-map.png) · [Download gallery](../docs/diagrams/README.md)
 
 All 45 gallery exports opened and matched their expected proportions. The Markdown check confirmed the WebP as the first image in the README and the original PNG as its link target. [README](../README.md)
 
