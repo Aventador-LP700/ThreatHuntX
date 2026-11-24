@@ -6,6 +6,8 @@ This release candidate adds the loopback Community Lab and a static public showc
 
 The observed community deployment uses Linux x86-64 with Docker Engine 29 and Compose v2. The build pins Python, Node and Nginx by image digest. Docker Desktop on Windows and macOS needs a separate smoke test. SQLite schema version 1 initializes automatically. This is the initial alpha, so there is no earlier release schema to migrate. Teardown preserves the project volume. See the [upgrade guidance](TROUBLESHOOTING.md).
 
+For the candidate checkout, `./scripts/setup.sh` builds and waits for health. The separately downloadable `setup.sh` supports `bash setup.sh install <directory>` against the release tag. This bootstrap was tested with a temporary Git mirror tagged `v0.1.0`.
+
 ## Scope and pending checks
 
 Synthetic verification covers the bundled fixtures, including application integration and the ten core browser lessons. The optional Wazuh manager, endpoint agents, provider data paths and vendor query engines still need live verification. Use the [validation report](../reports/validation-summary.md) to verify how a particular result was obtained.

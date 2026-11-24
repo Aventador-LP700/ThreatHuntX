@@ -15,7 +15,10 @@ make showcase
 git archive --format=tar --prefix=ThreatHuntX-0.1.0/ "$commit" | gzip -n > "$destination/threathuntx-0.1.0-source.tar.gz"
 tar -C public-demo/dist --sort=name --mtime="@$commit_time" --owner=0 --group=0 --numeric-owner -cf - . | gzip -n > "$destination/threathuntx-0.1.0-showcase.tar.gz"
 cp scripts/setup.sh "$destination/setup.sh"
+PYTHONPATH=backend uv run --locked python -m app.cli verify > "$destination/fixture-results.json"
+uv run --locked cyclonedx-py requirements --output-reproducible infra/docker/requirements.txt --output-file "$destination/python.cdx.json"
+npm --prefix frontend sbom --omit=dev --sbom-format=cyclonedx > "$destination/web.cdx.json"
 printf '%s\n' "$commit" > "$destination/SOURCE_COMMIT.txt"
 cd -- "$destination"
-sha256sum threathuntx-0.1.0-source.tar.gz threathuntx-0.1.0-showcase.tar.gz setup.sh SOURCE_COMMIT.txt > SHA256SUMS
+sha256sum threathuntx-0.1.0-source.tar.gz threathuntx-0.1.0-showcase.tar.gz setup.sh SOURCE_COMMIT.txt fixture-results.json python.cdx.json web.cdx.json > SHA256SUMS
 printf 'Packaged release candidate %s in %s\n' "$commit" "$destination"

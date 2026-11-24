@@ -15,6 +15,6 @@ Use separate changes for Python locks, npm locks, Docker image digest pins and u
 1. Verify local and CI evidence on the exact revision. Run the README from a fresh checkout. Record remaining live integration and platform work.
 2. Review the case studies, media, test outputs, disclosure links and third-party notices. Ask a new learner to use the first-hunt instructions and capture any friction.
 3. Make sure `scripts/setup.sh` references the release tag and update release notes. Use `./scripts/package-release.sh` on Linux to prepare the candidate and checksums.
-4. After approval, merge the reviewed revision and create `v0.1.0` against it. Create a GitHub release with the notes and optional static archive, launcher and checksums. Check the public clone, release downloads, project description and topics from a signed-out session.
+4. After approval, merge the reviewed revision and publish the `v0.1.0` release. Use repository settings to set public visibility and configure description and topics with an admin credential. Check the public clone and artifact downloads from a signed-out session.
 
 Keep Pages hosting optional. The static artifacts served by Pages contain educational sample data. Keep the writable Community Lab on localhost. [Release notes](RELEASE_NOTES.md) · [Roadmap](../ROADMAP.md)

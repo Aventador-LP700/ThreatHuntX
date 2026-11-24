@@ -15,6 +15,15 @@
 | `actionlint` and SBOM generation | Workflow syntax passed. CycloneDX manifests generated for the locked Python runtime and frontend production dependencies. |
 | Runtime media | Five screenshots and a 31.4-second recording captured during a real MFA replay. [Media](../docs/media/README.md) |
 
+## Clean installation and CI evidence
+
+- A fresh local Git checkout with a clean Compose project and a new volume passed `docker compose up -d --build` using cached dependency layers. The Bash launcher repeated startup and readiness checks. The API listed 40 lessons and produced one MFA alert and zero noisy alerts. Reset was run twice, and teardown preserved both the rehearsal and original named volumes.
+- The standalone `bash setup.sh install <directory>` path cloned a temporary Git mirror tagged `v0.1.0`, built the project and passed health at a custom loopback port. This measured the installer against a local mirror while the GitHub release tag was pending.
+- An authenticated clean clone of the GitHub `community-alpha` branch matched the tested commit. GitHub Actions passed both jobs, including the cold Compose build with default configuration, the Python/browser suites, the static subpath smoke test, and Gitleaks. [GitHub Actions run](https://github.com/Aventador-LP700/ThreatHuntX/actions/runs/45336221731)
+- A loopback check confirmed host port `127.0.0.1:8080`, HTTP 421 for a foreign Host header, and HTTP 403 for a cross-origin replay request.
+
+[Machine-readable fixture results](fixture-results.json) · [Review PR](https://github.com/Aventador-LP700/ThreatHuntX/pull/1)
+
 ## Resource measurements
 
 The observed host was Linux x86-64 with 3 Docker-visible CPU cores and 10,452,459,520 bytes of Docker-visible RAM. Docker Engine was 29.9.2, Compose 2.40.3 and Chromium 156.0.8078.79. The images used Python 3.12.14, Node 24.22.3 for the build and Nginx 1.30.5. SQLite reported 3.40.1 inside the API container.
@@ -26,7 +35,11 @@ After the browser suite and media capture, Linux process status reported 54,792 
 ## Artifact and integration scope
 
 - The Community Lab's API and browser checks exercised synthetic events from bundled source projections. The engine evaluates the rule selected for a replay batch. Production-volume evaluation and cross-batch tracking are outside the alpha exercise.
-- The 40 Sigma specifications passed pySigma parsing, reference resolution and offline selection checks. Twenty Wazuh event-candidate rules and the decoder passed static XML and regex/fixture checks. Live manager verification is pending.
+- The 40 Sigma specifications passed pySigma parsing, reference resolution and offline selection checks. Twenty Wazuh event-candidate rules and the decoder passed static XML and regex/fixture checks. Live manager verification is pending. Docker could not finish extracting the official Wazuh 4.14.10 manager image because the validation environment ran out of space.
 - The 15 KQL and 15 SPL templates passed offline field and fixture intent checks. Vendor execution is pending. Fixed time bins differ from the local sliding windows.
 - Sysmon, Linux audit, Zeek, Suricata, Velociraptor, AWS/Entra and Kubernetes use the [independent setup notes](../docs/full-lab-setup.md) for future live verification. Windows, macOS, and an observed independent beginner usability session are manual pending.
 - The [maintainer hand-off](../docs/MAINTAINER_HANDOFF.md) lists the release steps and verifies the applicable gates before a public tag.
+
+## Publication status
+
+The candidate is available through the authenticated repository and review PR. The connected GitHub credential returned HTTP 403 for repository settings updates, including the requested metadata operation. Public visibility, description and topics are pending repository administration. The ready tag also awaits a beginner walkthrough with an independent learner. Issue labels for contribution and triage are configured.
