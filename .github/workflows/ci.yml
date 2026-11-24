@@ -74,7 +74,7 @@ jobs:
         run: |
           ./scripts/package-release.sh
           (cd build/release && sha256sum -c SHA256SUMS)
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: community-v2-candidate
           path: build/release/
@@ -83,7 +83,7 @@ jobs:
         if: always()
         run: |
           uv run --locked python -m scripts.ci_summary build/validation >> "$GITHUB_STEP_SUMMARY"
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: validation
@@ -124,7 +124,7 @@ jobs:
           trap 'kill "$preview_pid"' EXIT
           curl --retry 8 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:4173/dist/ > /dev/null
           THX_SHOWCASE=1 THX_URL=http://127.0.0.1:4173/dist/ npm --prefix frontend run test:e2e
-      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: read-only-showcase
           path: public-demo/dist/
