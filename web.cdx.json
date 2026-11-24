@@ -1,0 +1,175 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:68fdd69d-bf96-4473-8bef-26cd578a75ea",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-24T07:00:40.127Z",
+    "lifecycles": [
+      {
+        "phase": "build"
+      }
+    ],
+    "tools": [
+      {
+        "vendor": "npm",
+        "name": "cli",
+        "version": "11.19.1"
+      }
+    ],
+    "component": {
+      "bom-ref": "threathuntx-web@0.2.0",
+      "type": "library",
+      "name": "frontend",
+      "version": "0.2.0",
+      "scope": "required",
+      "purl": "pkg:npm/threathuntx-web@0.2.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:private",
+          "value": "true"
+        }
+      ],
+      "externalReferences": []
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "@vue/devtools-api@6.6.4",
+      "type": "library",
+      "name": "@vue/devtools-api",
+      "version": "6.6.4",
+      "scope": "required",
+      "author": "Guillaume Chau",
+      "description": "Interact with the Vue devtools from the page",
+      "purl": "pkg:npm/%40vue/devtools-api@6.6.4",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.6.4.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/vuejs/vue-devtools.git"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "b068533ccb97a99d6b54e937d91ca5ced5a47d74d186e4bbbe000abf4ce3aa4f206ec1e427bc5f15ffa36f24b1b7bb5639b109c3229a1cc8a457f5860e2426f2"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "lucide-vue-next@0.562.0",
+      "type": "library",
+      "name": "lucide-vue-next",
+      "version": "0.562.0",
+      "scope": "required",
+      "author": "Eric Fennis",
+      "description": "A Lucide icon library package for Vue 3 applications.",
+      "purl": "pkg:npm/lucide-vue-next@0.562.0",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/lucide-vue-next/-/lucide-vue-next-0.562.0.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "https://github.com/lucide-icons/lucide.git"
+        },
+        {
+          "type": "website",
+          "url": "https://lucide.dev"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "2cdd012c628c16e96fd259df2b6f6bd780dc9e0454848a9d71a2f4cd74edda8d284bda1d96b8c219a537fd7f6122284e8e337c97c7be63d1bf7da99c358688ed"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ]
+    },
+    {
+      "bom-ref": "vue-router@4.6.5",
+      "type": "library",
+      "name": "vue-router",
+      "version": "4.6.5",
+      "scope": "required",
+      "author": "Eduardo San Martin Morote",
+      "purl": "pkg:npm/vue-router@4.6.5",
+      "properties": [],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/vue-router/-/vue-router-4.6.5.tgz"
+        },
+        {
+          "type": "vcs",
+          "url": "git+https://github.com/vuejs/router.git"
+        },
+        {
+          "type": "website",
+          "url": "https://router.vuejs.org"
+        },
+        {
+          "type": "issue-tracker",
+          "url": "https://github.com/vuejs/router/issues"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "1c1a06aa2c690767a3d64235ecda2d74e6ad51d288b22df27ce439be1c0085ca0793dd3e26dc2d232ecc11e3aa74f8b5fa7a66415304bb917e1efc3edd3538f3"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "threathuntx-web@0.2.0",
+      "dependsOn": [
+        "lucide-vue-next@0.562.0",
+        "vue-router@4.6.5"
+      ]
+    },
+    {
+      "ref": "@vue/devtools-api@6.6.4",
+      "dependsOn": []
+    },
+    {
+      "ref": "lucide-vue-next@0.562.0",
+      "dependsOn": []
+    },
+    {
+      "ref": "vue-router@4.6.5",
+      "dependsOn": [
+        "@vue/devtools-api@6.6.4"
+      ]
+    }
+  ]
+}
