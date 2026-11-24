@@ -1,0 +1,25 @@
+digraph network {
+  graph [rankdir=LR, bgcolor="#101824", margin=0.22, pad=0.23, ranksep=0.74, nodesep=0.37, labelloc=t, labeljust=l, label="ThreatHuntX v2   |   Deployed network and data boundaries", fontname="DejaVu Sans Bold", fontsize=19, fontcolor="#eff7ff"];
+  node [shape=box, style="rounded,filled", margin="0.15,0.11", fillcolor="#192c3d", color="#468092", fontcolor="#eff7ff", fontname="DejaVu Sans", fontsize=11];
+  edge [color="#80d8be", penwidth=1.5, arrowsize=0.7, fontname="DejaVu Sans", fontcolor="#b3cad7", fontsize=9];
+  browser [label="Learner browser\nLocal case analysis"];
+  subgraph cluster_lite {
+    label="Community Lite Docker project"; color="#345776"; fontcolor="#a9c1d7"; style=rounded; margin=13;
+    web [label="Nginx\n127.0.0.1:8080"];
+    subgraph cluster_private {
+      label="Internal lab network"; color="#467568"; fontcolor="#8fceb9"; style=rounded; margin=11;
+      records [label="Bundled fixtures"];
+      api [label="FastAPI\nReplay and rule trials", fillcolor="#1a372e"];
+      db [label="SQLite\nNamed data volume", shape=cylinder];
+    }
+  }
+  subgraph cluster_static {
+    label="Static showcase"; color="#345776"; fontcolor="#a9c1d7"; style=rounded; margin=11;
+    assets [label="Read-only static assets\nPrecomputed fixture results"];
+  }
+  engine [label="Optional Wazuh\nIsolated engine validation", style="rounded,filled,dashed"];
+  browser -> web -> api -> db;
+  records -> api;
+  records -> assets [style=dashed,label="build-time"];
+  records -> engine [style=dashed,label="test input"];
+}

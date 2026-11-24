@@ -4,7 +4,7 @@ ThreatHuntX has three independent distribution options. The static showcase serv
 
 ![ThreatHuntX source adapters, local correlation, SQLite evidence, and read-only showcase](media/architecture.png)
 
-[Editable Mermaid source](architecture.mmd) · [Normalized event schema](../scenarios/schema/event-v1.json) · [Threat model](threat-model.md)
+[Diagram downloads](diagrams/README.md#diagrams) · [Editable Mermaid source](architecture.mmd) · [Normalized event schema](../scenarios/schema/event-v1.json) · [Threat model](threat-model.md)
 
 ## Community Lab
 
@@ -32,15 +32,8 @@ The Pages build hosts static resources. Its fixture comparison reports come from
 
 ## Optional analyst topology
 
-```mermaid
-flowchart LR
-    Fixtures[Bundled synthetic input] --> Engine[Verified isolated Wazuh engine]
-    Win[Disposable Windows and Sysmon] -. live pending .-> Manager[Optional Wazuh manager and indexer]
-    Linux[Disposable Linux and auditd] -. live pending .-> Manager
-    Sensor[Offline capture with Zeek or Suricata] -. live pending .-> Analyst[Analyst evidence review]
-    Cloud[Cloud and Kubernetes audit] -. live pending .-> Analyst
-    Manager -. live pending .-> Analyst
-    Engine --> Analyst
-```
+![Optional analyst topology showing isolated Wazuh engine checks, offline capture and live integrations pending verification](diagrams/svg/optional-analyst-topology.svg)
+
+[Editable Mermaid source](diagrams/sources/optional-analyst-topology.mmd) · [PNG](diagrams/png/optional-analyst-topology.png) · [PDF](diagrams/pdf/optional-analyst-topology.pdf)
 
 Optional components run independently from Lite. [Advanced integration acceptance](INTEGRATION_ACCEPTANCE.md)

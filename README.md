@@ -2,12 +2,18 @@
 
 **Replay an incident. Test the detection. Document the response.**
 
+[![ThreatHuntX v2 map of 40 offensive techniques and defensive countermeasures across eight domains, with lab architecture and a purple-team workflow](docs/media/threathuntx-v2-40-threat-map.webp)](docs/diagrams/png/threathuntx-v2-40-threat-map.png)
+
+[Original PNG](docs/diagrams/png/threathuntx-v2-40-threat-map.png) · [SVG](docs/diagrams/svg/threathuntx-v2-40-threat-map.svg) · [PDF](docs/diagrams/pdf/threathuntx-v2-40-threat-map.pdf) · [Scenario catalog (JSON)](docs/scenario-matrix.json) · [Deploy locally](#five-minute-start-with-docker)
+
+The infographic shows the project framework, including optional infrastructure. The Community Lab replays synthetic telemetry. Its 40 scenarios map to 36 distinct ATT&CK IDs across 13 tactics. [Verified mappings](docs/evidence-matrix.md) · [Integration status](docs/INTEGRATION_ACCEPTANCE.md)
+
 [![Lab validation](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml/badge.svg)](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ThreatHuntX is a free, open-source lab for SOC analysts, detection engineers, and purple-team learners. Its 40 guided scenarios show what offensive techniques look like in security logs, how to recognize them, and which controls reduce the risk. Replay bundled synthetic telemetry, compare a detection against clean and noisy controls, investigate the matching records, and write up the case.
 
-[Quick start](#five-minute-start-with-docker) · [Scenario lab](#scenario-lab) · [Terminal exercises](#run-and-verify-from-the-terminal) · [Architecture](#lab-architecture) · [Validation](#deployment-and-validation) · [Contribute](#contribute)
+[Quick start](#five-minute-start-with-docker) · [Scenario lab](#scenario-lab) · [Terminal exercises](#run-and-verify-from-the-terminal) · [Architecture](#lab-architecture) · [Diagram and image downloads](docs/diagrams/README.md) · [Validation](#deployment-and-validation) · [Contribute](#contribute)
 
 ## Five-minute start with Docker
 
@@ -28,7 +34,9 @@ Open <http://127.0.0.1:8080/> and choose **Start Learning** to work through MFA 
 
 Every exercise includes an attacker objective, a clean baseline, a positive replay, a noisy control, a local detection, a response and prevention guide, and a knowledge check. The Technique Map pairs each scenario with its countermeasure and opens the corresponding lesson. Search by technique, defensive control, or ATT&CK ID.
 
-[![Screenshot of the ThreatHuntX lab with five technique and countermeasure pairs in each of eight domains](docs/media/v2-technique-map.webp)](docs/media/v2-technique-map.webp)
+[![Screenshot of the ThreatHuntX lab with five technique and countermeasure pairs in each of eight domains](docs/media/v2-technique-map.webp)](docs/diagrams/png/v2-technique-map.png)
+
+Download the full-size lab map as [SVG](docs/diagrams/svg/v2-technique-map.svg), [PNG](docs/diagrams/png/v2-technique-map.png), or [PDF](docs/diagrams/pdf/v2-technique-map.pdf).
 
 [All 40 walkthroughs and fixture results](docs/evidence-matrix.md) · [Machine-readable catalog](docs/scenario-matrix.json) · [Role-based learning paths](docs/curricula/README.md)
 
@@ -77,6 +85,8 @@ PYTHONPATH=backend uv run --locked python -m app.cli lab 02
 ## Lab architecture
 
 [![Compose architecture showing a loopback web gateway, internal API and local SQLite evidence](docs/media/lite-boundaries.png)](docs/media/lite-boundaries.png)
+
+Download the architecture diagrams as SVG, PNG, and PDF. [Diagram and image downloads](docs/diagrams/README.md#diagrams)
 
 Vue and Nginx serve the local workspace over loopback. FastAPI evaluates bundled telemetry on the internal Compose network and stores replay evidence in SQLite. The browser stores learning progress and optional case analysis. The static showcase serves precomputed synthetic examples and supports browser-local analysis. [Reference architecture](docs/REFERENCE_ARCHITECTURE.md) · [Optional analyst lab topology and setup](docs/full-lab-setup.md)
 

@@ -1,5 +1,11 @@
 # ThreatHuntX validation
 
+## Framework infographic · 2026-11-24
+
+The original PNG from the supplied archive measures 1536 × 1024 pixels and is stored byte for byte at 2,349,700 bytes. Its SHA-256 is `8a7b2d02868b7ff9b80684ed29492f1fa3b5ff3c49b9d6efb3afc6f24896e60b`. The 1,846,188-byte WebP preview has the same decoded pixels and dimensions. The SVG embeds the original PNG, and the one-page PDF preserves those pixels. [Original PNG](../docs/diagrams/png/threathuntx-v2-40-threat-map.png) · [Download gallery](../docs/diagrams/README.md)
+
+All 45 gallery exports opened and matched their expected proportions. The Markdown check confirmed the WebP as the first image in the README and the original PNG as its link target. [README](../README.md)
+
 ## Scenario lab update · 2026-11-24
 
 The Linux x86-64 rehearsal built and started both Compose services using `./scripts/setup.sh` with an isolated project and loopback port. `/api/health` returned `synthetic_only: true`. The [scenario map screenshot](../docs/media/v2-technique-map.webp) was captured from this deployment at 2109 × 2244 pixels.
@@ -35,7 +41,7 @@ A clean checkout cloned from the public candidate branch with credential prompts
 
 A local x86-64 Linux Compose run used Docker Engine 29.9.2, Compose 2.40.3 and Chromium 156.0.8078.79 in an environment with three Docker-visible CPUs and 10,452,459,520 bytes of RAM. Health returned a synthetic-only schema version 1 service and the published socket was `127.0.0.1:8080`. One tested build reported API and web image sizes of 141,409,719 and 62,738,848 bytes. After the browser tests, the process RSS samples were 52,916 KiB for Uvicorn and 3,200 and 3,184 KiB for the two Nginx processes. The SQLite file was 160 KiB. The environment uses rootless VFS without Docker cgroup accounting. These are observed figures and peak requirements depend on the host and build cache.
 
-GitHub reports the repository as public. The connected credential returned HTTP 403 for Pages creation and repository description/topic changes. The candidate includes the reproducible static build and default-branch Pages workflow. Hosted deployment awaits repository administration and reviewed changes reaching `main`. The required exact 1536×1024 user image was absent from the supplied files and Git tree. [Implementation audit](../docs/implementation-audit.md) · [Pages setup](../public-demo/README.md)
+GitHub reports the repository as public. The connected credential returned HTTP 403 for Pages creation and repository description/topic changes. The candidate includes the reproducible static build and default-branch Pages workflow. Hosted deployment requires GitHub Pages configuration. [Implementation audit](../docs/implementation-audit.md) · [Pages setup](../public-demo/README.md)
 
 A full Wazuh installation, live agent and network sensor runs, and vendor-specific queries are separate checks. Windows and macOS Docker Desktop tests and an independent beginner walkthrough remain manual pending. [Integration status](../docs/INTEGRATION_ACCEPTANCE.md)
 
