@@ -1,7 +1,7 @@
 {
   "id": "29",
   "title": "Infostealers",
-  "category": "Modern Identity",
+  "category": "Identity & Phishing",
   "overview": "Look for unexpected reads of a browser credential-store category by a process without established trust.",
   "objective": "Harvest browser secrets.",
   "platform": "Windows",

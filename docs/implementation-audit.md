@@ -12,3 +12,7 @@ Baseline `8e510c47fdba37e61154bee59e42e579c9bb9bbc` from `community-alpha` and [
 | Analyst integrations | Wazuh projections passed static checks. The prior manager image extraction exceeded local disk. The vendor and sensor integrations remain pending. | Add safe fixture-shaped adapters and try a bounded manager log test. Distinguish engine validation from deployment and live collector evidence. |
 
 The product catalog uses the specification for scenario names and pinned MITRE data for technique and tactic claims. Links to prior release evidence stay traceable from the [validation report](../reports/validation-summary.md).
+
+## Review candidate status
+
+The v2 implementation adds the grouped catalog, portable case reports, fixture-backed tuning, vendor samples, and an isolated Wazuh engine check. Verification and pending live or platform work are tracked in the [validation summary](../reports/validation-summary.md). The exact framework artwork remains pending its source file. The existing runtime screenshot is labeled as an ATT&CK view in the README.

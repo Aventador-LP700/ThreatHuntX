@@ -18,3 +18,7 @@ Use separate changes for Python locks, npm locks, Docker image digest pins and u
 4. After approval, merge the reviewed revision and publish the `v0.1.0` release. Use repository settings to set public visibility and configure description and topics with an admin credential. Check the public clone and artifact downloads from a signed-out session.
 
 Keep Pages hosting optional. The static artifacts served by Pages contain educational sample data. Keep the writable Community Lab on localhost. [Release notes](RELEASE_NOTES.md) · [Roadmap](../ROADMAP.md)
+
+## Community v2 review sequence
+
+Review PR #1 and the stacked enhancement PR separately. Preserve both branches and the existing v0.1.0 draft. The v2 candidate tracks its own source commit and checksums. For repository metadata, an administrator can open the repository's **About** panel and edit its description and topics. For required checks, use **Settings → Rules → Rulesets** after the default branch has the reviewed workflow. Follow the [Pages setup](../public-demo/README.md) for the read-only showcase.

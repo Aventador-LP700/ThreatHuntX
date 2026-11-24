@@ -1,6 +1,6 @@
 {
   "id": "08",
-  "title": "Scheduled tasks / cron",
+  "title": "Scheduled Tasks/Cron",
   "category": "Execution & Persistence",
   "overview": "Review a synthetic cron modification and compare a user-managed schedule with approved deployment automation.",
   "objective": "Recurring malicious startup.",

@@ -64,7 +64,7 @@
       "id": "example-06-1",
       "rule_id": "THX-06",
       "scenario_id": "06",
-      "title": "PowerShell abuse",
+      "title": "PowerShell Abuse",
       "severity": "medium",
       "group": "analyst-sample@training.example",
       "first_seen": "2025-08-14T10:54:32Z",

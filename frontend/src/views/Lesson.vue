@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
-import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronRight, Clock3, ExternalLink, FlaskConical, ListChecks, Play, ShieldCheck } from 'lucide-vue-next'
-import { catalog, lesson, replay, showcase, validationStatus } from '../api'
-import { complete, progress } from '../learning'
+import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronRight, Clock3, ExternalLink, FlaskConical, ListChecks, Play, ShieldCheck, Download } from 'lucide-vue-next'
+import { catalog, lesson, replay, sample, showcase, validationStatus } from '../api'
+import { complete, download, progress } from '../learning'
 import Timeline from '../components/Timeline.vue'
-import type { LessonData, ReplayMode, Run } from '../types'
+import type { LessonData, Mode, ReplayMode, Run } from '../types'
 
 const props = defineProps<{ id: string }>()
 const data = ref<LessonData>()
@@ -61,6 +61,20 @@ async function run(mode: ReplayMode) {
     if (props.id === id) busy.value = undefined
   }
 }
+const sampleMode = ref<Mode>('positive')
+const sampleStatus = ref('')
+async function downloadSample() {
+  const id = props.id
+  const mode = sampleMode.value
+  sampleStatus.value = ''
+  try {
+    const entry = await sample(id, mode)
+    if (props.id === id) download(`threathuntx-${id}-${mode}.json`, { ...entry, synthetic_only: true })
+  } catch (err) {
+    if (props.id === id) sampleStatus.value = err instanceof Error ? err.message : 'Could not download the sample.'
+  }
+}
+
 </script>
 
 <template>
@@ -132,6 +146,8 @@ async function run(mode: ReplayMode) {
       <aside class="panel lesson-aside">
         <div class="section-title"><h2>Lesson details</h2><BookOpen :size="18" aria-hidden="true" /></div>
         <dl class="reading-list small"><div><dt>Telemetry</dt><dd>{{ scenario.telemetry }}</dd></div><div><dt>Detection</dt><dd><code>{{ scenario.rule.id }}</code> · {{ validationStatus(scenario.id) }}</dd></div><div><dt>ATT&amp;CK release</dt><dd>Enterprise {{ catalog?.attack.version ?? 'loading' }} · {{ scenario.attack.confidence }} mapping</dd></div><div><dt>Mapping scope</dt><dd>{{ scenario.attack.rationale }}</dd></div></dl>
+        <RouterLink class="button secondary" :to="`/rules/${scenario.id}`">Open in Detection Studio <ArrowRight :size="16" aria-hidden="true" /></RouterLink>
+        <form class="sample-download" @submit.prevent="downloadSample"><label class="field">Sample fixture<select v-model="sampleMode"><option value="positive">Positive</option><option value="baseline">Clean baseline</option><option value="negative">Noisy control</option></select></label><button class="button secondary" type="submit"><Download :size="16" aria-hidden="true" /> Download sample JSON</button><p v-if="sampleStatus" role="status">{{ sampleStatus }}</p></form>
       </aside>
     </div>
   </template>

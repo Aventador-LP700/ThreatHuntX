@@ -1,4 +1,4 @@
-// THX-10 WMI subscriptions | Review-only. Custom normalized schema.
+// THX-10 WMI Subscription | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "windows"
 | where THXEventId =~ "21"

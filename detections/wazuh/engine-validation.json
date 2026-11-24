@@ -1,0 +1,1117 @@
+{
+  "engine": "Wazuh 4.14.10 wazuh-logtest-legacy",
+  "scope": "isolated engine with bundled synthetic records",
+  "sha256": {
+    "decoders.xml": "65aab8a953c8d130ce5f010e4c5f84debaf239ffbc093cb7ff264c95b0562eef",
+    "rules.xml": "0549c42d0e545f3760c398685f2047f50f5d44afe70ed27d09c8a699d69a2f3d",
+    "synthetic.log": "697e6623dda8a6f483c88253af45a2df04493153e1f7daa391eb10dfc8bfc65c"
+  },
+  "record_count": 138,
+  "matched_candidate_count": 20,
+  "records": [
+    {
+      "record_id": "01-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "01-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "01-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "01-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100101",
+      "expected_candidates": [
+        "100101"
+      ]
+    },
+    {
+      "record_id": "01-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "02-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "02-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "02-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "02-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100102",
+      "expected_candidates": [
+        "100102"
+      ]
+    },
+    {
+      "record_id": "02-positive-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100102",
+      "expected_candidates": [
+        "100102"
+      ]
+    },
+    {
+      "record_id": "02-positive-04",
+      "decoder": "threathuntx_json",
+      "rule_id": "100102",
+      "expected_candidates": [
+        "100102"
+      ]
+    },
+    {
+      "record_id": "02-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100102",
+      "expected_candidates": [
+        "100102"
+      ]
+    },
+    {
+      "record_id": "02-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100102",
+      "expected_candidates": [
+        "100102"
+      ]
+    },
+    {
+      "record_id": "02-negative-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "02-negative-04",
+      "decoder": "threathuntx_json",
+      "rule_id": "100102",
+      "expected_candidates": [
+        "100102"
+      ]
+    },
+    {
+      "record_id": "03-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "03-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "03-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "03-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100103",
+      "expected_candidates": [
+        "100103"
+      ]
+    },
+    {
+      "record_id": "03-positive-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100103",
+      "expected_candidates": [
+        "100103"
+      ]
+    },
+    {
+      "record_id": "03-positive-04",
+      "decoder": "threathuntx_json",
+      "rule_id": "100103",
+      "expected_candidates": [
+        "100103"
+      ]
+    },
+    {
+      "record_id": "03-positive-05",
+      "decoder": "threathuntx_json",
+      "rule_id": "100103",
+      "expected_candidates": [
+        "100103"
+      ]
+    },
+    {
+      "record_id": "03-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100103",
+      "expected_candidates": [
+        "100103"
+      ]
+    },
+    {
+      "record_id": "03-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100103",
+      "expected_candidates": [
+        "100103"
+      ]
+    },
+    {
+      "record_id": "03-negative-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100103",
+      "expected_candidates": [
+        "100103"
+      ]
+    },
+    {
+      "record_id": "03-negative-04",
+      "decoder": "threathuntx_json",
+      "rule_id": "100103",
+      "expected_candidates": [
+        "100103"
+      ]
+    },
+    {
+      "record_id": "04-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "04-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "04-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "04-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100104",
+      "expected_candidates": [
+        "100104"
+      ]
+    },
+    {
+      "record_id": "04-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "04-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "05-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "05-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "05-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "05-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100105",
+      "expected_candidates": [
+        "100105"
+      ]
+    },
+    {
+      "record_id": "05-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "06-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "06-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "06-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "06-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100106",
+      "expected_candidates": [
+        "100106"
+      ]
+    },
+    {
+      "record_id": "06-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "06-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "07-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "07-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "07-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "07-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100107",
+      "expected_candidates": [
+        "100107"
+      ]
+    },
+    {
+      "record_id": "07-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "07-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "08-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "08-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "08-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "08-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100108",
+      "expected_candidates": [
+        "100108"
+      ]
+    },
+    {
+      "record_id": "08-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "08-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "09-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "09-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "09-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "09-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100109",
+      "expected_candidates": [
+        "100109"
+      ]
+    },
+    {
+      "record_id": "09-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "09-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "10-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "10-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "10-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "10-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100110",
+      "expected_candidates": [
+        "100110"
+      ]
+    },
+    {
+      "record_id": "10-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "10-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "11-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "11-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "11-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "11-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100111",
+      "expected_candidates": [
+        "100111"
+      ]
+    },
+    {
+      "record_id": "11-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "11-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "12-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "12-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "12-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "12-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100112",
+      "expected_candidates": [
+        "100112"
+      ]
+    },
+    {
+      "record_id": "12-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "12-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "13-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "13-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "13-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "13-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100113",
+      "expected_candidates": [
+        "100113"
+      ]
+    },
+    {
+      "record_id": "13-positive-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100113",
+      "expected_candidates": [
+        "100113"
+      ]
+    },
+    {
+      "record_id": "13-positive-04",
+      "decoder": "threathuntx_json",
+      "rule_id": "100113",
+      "expected_candidates": [
+        "100113"
+      ]
+    },
+    {
+      "record_id": "13-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100113",
+      "expected_candidates": [
+        "100113"
+      ]
+    },
+    {
+      "record_id": "13-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100113",
+      "expected_candidates": [
+        "100113"
+      ]
+    },
+    {
+      "record_id": "13-negative-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100113",
+      "expected_candidates": [
+        "100113"
+      ]
+    },
+    {
+      "record_id": "13-negative-04",
+      "decoder": "threathuntx_json",
+      "rule_id": "100113",
+      "expected_candidates": [
+        "100113"
+      ]
+    },
+    {
+      "record_id": "14-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "14-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "14-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "14-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100114",
+      "expected_candidates": [
+        "100114"
+      ]
+    },
+    {
+      "record_id": "14-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "14-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "15-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "15-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "15-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "15-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100115",
+      "expected_candidates": [
+        "100115"
+      ]
+    },
+    {
+      "record_id": "15-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "15-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "16-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "16-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "16-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "16-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100116",
+      "expected_candidates": [
+        "100116"
+      ]
+    },
+    {
+      "record_id": "16-positive-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100116",
+      "expected_candidates": [
+        "100116"
+      ]
+    },
+    {
+      "record_id": "16-positive-04",
+      "decoder": "threathuntx_json",
+      "rule_id": "100116",
+      "expected_candidates": [
+        "100116"
+      ]
+    },
+    {
+      "record_id": "16-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100116",
+      "expected_candidates": [
+        "100116"
+      ]
+    },
+    {
+      "record_id": "16-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100116",
+      "expected_candidates": [
+        "100116"
+      ]
+    },
+    {
+      "record_id": "16-negative-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100116",
+      "expected_candidates": [
+        "100116"
+      ]
+    },
+    {
+      "record_id": "16-negative-04",
+      "decoder": "threathuntx_json",
+      "rule_id": "100116",
+      "expected_candidates": [
+        "100116"
+      ]
+    },
+    {
+      "record_id": "17-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "17-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "17-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "17-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100117",
+      "expected_candidates": [
+        "100117"
+      ]
+    },
+    {
+      "record_id": "17-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "17-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "18-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "18-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "18-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "18-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100118",
+      "expected_candidates": [
+        "100118"
+      ]
+    },
+    {
+      "record_id": "18-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "18-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "19-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "19-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "19-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "19-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100119",
+      "expected_candidates": [
+        "100119"
+      ]
+    },
+    {
+      "record_id": "19-positive-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100119",
+      "expected_candidates": [
+        "100119"
+      ]
+    },
+    {
+      "record_id": "19-positive-04",
+      "decoder": "threathuntx_json",
+      "rule_id": "100119",
+      "expected_candidates": [
+        "100119"
+      ]
+    },
+    {
+      "record_id": "19-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "19-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "19-negative-03",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "20-baseline-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "20-baseline-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "20-positive-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "20-positive-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100120",
+      "expected_candidates": [
+        "100120"
+      ]
+    },
+    {
+      "record_id": "20-negative-01",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    },
+    {
+      "record_id": "20-negative-02",
+      "decoder": "threathuntx_json",
+      "rule_id": "100100",
+      "expected_candidates": [
+        "100100"
+      ]
+    }
+  ]
+}

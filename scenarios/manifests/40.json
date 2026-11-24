@@ -1,7 +1,7 @@
 {
   "id": "40",
-  "title": "SaaS exfiltration",
-  "category": "Cloud / Host / Saas",
+  "title": "SaaS Exfiltration",
+  "category": "Cloud, Host & SaaS",
   "overview": "Review a cloud application record for a large external share of restricted documents.",
   "objective": "Mass download/sharing.",
   "platform": "SaaS",

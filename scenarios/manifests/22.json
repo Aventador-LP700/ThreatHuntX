@@ -1,7 +1,7 @@
 {
   "id": "22",
-  "title": "Cloud storage theft",
-  "category": "Discovery / Exfil / Impact",
+  "title": "Cloud Exfiltration",
+  "category": "Discovery & Impact",
   "overview": "Review repeated bulk reads of restricted cloud objects by a principal outside its usual workload.",
   "objective": "Mass object access/exports.",
   "platform": "Cloud",

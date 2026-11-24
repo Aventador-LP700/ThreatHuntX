@@ -1,4 +1,4 @@
-// THX-03 Password spraying | Review-only. Custom normalized schema.
+// THX-03 Password Spraying | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "identity"
 | where THXAction =~ "sign_in"

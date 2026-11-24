@@ -17,7 +17,7 @@ if [[ "$action" == install ]]; then
   command -v git >/dev/null || error 'Install Git to clone the release.'
   destination=${2:-ThreatHuntX}
   [[ ! -e "$destination" ]] || error "Choose an absent install directory. Run ./scripts/setup.sh inside an existing checkout."
-  git clone --depth 1 --branch v0.1.0 https://github.com/Aventador-LP700/ThreatHuntX.git -- "$destination"
+  git clone --depth 1 --branch v0.2.0 https://github.com/Aventador-LP700/ThreatHuntX.git -- "$destination"
   exec bash "$destination/scripts/setup.sh" up
 fi
 

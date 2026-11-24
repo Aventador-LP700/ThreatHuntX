@@ -96,3 +96,14 @@ export interface FixtureCheck { scenario_id: string; mode: Mode; expected: boole
 export interface Metrics { tp: number; fp: number; tn: number; fn: number; precision: number | null; recall: number | null; passed: number; total: number; pass_rate: number }
 export interface Coverage { dataset: string; cases: FixtureCheck[]; metrics: Metrics }
 export interface LessonData { scenario: Scenario; baseline: Run }
+
+export interface TrialSettings { threshold: number; window_seconds: number; group_by: string }
+export interface TrialResult {
+  rule_id: string
+  synthetic_only: true
+  defaults: TrialSettings
+  settings: TrialSettings
+  group_options: string[]
+  cases: (FixtureCheck & { event_count: number; matched_records: string[] })[]
+  metrics: Metrics
+}

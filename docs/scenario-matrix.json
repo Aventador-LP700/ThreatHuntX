@@ -1,0 +1,2400 @@
+{
+  "schema_version": 1,
+  "attack_release": "20.1",
+  "synthetic_only": true,
+  "scenarios": [
+    {
+      "id": "01",
+      "title": "Phishing",
+      "category": "Initial Access",
+      "attack": {
+        "id": "T1566.002",
+        "name": "Spearphishing Link",
+        "url": "https://attack.mitre.org/techniques/T1566/002",
+        "tactics": [
+          "initial_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "mail",
+      "detection": "THX-01",
+      "telemetry": "Mail gateway or attachment projection",
+      "defensive_control": "Enforce DMARC with SPF and DKIM, inspect URLs, and require phishing-resistant authentication.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "01",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "01-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "01",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "01",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 1,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/01.md"
+    },
+    {
+      "id": "02",
+      "title": "MFA Fatigue",
+      "category": "Initial Access",
+      "attack": {
+        "id": "T1621",
+        "name": "Multi-Factor Authentication Request Generation",
+        "url": "https://attack.mitre.org/techniques/T1621",
+        "tactics": [
+          "credential_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "identity",
+      "detection": "THX-02",
+      "telemetry": "Entra sign-in or audit projection",
+      "defensive_control": "Require phishing-resistant MFA where possible. Enable number matching and authentication throttling for remaining push users.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "02",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 4,
+          "matched_records": [
+            "02-positive-02",
+            "02-positive-03",
+            "02-positive-04"
+          ]
+        },
+        {
+          "scenario_id": "02",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "02",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 4,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/02.md"
+    },
+    {
+      "id": "03",
+      "title": "Password Spraying",
+      "category": "Initial Access",
+      "attack": {
+        "id": "T1110.003",
+        "name": "Password Spraying",
+        "url": "https://attack.mitre.org/techniques/T1110/003",
+        "tactics": [
+          "credential_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "identity",
+      "detection": "THX-03",
+      "telemetry": "Entra sign-in or audit projection",
+      "defensive_control": "Use phishing-resistant MFA, adaptive access, smart lockout and monitored legacy protocol controls.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "03",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 5,
+          "matched_records": [
+            "03-positive-02",
+            "03-positive-03",
+            "03-positive-04",
+            "03-positive-05"
+          ]
+        },
+        {
+          "scenario_id": "03",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "03",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 4,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/03.md"
+    },
+    {
+      "id": "04",
+      "title": "Public-Facing Application Exploits",
+      "category": "Initial Access",
+      "attack": {
+        "id": "T1190",
+        "name": "Exploit Public-Facing Application",
+        "url": "https://attack.mitre.org/techniques/T1190",
+        "tactics": [
+          "initial_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "network",
+      "detection": "THX-04",
+      "telemetry": "Network sensor or WAF projection",
+      "defensive_control": "Reduce exposure, maintain a patch SLA and monitor WAF policy changes.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "04",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "04-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "04",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "04",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/04.md"
+    },
+    {
+      "id": "05",
+      "title": "OAuth Consent Phishing",
+      "category": "Initial Access",
+      "attack": {
+        "id": "T1528",
+        "name": "Steal Application Access Token",
+        "url": "https://attack.mitre.org/techniques/T1528",
+        "tactics": [
+          "credential_access"
+        ],
+        "confidence": "related",
+        "rationale": "Risky consent may enable theft or misuse of application access tokens. A consent event alone does not demonstrate token theft."
+      },
+      "source": "identity",
+      "detection": "THX-05",
+      "telemetry": "Entra sign-in or audit projection",
+      "defensive_control": "Require administrator review for sensitive consent and audit privileged delegated scopes.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "05",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "05-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "05",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "05",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 1,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/05.md"
+    },
+    {
+      "id": "06",
+      "title": "PowerShell Abuse",
+      "category": "Execution & Persistence",
+      "attack": {
+        "id": "T1059.001",
+        "name": "PowerShell",
+        "url": "https://attack.mitre.org/techniques/T1059/001",
+        "tactics": [
+          "execution"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-06",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Enable script block logging, AMSI integration and application control. Review Office child-process policy.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "06",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "06-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "06",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "06",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/06.md"
+    },
+    {
+      "id": "07",
+      "title": "HTML Smuggling",
+      "category": "Execution & Persistence",
+      "attack": {
+        "id": "T1027.006",
+        "name": "HTML Smuggling",
+        "url": "https://attack.mitre.org/techniques/T1027/006",
+        "tactics": [
+          "stealth"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "mail",
+      "detection": "THX-07",
+      "telemetry": "Mail gateway or attachment projection",
+      "defensive_control": "Apply HTML attachment controls, approved sandboxes and browser download policy.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "07",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "07-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "07",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "07",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/07.md"
+    },
+    {
+      "id": "08",
+      "title": "Scheduled Tasks/Cron",
+      "category": "Execution & Persistence",
+      "attack": {
+        "id": "T1053.003",
+        "name": "Cron",
+        "url": "https://attack.mitre.org/techniques/T1053/003",
+        "tactics": [
+          "execution",
+          "persistence",
+          "privilege_escalation"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "linux",
+      "detection": "THX-08",
+      "telemetry": "Linux audit projection",
+      "defensive_control": "Restrict cron directory writes and monitor job definitions and changes.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "08",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "08-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "08",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "08",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/08.md"
+    },
+    {
+      "id": "09",
+      "title": "Registry Autoruns",
+      "category": "Execution & Persistence",
+      "attack": {
+        "id": "T1547.001",
+        "name": "Registry Run Keys / Startup Folder",
+        "url": "https://attack.mitre.org/techniques/T1547/001",
+        "tactics": [
+          "persistence",
+          "privilege_escalation"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-09",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Keep a software and autorun baseline, restrict execution from user-writable paths and monitor registry change events.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "09",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "09-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "09",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "09",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/09.md"
+    },
+    {
+      "id": "10",
+      "title": "WMI Subscription",
+      "category": "Execution & Persistence",
+      "attack": {
+        "id": "T1546.003",
+        "name": "Windows Management Instrumentation Event Subscription",
+        "url": "https://attack.mitre.org/techniques/T1546/003",
+        "tactics": [
+          "persistence",
+          "privilege_escalation"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-10",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Collect WMI activity and monitor changes to permanent subscriptions on high-value hosts.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "10",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "10-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "10",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "10",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/10.md"
+    },
+    {
+      "id": "11",
+      "title": "Token Theft",
+      "category": "Privilege Escalation & Credentials",
+      "attack": {
+        "id": "T1550.001",
+        "name": "Application Access Token",
+        "url": "https://attack.mitre.org/techniques/T1550/001",
+        "tactics": [
+          "lateral_movement"
+        ],
+        "confidence": "related",
+        "rationale": "Observed reuse can be consistent with application token abuse. It does not establish how the token was obtained."
+      },
+      "source": "identity",
+      "detection": "THX-11",
+      "telemetry": "Entra sign-in or audit projection",
+      "defensive_control": "Enforce phishing-resistant authentication, managed device policy and token binding where supported.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "11",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "11-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "11",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "11",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/11.md"
+    },
+    {
+      "id": "12",
+      "title": "Credential Dumping",
+      "category": "Privilege Escalation & Credentials",
+      "attack": {
+        "id": "T1003.001",
+        "name": "LSASS Memory",
+        "url": "https://attack.mitre.org/techniques/T1003/001",
+        "tactics": [
+          "credential_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-12",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Enable Credential Guard and LSASS protection where appropriate and audit their status.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "12",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "12-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "12",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "12",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/12.md"
+    },
+    {
+      "id": "13",
+      "title": "Kerberoasting",
+      "category": "Privilege Escalation & Credentials",
+      "attack": {
+        "id": "T1558.003",
+        "name": "Kerberoasting",
+        "url": "https://attack.mitre.org/techniques/T1558/003",
+        "tactics": [
+          "credential_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-13",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Prefer gMSAs and modern encryption. Audit service principal assignments and legacy-client dependencies.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "13",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 4,
+          "matched_records": [
+            "13-positive-02",
+            "13-positive-03",
+            "13-positive-04"
+          ]
+        },
+        {
+          "scenario_id": "13",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "13",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 4,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/13.md"
+    },
+    {
+      "id": "14",
+      "title": "Pass-the-Hash",
+      "category": "Privilege Escalation & Credentials",
+      "attack": {
+        "id": "T1550.002",
+        "name": "Pass the Hash",
+        "url": "https://attack.mitre.org/techniques/T1550/002",
+        "tactics": [
+          "lateral_movement"
+        ],
+        "confidence": "related",
+        "rationale": "An anomalous NTLM logon is compatible with pass-the-hash, but the authentication record does not identify credential form."
+      },
+      "source": "windows",
+      "detection": "THX-14",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Roll out unique managed local administrator passwords, restrict NTLM and segment administration traffic.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "14",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "14-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "14",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "14",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/14.md"
+    },
+    {
+      "id": "15",
+      "title": "Privilege Escalation",
+      "category": "Privilege Escalation & Credentials",
+      "attack": {
+        "id": "T1068",
+        "name": "Exploitation for Privilege Escalation",
+        "url": "https://attack.mitre.org/techniques/T1068",
+        "tactics": [
+          "privilege_escalation"
+        ],
+        "confidence": "related",
+        "rationale": "Unexpected elevation motivates a T1068 investigation. A privilege transition can have other causes."
+      },
+      "source": "linux",
+      "detection": "THX-15",
+      "telemetry": "Linux audit projection",
+      "defensive_control": "Patch OS and packages, constrain privilege brokers and review privileged execution policies.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "15",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "15-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "15",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "15",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh",
+        "kql",
+        "spl"
+      ],
+      "lesson": "learn/15.md"
+    },
+    {
+      "id": "16",
+      "title": "RDP/SMB/WinRM Abuse",
+      "category": "Lateral Movement & Command",
+      "attack": {
+        "id": "T1021",
+        "name": "Remote Services",
+        "url": "https://attack.mitre.org/techniques/T1021",
+        "tactics": [
+          "lateral_movement"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-16",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Require segmented management paths, MFA for remote access and monitored privileged accounts.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "16",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 4,
+          "matched_records": [
+            "16-positive-02",
+            "16-positive-03",
+            "16-positive-04"
+          ]
+        },
+        {
+          "scenario_id": "16",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "16",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 4,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh"
+      ],
+      "lesson": "learn/16.md"
+    },
+    {
+      "id": "17",
+      "title": "LOLBins/LOLBAS",
+      "category": "Lateral Movement & Command",
+      "attack": {
+        "id": "T1218",
+        "name": "System Binary Proxy Execution",
+        "url": "https://attack.mitre.org/techniques/T1218",
+        "tactics": [
+          "stealth"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-17",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Use application control and audit document applications that launch child processes.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "17",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "17-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "17",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "17",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh"
+      ],
+      "lesson": "learn/17.md"
+    },
+    {
+      "id": "18",
+      "title": "Disable Security Tools",
+      "category": "Lateral Movement & Command",
+      "attack": {
+        "id": "T1685",
+        "name": "Disable or Modify Tools",
+        "url": "https://attack.mitre.org/techniques/T1685",
+        "tactics": [
+          "defense_impairment"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-18",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Enable tamper protection and retain service and security logs off the endpoint.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "18",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "18-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "18",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "18",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh"
+      ],
+      "lesson": "learn/18.md"
+    },
+    {
+      "id": "19",
+      "title": "HTTPS/DNS Command & Control",
+      "category": "Lateral Movement & Command",
+      "attack": {
+        "id": "T1071.004",
+        "name": "DNS",
+        "url": "https://attack.mitre.org/techniques/T1071/004",
+        "tactics": [
+          "command_and_control"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "network",
+      "detection": "THX-19",
+      "telemetry": "Network sensor or WAF projection",
+      "defensive_control": "Use controlled resolvers, egress filtering and DNS analytics with reviewed allowlists.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "19",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 4,
+          "matched_records": [
+            "19-positive-02",
+            "19-positive-03",
+            "19-positive-04"
+          ]
+        },
+        {
+          "scenario_id": "19",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "19",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 3,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh"
+      ],
+      "lesson": "learn/19.md"
+    },
+    {
+      "id": "20",
+      "title": "Cloud IAM Abuse",
+      "category": "Lateral Movement & Command",
+      "attack": {
+        "id": "T1098.003",
+        "name": "Additional Cloud Roles",
+        "url": "https://attack.mitre.org/techniques/T1098/003",
+        "tactics": [
+          "persistence",
+          "privilege_escalation"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "cloud",
+      "detection": "THX-20",
+      "telemetry": "Cloud audit projection",
+      "defensive_control": "Enforce least privilege, short-lived roles and change approval for administrative grants.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "20",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "20-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "20",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "20",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma",
+        "wazuh"
+      ],
+      "lesson": "learn/20.md"
+    },
+    {
+      "id": "21",
+      "title": "Active Directory Enumeration",
+      "category": "Discovery & Impact",
+      "attack": {
+        "id": "T1087.002",
+        "name": "Domain Account",
+        "url": "https://attack.mitre.org/techniques/T1087/002",
+        "tactics": [
+          "discovery"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-21",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Audit directory queries for sensitive objects and reduce the reach of unmanaged directory clients.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "21",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 3,
+          "matched_records": [
+            "21-positive-02",
+            "21-positive-03"
+          ]
+        },
+        {
+          "scenario_id": "21",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "21",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/21.md"
+    },
+    {
+      "id": "22",
+      "title": "Cloud Exfiltration",
+      "category": "Discovery & Impact",
+      "attack": {
+        "id": "T1530",
+        "name": "Data from Cloud Storage",
+        "url": "https://attack.mitre.org/techniques/T1530",
+        "tactics": [
+          "collection"
+        ],
+        "confidence": "related",
+        "rationale": "T1530 describes collection from cloud storage. External transfer requires additional evidence."
+      },
+      "source": "cloud",
+      "detection": "THX-22",
+      "telemetry": "Cloud audit projection",
+      "defensive_control": "Enable object-level audit for restricted storage, scope access and enforce approved destinations.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "22",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 3,
+          "matched_records": [
+            "22-positive-02",
+            "22-positive-03"
+          ]
+        },
+        {
+          "scenario_id": "22",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "22",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 3,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/22.md"
+    },
+    {
+      "id": "23",
+      "title": "Ransomware-Like Activity",
+      "category": "Discovery & Impact",
+      "attack": {
+        "id": "T1486",
+        "name": "Data Encrypted for Impact",
+        "url": "https://attack.mitre.org/techniques/T1486",
+        "tactics": [
+          "impact"
+        ],
+        "confidence": "related",
+        "rationale": "Mass renames can be consistent with encryption for impact. Rename evidence alone does not show that content was encrypted."
+      },
+      "source": "windows",
+      "detection": "THX-23",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Use offline tested backups, application control, staged share permissions and fast endpoint isolation procedures.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "23",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 5,
+          "matched_records": [
+            "23-positive-02",
+            "23-positive-03",
+            "23-positive-04",
+            "23-positive-05"
+          ]
+        },
+        {
+          "scenario_id": "23",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "23",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 5,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/23.md"
+    },
+    {
+      "id": "24",
+      "title": "Data Staging",
+      "category": "Discovery & Impact",
+      "attack": {
+        "id": "T1560.001",
+        "name": "Archive via Utility",
+        "url": "https://attack.mitre.org/techniques/T1560/001",
+        "tactics": [
+          "collection"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "linux",
+      "detection": "THX-24",
+      "telemetry": "Linux audit projection",
+      "defensive_control": "Limit staging access, use DLP and monitor outbound transfers from systems with sensitive datasets.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "24",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "24-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "24",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "24",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/24.md"
+    },
+    {
+      "id": "25",
+      "title": "Wiper-Like Activity",
+      "category": "Discovery & Impact",
+      "attack": {
+        "id": "T1485",
+        "name": "Data Destruction",
+        "url": "https://attack.mitre.org/techniques/T1485",
+        "tactics": [
+          "impact"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "linux",
+      "detection": "THX-25",
+      "telemetry": "Linux audit projection",
+      "defensive_control": "Protect backups from the same identity plane and require review for large destructive changes.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "25",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "25-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "25",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "25",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/25.md"
+    },
+    {
+      "id": "26",
+      "title": "Adversary-in-the-Middle Phishing",
+      "category": "Identity & Phishing",
+      "attack": {
+        "id": "T1557",
+        "name": "Adversary-in-the-Middle",
+        "url": "https://attack.mitre.org/techniques/T1557",
+        "tactics": [
+          "collection",
+          "credential_access"
+        ],
+        "confidence": "related",
+        "rationale": "Session drift supports a relay hypothesis. It does not directly show that an adversary intercepted traffic."
+      },
+      "source": "identity",
+      "detection": "THX-26",
+      "telemetry": "Entra sign-in or audit projection",
+      "defensive_control": "Require origin-bound authentication such as FIDO2 passkeys and apply conditional access to session risk.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "26",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "26-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "26",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "26",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/26.md"
+    },
+    {
+      "id": "27",
+      "title": "Device-Code Phishing",
+      "category": "Identity & Phishing",
+      "attack": {
+        "id": "T1566.002",
+        "name": "Spearphishing Link",
+        "url": "https://attack.mitre.org/techniques/T1566/002",
+        "tactics": [
+          "initial_access"
+        ],
+        "confidence": "related",
+        "rationale": "T1566.002 represents link-based phishing delivery that can lead to a device grant. The fixture observes the grant only."
+      },
+      "source": "identity",
+      "detection": "THX-27",
+      "telemetry": "Entra sign-in or audit projection",
+      "defensive_control": "Limit device authorization flow to approved applications with conditional access and user education.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "27",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "27-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "27",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "27",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/27.md"
+    },
+    {
+      "id": "28",
+      "title": "Browser Cookie Theft",
+      "category": "Identity & Phishing",
+      "attack": {
+        "id": "T1539",
+        "name": "Steal Web Session Cookie",
+        "url": "https://attack.mitre.org/techniques/T1539",
+        "tactics": [
+          "credential_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-28",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Restrict process access, enforce session protections and monitor browser profile access.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "28",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "28-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "28",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "28",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/28.md"
+    },
+    {
+      "id": "29",
+      "title": "Infostealers",
+      "category": "Identity & Phishing",
+      "attack": {
+        "id": "T1555.003",
+        "name": "Credentials from Web Browsers",
+        "url": "https://attack.mitre.org/techniques/T1555/003",
+        "tactics": [
+          "credential_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-29",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Apply endpoint hardening, managed browser policy and monitored credential-store access.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "29",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "29-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "29",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "29",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/29.md"
+    },
+    {
+      "id": "30",
+      "title": "QR-Code Phishing",
+      "category": "Identity & Phishing",
+      "attack": {
+        "id": "T1566.002",
+        "name": "Spearphishing Link",
+        "url": "https://attack.mitre.org/techniques/T1566/002",
+        "tactics": [
+          "initial_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "mail",
+      "detection": "THX-30",
+      "telemetry": "Mail gateway or attachment projection",
+      "defensive_control": "Use QR inspection and phishing-resistant authentication. Teach users to report unexpected QR sign-in prompts.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "30",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "30-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "30",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "30",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/30.md"
+    },
+    {
+      "id": "31",
+      "title": "Malicious Dependencies",
+      "category": "Supply Chain & CI/CD",
+      "attack": {
+        "id": "T1195.001",
+        "name": "Compromise Software Dependencies and Development Tools",
+        "url": "https://attack.mitre.org/techniques/T1195/001",
+        "tactics": [
+          "initial_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "github",
+      "detection": "THX-31",
+      "telemetry": "GitHub organization audit projection",
+      "defensive_control": "Use dependency review, pinned lockfiles, restricted install scripts and verified provenance.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "31",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "31-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "31",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "31",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/31.md"
+    },
+    {
+      "id": "32",
+      "title": "CI/CD Token Compromise",
+      "category": "Supply Chain & CI/CD",
+      "attack": {
+        "id": "T1550.001",
+        "name": "Application Access Token",
+        "url": "https://attack.mitre.org/techniques/T1550/001",
+        "tactics": [
+          "lateral_movement"
+        ],
+        "confidence": "related",
+        "rationale": "T1550.001 applies to use of an application access token. The sample does not show theft itself."
+      },
+      "source": "github",
+      "detection": "THX-32",
+      "telemetry": "GitHub organization audit projection",
+      "defensive_control": "Prefer short-lived workload identity and narrowly scoped job tokens. Require approved runner images and pools.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "32",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "32-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "32",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "32",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/32.md"
+    },
+    {
+      "id": "33",
+      "title": "GitHub Actions Tampering",
+      "category": "Supply Chain & CI/CD",
+      "attack": {
+        "id": "T1677",
+        "name": "Poisoned Pipeline Execution",
+        "url": "https://attack.mitre.org/techniques/T1677",
+        "tactics": [
+          "execution"
+        ],
+        "confidence": "related",
+        "rationale": "A risky workflow edit can set up poisoned pipeline execution. The fixture records a configuration change without executing a job."
+      },
+      "source": "github",
+      "detection": "THX-33",
+      "telemetry": "GitHub organization audit projection",
+      "defensive_control": "Protect workflow paths with CODEOWNERS and required review. Set least-privilege and explicit workflow permissions.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "33",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "33-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "33",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "33",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/33.md"
+    },
+    {
+      "id": "34",
+      "title": "Secrets in Git/Artifacts",
+      "category": "Supply Chain & CI/CD",
+      "attack": {
+        "id": "T1552.001",
+        "name": "Credentials In Files",
+        "url": "https://attack.mitre.org/techniques/T1552/001",
+        "tactics": [
+          "credential_access"
+        ],
+        "confidence": "related",
+        "rationale": "Credentials in Files models discovery of credentials in files. The lab detects potential exposure only."
+      },
+      "source": "scanner",
+      "detection": "THX-34",
+      "telemetry": "Secret scanner projection",
+      "defensive_control": "Run secret scanning before release and use short-lived credentials or workload identity.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "34",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "34-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "34",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "34",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/34.md"
+    },
+    {
+      "id": "35",
+      "title": "Kubernetes RBAC Abuse",
+      "category": "Supply Chain & CI/CD",
+      "attack": {
+        "id": "T1098.006",
+        "name": "Additional Container Cluster Roles",
+        "url": "https://attack.mitre.org/techniques/T1098/006",
+        "tactics": [
+          "persistence",
+          "privilege_escalation"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "kubernetes",
+      "detection": "THX-35",
+      "telemetry": "Kubernetes audit projection",
+      "defensive_control": "Use least-privilege RBAC, change review for privileged bindings, and admission controls where appropriate.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "35",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "35-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "35",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "35",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/35.md"
+    },
+    {
+      "id": "36",
+      "title": "Container Escape",
+      "category": "Cloud, Host & SaaS",
+      "attack": {
+        "id": "T1611",
+        "name": "Escape to Host",
+        "url": "https://attack.mitre.org/techniques/T1611",
+        "tactics": [
+          "privilege_escalation"
+        ],
+        "confidence": "related",
+        "rationale": "The exercise observes a risky configuration associated with potential escape. It does not reproduce escape or prove it occurred."
+      },
+      "source": "kubernetes",
+      "detection": "THX-36",
+      "telemetry": "Kubernetes audit projection",
+      "defensive_control": "Use Pod Security Standards, scoped admission exceptions and independent runtime monitoring.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "36",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "36-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "36",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "36",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/36.md"
+    },
+    {
+      "id": "37",
+      "title": "Cloud Metadata Credential Theft",
+      "category": "Cloud, Host & SaaS",
+      "attack": {
+        "id": "T1552.005",
+        "name": "Cloud Instance Metadata API",
+        "url": "https://attack.mitre.org/techniques/T1552/005",
+        "tactics": [
+          "credential_access"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "network",
+      "detection": "THX-37",
+      "telemetry": "Network sensor or WAF projection",
+      "defensive_control": "Require IMDSv2 where supported, constrain metadata access and limit instance-role privileges.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "37",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "37-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "37",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "37",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/37.md"
+    },
+    {
+      "id": "38",
+      "title": "BYOVD Driver Abuse",
+      "category": "Cloud, Host & SaaS",
+      "attack": {
+        "id": "T1068",
+        "name": "Exploitation for Privilege Escalation",
+        "url": "https://attack.mitre.org/techniques/T1068",
+        "tactics": [
+          "privilege_escalation"
+        ],
+        "confidence": "related",
+        "rationale": "Driver vulnerability can be relevant to privilege escalation. The fixture does not establish driver exploitation."
+      },
+      "source": "windows",
+      "detection": "THX-38",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Enforce recommended vulnerable driver blocklists, HVCI where supported, and update drivers from trusted sources.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "38",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "38-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "38",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "38",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/38.md"
+    },
+    {
+      "id": "39",
+      "title": "RMM Tool Abuse",
+      "category": "Cloud, Host & SaaS",
+      "attack": {
+        "id": "T1219.002",
+        "name": "Remote Desktop Software",
+        "url": "https://attack.mitre.org/techniques/T1219/002",
+        "tactics": [
+          "command_and_control"
+        ],
+        "confidence": "direct",
+        "rationale": "The behavior in this lesson corresponds to this technique; the fixture models a defensive observation."
+      },
+      "source": "windows",
+      "detection": "THX-39",
+      "telemetry": "Windows security or Sysmon projection",
+      "defensive_control": "Allow approved support tools only, require MFA and maintain an inventory of remote-access agents.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "39",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "39-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "39",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "39",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/39.md"
+    },
+    {
+      "id": "40",
+      "title": "SaaS Exfiltration",
+      "category": "Cloud, Host & SaaS",
+      "attack": {
+        "id": "T1567",
+        "name": "Exfiltration Over Web Service",
+        "url": "https://attack.mitre.org/techniques/T1567",
+        "tactics": [
+          "exfiltration"
+        ],
+        "confidence": "related",
+        "rationale": "External sharing can provide a route for exfiltration over a web service. The fixture represents sharing and not confirmed download."
+      },
+      "source": "saas",
+      "detection": "THX-40",
+      "telemetry": "SaaS audit projection",
+      "defensive_control": "Apply DLP, external sharing policy, data classification and conditional access.",
+      "status": "Synthetic-verified",
+      "fixture_results": [
+        {
+          "scenario_id": "40",
+          "mode": "positive",
+          "expected": true,
+          "actual": true,
+          "alerts": 1,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": [
+            "40-positive-02"
+          ]
+        },
+        {
+          "scenario_id": "40",
+          "mode": "baseline",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        },
+        {
+          "scenario_id": "40",
+          "mode": "negative",
+          "expected": false,
+          "actual": false,
+          "alerts": 0,
+          "passed": true,
+          "event_count": 2,
+          "matched_records": []
+        }
+      ],
+      "artifact_formats": [
+        "sigma"
+      ],
+      "lesson": "learn/40.md"
+    }
+  ]
+}

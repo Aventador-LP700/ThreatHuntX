@@ -1,7 +1,7 @@
 {
   "id": "27",
-  "title": "Device-code phishing",
-  "category": "Modern Identity",
+  "title": "Device-Code Phishing",
+  "category": "Identity & Phishing",
   "overview": "Inspect device-flow sign-in records for successful use on an app outside an expected device policy.",
   "objective": "Abuse OAuth device flow.",
   "platform": "Identity",

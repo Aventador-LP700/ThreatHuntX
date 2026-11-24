@@ -1,7 +1,7 @@
 {
   "id": "36",
-  "title": "Container escape",
-  "category": "Cloud / Host / Saas",
+  "title": "Container Escape",
+  "category": "Cloud, Host & SaaS",
   "overview": "Inspect an audit projection that records potentially dangerous host access requested by a workload.",
   "objective": "Cross container boundary.",
   "platform": "Kubernetes",

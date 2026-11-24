@@ -1,7 +1,7 @@
 {
   "id": "33",
-  "title": "GitHub Actions tampering",
-  "category": "Supply Chain / Ci-Cd",
+  "title": "GitHub Actions Tampering",
+  "category": "Supply Chain & CI/CD",
   "overview": "Review a workflow file change that broadened job permissions without corresponding protection or review.",
   "objective": "Alter workflow security.",
   "platform": "CI/CD",

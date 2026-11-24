@@ -1,7 +1,7 @@
 {
   "id": "24",
-  "title": "Data staging",
-  "category": "Discovery / Exfil / Impact",
+  "title": "Data Staging",
+  "category": "Discovery & Impact",
   "overview": "Triage an archive audit record when an unusual actor stages multiple sensitive files together.",
   "objective": "Archive files before transfer.",
   "platform": "Linux",

@@ -1,7 +1,7 @@
 {
   "id": "15",
-  "title": "Privilege escalation",
-  "category": "Privilege & Credentials",
+  "title": "Privilege Escalation",
+  "category": "Privilege Escalation & Credentials",
   "overview": "Investigate an unexpected transition to root privilege alongside process provenance.",
   "objective": "Abuse local flaws/rights.",
   "platform": "Linux",

@@ -5,14 +5,22 @@ import json
 from pathlib import Path
 
 from app.catalog import ROOT, Catalog
-from app.portability import artifact_kinds
+from app.evaluation import evaluate_trial
+from app.portability import artifact_kinds, wazuh_engine_verified
 
 
 def lessons(catalog):
     rows = []
     generated = {}
+    machine_rows = []
+    wazuh_status = (
+        "Engine verified on synthetic records"
+        if wazuh_engine_verified(catalog.root)
+        else "Static test"
+    )
     for scenario in catalog.scenarios.values():
         rule = scenario.rule
+        trial = evaluate_trial(scenario, catalog.fixtures)
         lines = [
             f"# {scenario.id} · {scenario.title}",
             "",
@@ -23,6 +31,10 @@ def lessons(catalog):
             f"**Prerequisites** {scenario.prerequisites}",
             "",
             "## Investigate",
+            "",
+            f"**Attacker intent** {scenario.objective}",
+            "",
+            f"**Learning outcome** {scenario.evidence}",
             "",
             f"1. Review the clean baseline. {scenario.telemetry} supplies the exercise evidence.",
             f"2. Consider the hypothesis. {scenario.hypothesis}",
@@ -57,7 +69,7 @@ def lessons(catalog):
                 "",
                 f"Tuning guidance. {scenario.tuning}",
                 "",
-                f"[Manifest](../../scenarios/manifests/{scenario.id}.json) · [Positive fixture](../../scenarios/fixtures/{scenario.id}.positive.json) · [Noisy fixture](../../scenarios/fixtures/{scenario.id}.negative.json) · [Sigma](../../detections/sigma/{scenario.id}.yml)",
+                f"[Manifest](../../scenarios/manifests/{scenario.id}.json) · [Clean fixture](../../scenarios/fixtures/{scenario.id}.baseline.json) · [Positive fixture](../../scenarios/fixtures/{scenario.id}.positive.json) · [Noisy fixture](../../scenarios/fixtures/{scenario.id}.negative.json) · [Sigma](../../detections/sigma/{scenario.id}.yml)",
             ]
         )
         if "kql" in artifact_kinds(catalog.root, scenario.id):
@@ -111,6 +123,29 @@ def lessons(catalog):
                 "",
             ]
         )
+        lines.extend(
+            [
+                "## Observed fixture decisions",
+                "",
+                "| Batch | Events | Expected alert | Observed alerts | Matched record IDs |",
+                "| --- | --- | --- | --- | --- |",
+                *[
+                    f"| {case['mode']} | {case['event_count']} | {'Yes' if case['expected'] else 'No'} | {case['alerts']} | "
+                    + (", ".join(f"`{record}`" for record in case["matched_records"]) or "—")
+                    + " |"
+                    for case in trial["cases"]
+                ],
+                "",
+                "Reproduce this comparison on the loopback lab.",
+                "",
+                "```bash",
+                f"curl -fsS http://127.0.0.1:8080/api/scenarios/{scenario.id}/trial",
+                "```",
+                "",
+                f"[Normalized field schema](../../scenarios/schema/event-v1.json) · [Detection Studio](http://127.0.0.1:8080/#/rules/{scenario.id})",
+                "",
+            ]
+        )
         generated[Path(f"docs/learn/{scenario.id}.md")] = "\n".join(lines)
         passed = all(
             case["passed"]
@@ -119,11 +154,27 @@ def lessons(catalog):
         )
         validation = "Synthetic-verified" if passed else "Fixture check failed"
         kinds = artifact_kinds(catalog.root, scenario.id)
+        machine_rows.append(
+            {
+                "id": scenario.id,
+                "title": scenario.title,
+                "category": scenario.category,
+                "attack": scenario.attack.model_dump(),
+                "source": rule.source,
+                "detection": rule.id,
+                "telemetry": scenario.telemetry,
+                "defensive_control": scenario.prevention,
+                "status": validation,
+                "fixture_results": trial["cases"],
+                "artifact_formats": kinds,
+                "lesson": f"learn/{scenario.id}.md",
+            }
+        )
         rows.append(
             f"| {scenario.id} | [{scenario.title}](learn/{scenario.id}.md) | [{scenario.attack.id}]({scenario.attack.url}) {scenario.attack.confidence} | {validation} | "
             + ("Core" if scenario.core_lesson else "Additional")
             + " | "
-            + ("Static test" if "wazuh" in kinds else "—")
+            + (wazuh_status if "wazuh" in kinds else "—")
             + " | "
             + ("Review" if "kql" in kinds else "—")
             + " |"
@@ -134,6 +185,8 @@ def lessons(catalog):
             "",
             "The local engine runs three labeled batches per scenario. The local validation column covers the bundled fixture set. All 40 scenarios have an original Sigma specification with offline pySigma and fixture-selection checks. The 10 core lessons also have dedicated browser smoke tests.",
             "",
+            "[Machine-readable scenario matrix](scenario-matrix.json)",
+            "",
             "| ID | Lesson | Enterprise ATT&CK | Local fixture result | Guided coverage | Wazuh | KQL/SPL |",
             "| --- | --- | --- | --- | --- | --- | --- |",
             *rows,
@@ -141,6 +194,19 @@ def lessons(catalog):
             "[Status definitions](TESTING_AND_VALIDATION.md) · [Portable detections](PORTABLE_DETECTIONS.md) · [Observed test results](../reports/validation-summary.md)",
             "",
         ]
+    )
+    generated[Path("docs/scenario-matrix.json")] = (
+        json.dumps(
+            {
+                "schema_version": 1,
+                "attack_release": catalog.attack["version"],
+                "synthetic_only": True,
+                "scenarios": machine_rows,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n"
     )
     return generated
 
@@ -172,26 +238,33 @@ def playbooks(catalog):
 
 
 def hypotheses(catalog):
+    hunts = json.loads((ROOT / "frontend/src/content/hunts.json").read_text())
     result = [
-        "# Ten starter hunt hypotheses",
+        "# Fifteen fixture-backed hunt hypotheses",
         "",
-        "Replay the positive and noisy examples in each lesson. Read the supporting and contradictory observations before proposing a response.",
+        "Replay the positive and noisy examples in each lesson. Document support for your conclusion alongside a plausible alternative.",
         "",
     ]
-    for s in catalog.scenarios.values():
-        if s.core_lesson:
-            result.extend(
-                [
-                    f"## [{s.title}](learn/{s.id}.md)",
-                    "",
-                    s.hypothesis,
-                    "",
-                    f"**Support** {s.evidence}",
-                    "",
-                    f"**Alternative explanation** {s.false_positive}",
-                    "",
-                ]
-            )
+    for hunt in hunts:
+        scenario = catalog.scenarios[hunt["id"]]
+        positive = evaluate_trial(scenario, catalog.fixtures)["cases"][0]
+        ids = ", ".join(f"`{record}`" for record in positive["matched_records"])
+        result.extend(
+            [
+                f"## [{scenario.title}](learn/{scenario.id}.md)",
+                "",
+                scenario.hypothesis,
+                "",
+                f"**Pivot** {hunt['pivot']}",
+                "",
+                f"**Support** {scenario.evidence} Matched records {ids}.",
+                "",
+                f"**Alternative** {scenario.false_positive} {hunt['check']}",
+                "",
+                f"[Positive](../scenarios/fixtures/{scenario.id}.positive.json) · [Noisy control](../scenarios/fixtures/{scenario.id}.negative.json)",
+                "",
+            ]
+        )
     return {Path("docs/HUNT_HYPOTHESES.md"): "\n".join(result)}
 
 

@@ -50,6 +50,9 @@ jobs:
         run: |
           uv run --locked pytest --junitxml=build/validation/pytest.xml
           uv run --locked python -m app.cli verify > build/validation/fixture-results.json
+          uv run --locked python -m scripts.vendor_samples all > build/validation/vendor-samples.json
+      - name: Verify optional YARA text samples
+        run: uv run --locked --extra forensics python -m scripts.check_yara_samples > build/validation/yara-samples.json
       - name: Scan application source, dependencies, and history
         run: |
           uv run --locked bandit -q -r backend/app
@@ -65,6 +68,15 @@ jobs:
           npm --prefix frontend run build
           uv run --locked cyclonedx-py requirements --output-reproducible infra/docker/requirements.txt --output-file build/validation/python.cdx.json
           npm --prefix frontend sbom --omit=dev --sbom-format=cyclonedx > build/validation/web.cdx.json
+      - name: Package the review candidate and verify checksums
+        run: |
+          ./scripts/package-release.sh
+          (cd build/release && sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: community-v2-candidate
+          path: build/release/
+          if-no-files-found: error
       - name: Write validation summary
         if: always()
         run: |
@@ -108,6 +120,12 @@ jobs:
           trap 'kill "$preview_pid"' EXIT
           curl --retry 8 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:4173/dist/ > /dev/null
           THX_SHOWCASE=1 THX_URL=http://127.0.0.1:4173/dist/ npm --prefix frontend run test:e2e
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: read-only-showcase
+          path: public-demo/dist/
+          include-hidden-files: true
+          if-no-files-found: error
       - name: Logs and teardown
         if: always()
         run: |

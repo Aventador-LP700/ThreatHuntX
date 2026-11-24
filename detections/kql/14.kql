@@ -1,4 +1,4 @@
-// THX-14 Pass-the-hash | Review-only. Custom normalized schema.
+// THX-14 Pass-the-Hash | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "windows"
 | where THXEventId =~ "4624"

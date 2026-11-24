@@ -1,7 +1,7 @@
 {
   "id": "23",
-  "title": "Ransomware-like activity",
-  "category": "Discovery / Exfil / Impact",
+  "title": "Ransomware-Like Activity",
+  "category": "Discovery & Impact",
   "overview": "Determine whether repeated rename observations resemble ransomware impact or an approved file operation.",
   "objective": "Simulated bulk file changes.",
   "platform": "Windows",

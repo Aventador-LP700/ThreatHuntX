@@ -18,7 +18,7 @@ export function complete(id: string) {
 }
 export const tracks: Difficulty[] = ['Beginner', 'Intermediate', 'Advanced']
 export const curricula = [
-  { name: 'SOC L1', description: 'Triage mail, identity and endpoint alerts.', ids: ['02', '01', '03', '09', '39'] },
+  { name: 'Beginner / SOC L1', description: 'Triage mail, identity and endpoint alerts.', ids: ['02', '01', '03', '09', '39'] },
   { name: 'SOC L2 / Threat Hunter', description: 'Correlate signals across accounts, hosts and networks.', ids: ['06', '13', '16', '19', '21', '26'] },
   { name: 'Detection Engineer', description: 'Work with thresholds, suppressions and rule portability.', ids: ['03', '06', '09', '18', '23', '34'] },
   { name: 'Penetration Tester to Purple Teamer', description: 'Translate observations into testable defensive hypotheses.', ids: ['04', '15', '17', '23', '37', '38'] },
@@ -33,8 +33,11 @@ export function learningReport(scenarios: Scenario[]) {
     })),
   }
 }
-export function download(filename: string, data: any) {
-  const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2) + '\n'], { type: 'application/json' }))
+export function download(filename: string, data: unknown) {
+  downloadText(filename, JSON.stringify(data, null, 2) + '\n', 'application/json')
+}
+export function downloadText(filename: string, content: string, type: string) {
+  const url = URL.createObjectURL(new Blob([content], { type }))
   const link = document.createElement('a')
   link.href = url
   link.download = filename

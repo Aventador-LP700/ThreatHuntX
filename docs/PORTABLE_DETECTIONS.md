@@ -5,7 +5,7 @@ The Community Lab executes the normalized rule in each [scenario manifest](../sc
 | Artifact | Cases | Inputs and verification |
 | --- | --- | --- |
 | [Sigma](../detections/sigma) | 01–40 | pySigma parses base specifications and resolves rule references offline. Tests compare normalized positive, noisy and clean event selections against each local rule. Correlations represent counts and distinct counts. Backend execution requires a compatible pipeline and explicit field mapping. |
-| [Wazuh](../detections/wazuh) | 01–20 | Decoder and child rules use the `THX_JSON` projection in `synthetic.log`. Static XML and event selection checks run offline. These examples evaluate individual event candidates, including event-level exclusions. See the validation report for Wazuh manager status. |
+| [Wazuh](../detections/wazuh) | 01–20 | Decoder and child rules use the `THX_JSON` projection in `synthetic.log`. Offline tests validate the XML and event selection. The 4.14.10 native engine also passed the bundled event checks. These examples evaluate individual event candidates, including event-level exclusions. See the validation report for Wazuh manager status. |
 | [KQL](../detections/kql) | 01–15 | Review-only templates for a Sentinel Log Analytics custom table `THXNormalized_CL`. Offline tests check template fields and intended decisions on fixtures. |
 | [SPL](../detections/spl) | 01–15 | Review-only templates for index `threathuntx`, sourcetype `thx:normalized:json`. Offline tests check template fields and intended decisions on fixtures. |
 
@@ -27,3 +27,5 @@ In KQL, use `TimeGenerated` as UTC datetime, `THXRecordId` as a string, and pres
 Template correlation uses fixed time bins, which can split evidence across a boundary. The local engine uses sliding windows and exact distinct values. KQL `dcount()` may approximate at scale. For both vendor templates, review null handling, deduplication, normalization and bin boundaries against live-approved fixture paths before promotion.
 
 The repository includes no automatic Sigma-to-Wazuh conversion. The example artifacts are generated from an explicit supported local predicate set. `wazuh_regex` rejects unsupported operations and the emitted field mapping remains reviewable. [Add a detection](HOW_TO_WRITE_A_DETECTION.md)
+
+The v2 Wazuh validation ran the pinned 4.14.10 analysis engine and logtest executable on all bundled candidate records. The published report contains rule IDs, the decoder name and artifact hashes. Wazuh selects an individual event candidate. Detection Studio's thresholds and windows apply to its distinct batch evaluator. [Wazuh engine evidence](../detections/wazuh/engine-validation.json) · [Native-field examples](VENDOR_SAMPLES.md)

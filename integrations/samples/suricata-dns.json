@@ -1,0 +1,1 @@
+{"timestamp":"2025-08-14T10:53:20.125000+00:00","flow_id":108001,"event_type":"dns","src_ip":"192.0.2.20","src_port":53000,"dest_ip":"192.0.2.53","dest_port":53,"proto":"UDP","dns":{"version":3,"type":"request","id":4097,"queries":[{"rrname":"docs.training.example","rrtype":"A"}]}}

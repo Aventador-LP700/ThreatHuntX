@@ -11,3 +11,11 @@ These captures were taken in Chromium from the running local Docker Compose app.
 - [Architecture graphic](architecture.png)
 
 Reproduce the clip’s investigation with the [MFA walk-through](../FIRST_10_MINUTES.md).
+
+## Community v2 screenshots
+
+Chromium captured these views from the running Compose lab. The studio image shows the noisy-control alert after setting the MFA threshold to one.
+
+- [Interactive Technique Map](v2-technique-map.webp)
+- [Detection Studio](v2-detection-studio.webp)
+- [Printable case report](v2-case-report.webp)

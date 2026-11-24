@@ -1,6 +1,6 @@
 {
   "id": "07",
-  "title": "HTML smuggling",
+  "title": "HTML Smuggling",
   "category": "Execution & Persistence",
   "overview": "Compare attachment-inspection results for normal HTML and a sandbox-classified generated artifact.",
   "objective": "Payload via attachment.",

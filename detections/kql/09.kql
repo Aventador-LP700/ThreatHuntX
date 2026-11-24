@@ -1,4 +1,4 @@
-// THX-09 Registry autoruns | Review-only. Custom normalized schema.
+// THX-09 Registry Autoruns | Review-only. Custom normalized schema.
 THXNormalized_CL
 | where THXSource == "windows"
 | where THXEventId =~ "13"

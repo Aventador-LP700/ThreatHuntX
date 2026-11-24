@@ -1,7 +1,7 @@
 {
   "id": "30",
-  "title": "QR phishing",
-  "category": "Modern Identity",
+  "title": "QR-Code Phishing",
+  "category": "Identity & Phishing",
   "overview": "Inspect a normalized URL verdict for a redirect discovered during QR inspection.",
   "objective": "QR-directed malicious URLs.",
   "platform": "Identity",

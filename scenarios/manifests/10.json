@@ -1,6 +1,6 @@
 {
   "id": "10",
-  "title": "WMI subscriptions",
+  "title": "WMI Subscription",
   "category": "Execution & Persistence",
   "overview": "Inspect a permanent WMI subscription binding and compare the owner and change context.",
   "objective": "Event-triggered persistence.",

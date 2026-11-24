@@ -1,7 +1,7 @@
 {
   "id": "31",
-  "title": "Malicious dependencies",
-  "category": "Supply Chain / Ci-Cd",
+  "title": "Malicious Dependencies",
+  "category": "Supply Chain & CI/CD",
   "overview": "Investigate a dependency review that added a lifecycle hook and lost expected provenance.",
   "objective": "Tamper with packages.",
   "platform": "CI/CD",

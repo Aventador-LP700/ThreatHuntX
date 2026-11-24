@@ -67,7 +67,7 @@
       "id": "example-09-1",
       "rule_id": "THX-09",
       "scenario_id": "09",
-      "title": "Registry autoruns",
+      "title": "Registry Autoruns",
       "severity": "medium",
       "group": "workstation-02.training.example",
       "first_seen": "2025-08-14T11:36:32Z",

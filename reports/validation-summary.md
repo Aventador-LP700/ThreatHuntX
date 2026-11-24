@@ -1,4 +1,26 @@
-# ThreatHuntX Community alpha validation
+# ThreatHuntX validation
+
+## Community v2 · 2026-11-24
+
+The upgrade starts from the existing `community-alpha` candidate and retains [PR #1](https://github.com/Aventador-LP700/ThreatHuntX/pull/1). Tests exercise the 40 bundled synthetic scenarios. The previous alpha measurements and CI evidence remain below.
+
+| Check | Observed result |
+| --- | --- |
+| `uv run --locked pytest -q` | 209 passed, including 40 default studio comparisons, threshold and window boundaries, strict trial inputs, exclusion and duplicate handling, report schema, CSV neutralization and vendor adapters. Starlette reported the existing test-client deprecation warning. |
+| Via Compose, `npm --prefix frontend run test:e2e` | 15 passed against Chromium. All 40 lesson routes opened, the MFA trial produced the intended miss and noisy control, and case export, reload persistence, printable PDF and selected axe checks passed. |
+| `make showcase` and `THX_SHOWCASE=1 THX_URL=http://127.0.0.1:4173/dist/ npm --prefix frontend run test:e2e` | Six passed. Nine local replay-only browser checks skipped in static mode. Both the lesson and case workspace tests observed only static reads. |
+| `PYTHONPATH=backend uv run --locked python -m app.cli verify` | 40 positive and 80 control batches matched their expected decision. The synthetic corpus gives 40 TP, 80 TN, 0 FP and 0 FN. |
+| `PYTHONPATH=backend uv run --locked python -m scripts.verify_attack --stix enterprise-attack.json` | All 40 mappings matched the pinned upstream Enterprise ATT&CK 20.1 records. |
+| `./scripts/check-wazuh-engine.sh /absolute/path/to/wazuh-manager_4.14.10-1_amd64.deb` | Native `wazuh-analysisd -t` succeeded. `wazuh-logtest-legacy` decoded all 138 bundled records and its event selections matched all 20 candidate IDs. [Sanitized engine evidence](../detections/wazuh/engine-validation.json) |
+| `PYTHONPATH=backend uv run --locked python -m scripts.vendor_samples all` and `uv run --locked --extra forensics python -m scripts.check_yara_samples` | Eight vendor-shaped examples normalized to the event schema. YARA 4.5.4 matched one inert note and returned no match for its clean control. The two benign DNS query and reply pairs were parsed back from the bundled four-record PCAP. |
+
+A local x86-64 Linux Compose run used Docker Engine 29.9.2, Compose 2.40.3 and Chromium 156.0.8078.79 in an environment with three Docker-visible CPUs and 10,452,459,520 bytes of RAM. Health returned a synthetic-only schema version 1 service and the published socket was `127.0.0.1:8080`. One tested build reported API and web image sizes of 141,409,719 and 62,738,848 bytes. After the browser tests, the process RSS samples were 52,916 KiB for Uvicorn and 3,200 and 3,184 KiB for the two Nginx processes. The SQLite file was 160 KiB. The environment uses rootless VFS without Docker cgroup accounting. These are observed figures and peak requirements depend on the host and build cache.
+
+GitHub reports the repository as public. The connected credential returned HTTP 403 for Pages creation and repository description/topic changes. The candidate includes the reproducible static build and default-branch Pages workflow. Hosted deployment awaits repository administration and reviewed changes reaching `main`. The required exact 1536×1024 user image was absent from the supplied files and Git tree. [Implementation audit](../docs/implementation-audit.md) · [Pages setup](../public-demo/README.md)
+
+A full Wazuh installation, live agent and network sensor runs, and vendor-specific queries are separate checks. Windows and macOS Docker Desktop tests and an independent beginner walkthrough remain manual pending. [Integration status](../docs/INTEGRATION_ACCEPTANCE.md)
+
+## Community alpha baseline
 
 ## Observed results
 

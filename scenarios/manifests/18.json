@@ -1,7 +1,7 @@
 {
   "id": "18",
-  "title": "Security tool tampering",
-  "category": "Lateral / Evasion / C2",
+  "title": "Disable Security Tools",
+  "category": "Lateral Movement & Command",
   "overview": "Review a defensive tool state change and determine whether it is supported by a change record.",
   "objective": "Disable AV/EDR/logging.",
   "platform": "Windows",

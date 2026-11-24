@@ -14,7 +14,7 @@ Unexpected MFA denials, a risky session or a login burst affecting distinct user
 
 **Recovery** Confirm verified access is restored. Adopt phishing-resistant authentication and review device and prompt policy.
 
-[MFA fatigue](../learn/02.md) · [Password spraying](../learn/03.md) · [Token theft](../learn/11.md) · [AiTM phishing](../learn/26.md) · [Device-code phishing](../learn/27.md)
+[MFA Fatigue](../learn/02.md) · [Password Spraying](../learn/03.md) · [Token Theft](../learn/11.md) · [Adversary-in-the-Middle Phishing](../learn/26.md) · [Device-Code Phishing](../learn/27.md)
 
 ## Suspicious mail and links
 
@@ -28,7 +28,7 @@ A gateway flags mismatched sender alignment, a risky URL redirect or attachment 
 
 **Recovery** Confirm users can report follow-up messages and validate the same conditions against known legitimate mail.
 
-[Phishing](../learn/01.md) · [HTML smuggling](../learn/07.md) · [QR phishing](../learn/30.md)
+[Phishing](../learn/01.md) · [HTML Smuggling](../learn/07.md) · [QR-Code Phishing](../learn/30.md)
 
 ## Windows execution and persistence triage
 
@@ -42,7 +42,7 @@ Unexpected script lineage, autorun modification, permanent WMI subscription or r
 
 **Recovery** Recheck execution control, startup events and endpoint health after recovery.
 
-[PowerShell abuse](../learn/06.md) · [Registry autoruns](../learn/09.md) · [WMI subscriptions](../learn/10.md) · [Living-off-the-land](../learn/17.md) · [BYOVD driver abuse](../learn/38.md)
+[PowerShell Abuse](../learn/06.md) · [Registry Autoruns](../learn/09.md) · [WMI Subscription](../learn/10.md) · [LOLBins/LOLBAS](../learn/17.md) · [BYOVD Driver Abuse](../learn/38.md)
 
 ## Lateral movement and directory review
 
@@ -56,7 +56,7 @@ Administrative sessions fan out from a peer or abnormal account activity appears
 
 **Recovery** Recheck management network boundaries and confirm expected ticket and session volume after recovery.
 
-[Kerberoasting](../learn/13.md) · [Pass-the-hash](../learn/14.md) · [RDP / SMB / WinRM abuse](../learn/16.md) · [AD enumeration](../learn/21.md) · [RMM tool abuse](../learn/39.md)
+[Kerberoasting](../learn/13.md) · [Pass-the-Hash](../learn/14.md) · [RDP/SMB/WinRM Abuse](../learn/16.md) · [Active Directory Enumeration](../learn/21.md) · [RMM Tool Abuse](../learn/39.md)
 
 ## Cloud and SaaS access changes
 
@@ -70,7 +70,7 @@ Unexpected administrative grants, restricted object reads or large external shar
 
 **Recovery** Confirm expected workloads function and monitor later resource access and sharing changes.
 
-[OAuth consent phishing](../learn/05.md) · [Cloud IAM abuse](../learn/20.md) · [Cloud storage theft](../learn/22.md) · [Cloud metadata theft](../learn/37.md) · [SaaS exfiltration](../learn/40.md)
+[OAuth Consent Phishing](../learn/05.md) · [Cloud IAM Abuse](../learn/20.md) · [Cloud Exfiltration](../learn/22.md) · [Cloud Metadata Credential Theft](../learn/37.md) · [SaaS Exfiltration](../learn/40.md)
 
 ## CI/CD and supply chain review
 
@@ -84,7 +84,7 @@ An unexpected package hook, workflow permission change, off-policy runner or sha
 
 **Recovery** Require review for workflow paths and apply explicit least-privilege job permissions.
 
-[Malicious dependencies](../learn/31.md) · [CI/CD token theft](../learn/32.md) · [GitHub Actions tampering](../learn/33.md) · [Secrets in Git/artifacts](../learn/34.md)
+[Malicious Dependencies](../learn/31.md) · [CI/CD Token Compromise](../learn/32.md) · [GitHub Actions Tampering](../learn/33.md) · [Secrets in Git/Artifacts](../learn/34.md)
 
 ## Kubernetes authorization and workload review
 
@@ -98,7 +98,7 @@ A broad cluster role grant or a workload requests host-level privileges.
 
 **Recovery** Test expected workload behavior and apply reviewed admission and RBAC policy.
 
-[Kubernetes RBAC abuse](../learn/35.md) · [Container escape](../learn/36.md)
+[Kubernetes RBAC Abuse](../learn/35.md) · [Container Escape](../learn/36.md)
 
 ## Destructive file activity and recovery
 
@@ -112,6 +112,6 @@ Clustered renames, sensitive staging or deletion summaries affect protected cont
 
 **Recovery** Restore from a verified recovery point, check integrity and monitor related paths after service resumes.
 
-[Ransomware-like activity](../learn/23.md) · [Data staging](../learn/24.md) · [Wiper-like activity](../learn/25.md)
+[Ransomware-Like Activity](../learn/23.md) · [Data Staging](../learn/24.md) · [Wiper-Like Activity](../learn/25.md)
 
 [Safety and scope](../SAFETY_AND_SCOPE.md)

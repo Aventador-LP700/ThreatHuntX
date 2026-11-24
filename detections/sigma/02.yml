@@ -1,4 +1,4 @@
-title: MFA fatigue observation
+title: MFA Fatigue observation
 name: threathuntx_02
 id: a2fc4253-48ce-517a-87d7-5e9983583b24
 status: test
@@ -29,7 +29,7 @@ falsepositives:
   is recorded with a change context.
 level: medium
 ---
-title: MFA fatigue correlation
+title: MFA Fatigue correlation
 id: 9951e5c6-2b7d-506e-b13a-4538b501d73a
 status: test
 description: Confirm the user, method and outcome. Three distinct challenge IDs within

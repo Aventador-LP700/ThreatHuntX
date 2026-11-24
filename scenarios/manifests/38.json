@@ -1,7 +1,7 @@
 {
   "id": "38",
-  "title": "BYOVD driver abuse",
-  "category": "Cloud / Host / Saas",
+  "title": "BYOVD Driver Abuse",
+  "category": "Cloud, Host & SaaS",
   "overview": "Triage a driver-load record with a vulnerability classification supplied by the endpoint inventory.",
   "objective": "Abuse vulnerable drivers.",
   "platform": "Windows",

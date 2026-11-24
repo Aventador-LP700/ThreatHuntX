@@ -1,6 +1,6 @@
 {
   "id": "04",
-  "title": "Public app exploitation",
+  "title": "Public-Facing Application Exploits",
   "category": "Initial Access",
   "overview": "Inspect a web application firewall finding against the telemetry of a fictional public application.",
   "objective": "Target internet-facing flaws.",

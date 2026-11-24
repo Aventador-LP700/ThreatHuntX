@@ -17,4 +17,4 @@ COPY --chown=10001:10001 scenarios ./scenarios
 COPY --chown=10001:10001 detections ./detections
 USER 10001:10001
 EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-proxy-headers"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-proxy-headers", "--limit-concurrency", "64"]

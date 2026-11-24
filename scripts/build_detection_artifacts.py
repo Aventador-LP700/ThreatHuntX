@@ -134,6 +134,7 @@ def wazuh_regex(predicate: Predicate) -> str:
 
 def wazuh_documents(scenarios: list[Scenario]) -> tuple[str, str]:
     decoder = et.Element("decoder", {"name": "threathuntx_json"})
+    et.SubElement(decoder, "type").text = "syslog"
     et.SubElement(decoder, "prematch", {"type": "pcre2"}).text = r"^THX_JSON\s+"
     et.SubElement(decoder, "plugin_decoder", {"offset": "after_prematch"}).text = "JSON_Decoder"
     rules = et.Element("group", {"name": "threathuntx,synthetic,"})

@@ -1,4 +1,4 @@
-title: AD enumeration observation
+title: Active Directory Enumeration observation
 name: threathuntx_21
 id: 690fcfc4-f03a-5191-b094-e8ac73b4359c
 status: test
@@ -26,7 +26,7 @@ falsepositives:
 - Auditors, administrators and inventory jobs can enumerate users legitimately.
 level: medium
 ---
-title: AD enumeration correlation
+title: Active Directory Enumeration correlation
 id: 111f939a-84c4-55c5-9680-088412547583
 status: test
 description: Compare actor, LDAP query class, query scope and client role. Check how

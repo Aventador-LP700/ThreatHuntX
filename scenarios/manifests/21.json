@@ -1,7 +1,7 @@
 {
   "id": "21",
-  "title": "AD enumeration",
-  "category": "Discovery / Exfil / Impact",
+  "title": "Active Directory Enumeration",
+  "category": "Discovery & Impact",
   "overview": "Separate expected directory inventory from repeated user enumeration by a workstation account.",
   "objective": "Map users and trusts.",
   "platform": "AD",

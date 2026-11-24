@@ -123,7 +123,7 @@
       "id": "example-02-1",
       "rule_id": "THX-02",
       "scenario_id": "02",
-      "title": "MFA fatigue",
+      "title": "MFA Fatigue",
       "severity": "medium",
       "group": "analyst-sample@training.example",
       "first_seen": "2025-08-14T09:58:32Z",

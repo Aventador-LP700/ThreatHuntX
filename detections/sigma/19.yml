@@ -1,4 +1,4 @@
-title: HTTPS / DNS C2 observation
+title: HTTPS/DNS Command & Control observation
 name: threathuntx_19
 id: 4103e0c0-db1e-5120-bf90-315f4917dd72
 status: test
@@ -25,7 +25,7 @@ falsepositives:
 - CDNs, update networks and security agents can emit opaque DNS labels.
 level: medium
 ---
-title: HTTPS / DNS C2 correlation
+title: HTTPS/DNS Command & Control correlation
 id: 94eee734-97bd-511e-ac42-3a73f64280f6
 status: test
 description: Check the DNS host, domain and timestamps, then compare process and egress

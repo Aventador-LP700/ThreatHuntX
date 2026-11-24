@@ -1,7 +1,7 @@
 {
   "id": "25",
-  "title": "Wiper-like activity",
-  "category": "Discovery / Exfil / Impact",
+  "title": "Wiper-Like Activity",
+  "category": "Discovery & Impact",
   "overview": "Review an inert audit summary for mass deletion of protected resources outside a maintenance scope.",
   "objective": "Simulated destructive actions.",
   "platform": "Linux",
