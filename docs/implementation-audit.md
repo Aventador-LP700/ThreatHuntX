@@ -1,10 +1,10 @@
 # Community v2 implementation audit
 
-Baseline `8e510c47fdba37e61154bee59e42e579c9bb9bbc` from `community-alpha` and [PR #1](https://github.com/Aventador-LP700/ThreatHuntX/pull/1). The repository is public. `main` contains the starter lab. PR #1 is open, and the v0.1.0 release is a draft. This upgrade uses a separate branch based on the candidate.
+Baseline `8e510c47fdba37e61154bee59e42e579c9bb9bbc` from `community-alpha`. At the time of inspection, `main` contained the starter lab, PR #1 was open, and the v0.1.0 release was a draft. [PR #1](https://github.com/Aventador-LP700/ThreatHuntX/pull/1)
 
 | Priority | Inspected baseline | Upgrade target |
 | --- | --- | --- |
-| Infographic | The README links to `docs/media/attack-matrix.webp`, a screenshot of the running site's ATT&CK view. The new attachment contains the specification. Its 1536×1024 source PNG was absent from the attachment directories and Git tree. | The supplied original and optimized derivative require the exact image file. The existing diagram, matrix capture and learner media stay in the documentation. |
+| Infographic | The README linked to a screenshot of the running site's ATT&CK view. The initial attachment contained the specification. | Feature the supplied infographic as a lossless preview linked to the original PNG. Provide SVG and PDF downloads. |
 | Catalog | Forty manifests, curated baselines, positive and noisy samples, and pinned ATT&CK 20.1 metadata. | Align display names and the eight sections with the specification, and export a generated matrix and per-lesson fixture results. |
 | Learning | Vue lessons, five worked cases, ten hunts, browser progress, replays and evidence timelines. | Add an interactive technique map, fifteen evidence-backed hunts, and clearer checkpoints. |
 | Analyst tools | Read-only rule views, recent-run filtering and JSON/CSV evidence exports. | Add isolated rule trials, exact evidence pivots, browser-local case notes and safe printable reports. |
@@ -15,4 +15,4 @@ The product catalog uses the specification for scenario names and pinned MITRE d
 
 ## Review candidate status
 
-The v2 implementation adds the grouped catalog, portable case reports, fixture-backed tuning, vendor samples, and an isolated Wazuh engine check. The lab map shows all 40 scenario and countermeasure pairs, and the CLI reports the underlying evidence and detection results. The framework artwork appeared as an inline reference. The exact README asset still requires the downloadable original. The README labels the lab screenshot as a capture of the running application. [Validation summary](../reports/validation-summary.md)
+The v2 implementation adds the grouped catalog, portable case reports, fixture-backed tuning, vendor samples, and an isolated Wazuh engine check. The lab map shows all 40 scenario and countermeasure pairs, and the CLI reports the underlying evidence and detection results. The README features the exact framework infographic from the supplied PNG and labels the application screenshot in the Scenario lab section. [Diagram downloads](diagrams/README.md) · [Validation summary](../reports/validation-summary.md)

@@ -21,3 +21,7 @@ The 2109 × 2244 Technique Map capture shows all eight groups at desktop width. 
 - [Technique Map with all 40 scenario and countermeasure pairs](v2-technique-map.webp)
 - [Detection Studio](v2-detection-studio.webp)
 - [Printable case report](v2-case-report.webp)
+
+## Framework infographic
+
+The README uses a lossless WebP at the source dimensions of 1536 × 1024 pixels. Its link opens the original PNG. [WebP preview](threathuntx-v2-40-threat-map.webp) · [SVG, PNG, and PDF downloads](../diagrams/README.md#scenario-map-and-application-images)

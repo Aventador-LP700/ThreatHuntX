@@ -2,6 +2,12 @@
 
 **Replay an incident. Test the detection. Document the response.**
 
+[![ThreatHuntX v2 map of 40 offensive techniques and defensive countermeasures across eight domains, with lab architecture and a purple-team workflow](docs/media/threathuntx-v2-40-threat-map.webp)](docs/diagrams/png/threathuntx-v2-40-threat-map.png)
+
+[Original PNG](docs/diagrams/png/threathuntx-v2-40-threat-map.png) · [SVG](docs/diagrams/svg/threathuntx-v2-40-threat-map.svg) · [PDF](docs/diagrams/pdf/threathuntx-v2-40-threat-map.pdf) · [Scenario catalog (JSON)](docs/scenario-matrix.json) · [Deploy locally](#five-minute-start-with-docker)
+
+The infographic shows the project framework, including optional infrastructure. The Community Lab replays synthetic telemetry. Its 40 scenarios map to 36 distinct ATT&CK IDs across 13 tactics. [Verified mappings](docs/evidence-matrix.md) · [Integration status](docs/INTEGRATION_ACCEPTANCE.md)
+
 [![Lab validation](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml/badge.svg)](https://github.com/Aventador-LP700/ThreatHuntX/actions/workflows/ci.yml)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 

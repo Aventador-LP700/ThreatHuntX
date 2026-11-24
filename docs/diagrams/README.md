@@ -1,6 +1,6 @@
 # ThreatHuntX diagrams and images
 
-Download the architecture diagrams, scenario map, and screenshots in SVG, PNG, or PDF. The architecture SVGs and PDFs retain scalable text and shapes. For the screenshots and radar illustration, SVG and PDF embed the original-resolution image.
+Download the framework infographic, architecture diagrams, and screenshots in SVG, PNG, or PDF. The architecture SVGs and PDFs retain scalable text and shapes. For the infographic, screenshots, and radar illustration, SVG and PDF embed the original-resolution image.
 
 ## Diagrams
 
@@ -18,6 +18,7 @@ The optional analyst diagram labels live collection and integrations by verifica
 
 | Image | SVG | PNG | PDF | WebP preview |
 | --- | --- | --- | --- | --- |
+| Original ThreatHuntX v2 framework infographic | [SVG](svg/threathuntx-v2-40-threat-map.svg) | [PNG](png/threathuntx-v2-40-threat-map.png) | [PDF](pdf/threathuntx-v2-40-threat-map.pdf) | [WebP](../media/threathuntx-v2-40-threat-map.webp) |
 | Technique Map with all 40 scenario and countermeasure pairs | [SVG](svg/v2-technique-map.svg) | [PNG](png/v2-technique-map.png) | [PDF](pdf/v2-technique-map.pdf) | [WebP](../media/v2-technique-map.webp) |
 | Community Lab home | [SVG](svg/intro.svg) | [PNG](png/intro.png) | [PDF](pdf/intro.pdf) | [WebP](../media/intro.webp) |
 | Guided MFA replay | [SVG](svg/guided-replay.svg) | [PNG](png/guided-replay.png) | [PDF](pdf/guided-replay.pdf) | [WebP](../media/guided-replay.webp) |
@@ -28,7 +29,7 @@ The optional analyst diagram labels live collection and integrations by verifica
 | Printable case report | [SVG](svg/v2-case-report.svg) | [PNG](png/v2-case-report.png) | [PDF](pdf/v2-case-report.pdf) | [WebP](../media/v2-case-report.webp) |
 | Workspace radar illustration | [SVG](svg/radar.svg) | [PNG](png/radar.png) | [PDF](pdf/radar.pdf) | [WebP](../../frontend/src/assets/radar.webp) |
 
-The Technique Map capture measures 2109 × 2244 pixels. The full catalog is also available as accessible text and JSON. [40 walkthroughs](../evidence-matrix.md) · [Scenario data](../scenario-matrix.json) · [MFA replay recording](../media/mfa-replay.mp4)
+The framework infographic measures 1536 × 1024 pixels. The Technique Map capture from the application measures 2109 × 2244 pixels. The full catalog is also available as accessible text and JSON. [40 walkthroughs](../evidence-matrix.md) · [Scenario data](../scenario-matrix.json) · [MFA replay recording](../media/mfa-replay.mp4)
 
 ## Export sources
 
