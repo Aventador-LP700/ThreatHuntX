@@ -1,4 +1,4 @@
-FROM python:3.12.14-slim-bookworm@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e
+FROM python:3.15.1-slim-bookworm@sha256:575f8bc12ec26542e0678bc6b60e385218248019d433157ec327264a78c3a853
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 THREATHUNTX_ROOT=/opt/threathuntx
 WORKDIR /opt/threathuntx
 COPY infra/docker/requirements.txt ./requirements.txt
