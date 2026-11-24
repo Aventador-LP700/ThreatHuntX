@@ -16,7 +16,7 @@ Reproduce the clip’s investigation with the [MFA walk-through](../FIRST_10_MIN
 
 Chromium captured these views from the running Compose lab. The studio image shows the noisy-control alert after setting the MFA threshold to one.
 
-The 2109 × 2244 Technique Map capture shows all eight groups at desktop width. The README image opens the full-resolution WebP.
+The 2109 × 2244 Technique Map capture shows all eight groups at desktop width. Download the full-size capture and the other visuals in SVG, PNG, and PDF. [Diagram and image downloads](../diagrams/README.md)
 
 - [Technique Map with all 40 scenario and countermeasure pairs](v2-technique-map.webp)
 - [Detection Studio](v2-detection-studio.webp)

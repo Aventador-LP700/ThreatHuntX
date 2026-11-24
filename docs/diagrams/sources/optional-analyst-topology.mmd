@@ -1,0 +1,8 @@
+flowchart LR
+    Fixtures[Bundled synthetic input] --> Engine[Verified isolated Wazuh engine]
+    Win[Disposable Windows and Sysmon] -. live pending .-> Manager[Optional Wazuh manager and indexer]
+    Linux[Disposable Linux and auditd] -. live pending .-> Manager
+    Sensor[Offline capture with Zeek or Suricata] -. live pending .-> Analyst[Analyst evidence review]
+    Cloud[Cloud and Kubernetes audit] -. live pending .-> Analyst
+    Manager -. live pending .-> Analyst
+    Engine --> Analyst

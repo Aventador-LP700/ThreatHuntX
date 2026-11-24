@@ -1,0 +1,17 @@
+digraph architecture {
+  graph [rankdir=LR, bgcolor="#0f1825", margin=0.25, pad=0.26, nodesep=0.37, ranksep=0.64, label="ThreatHuntX  /  Community Lab data flow", labelloc=t, labeljust=l, fontname="DejaVu Sans Bold", fontsize=21, fontcolor="#edf5ff"];
+  node [shape=box, style="rounded,filled", margin="0.18,0.12", fillcolor="#18283b", color="#407086", penwidth=1.5, fontcolor="#edf5ff", fontname="DejaVu Sans", fontsize=11];
+  edge [color="#79d9bd", arrowsize=0.75, penwidth=1.55, fontname="DejaVu Sans", fontcolor="#b5c9dd", fontsize=9];
+  fixtures [label="Bundled synthetic\nsource records"];
+  parse [label="Source parsers\nSchema v1"];
+  eval [label="Selection + correlation\nDetection rules", fillcolor="#17372f", color="#69dbb9"];
+  db [shape=cylinder, label="SQLite\nRuns and evidence"];
+  vue [label="FastAPI and Vue\nGuided investigation", fillcolor="#17372f", color="#69dbb9"];
+  reports [label="Fixture metrics\nJSON / CSV exports"];
+  static [label="Read-only showcase\nBuild-time snapshot"];
+  vendor [label="Portable artifacts\nSigma • Wazuh • KQL • SPL"];
+  fixtures -> parse -> eval -> db -> vue;
+  db -> reports;
+  eval -> static [style=dashed, label="build"];
+  eval -> vendor [style=dashed, label="source rules"];
+}
