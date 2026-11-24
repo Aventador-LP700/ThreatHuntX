@@ -1,18 +1,14 @@
-# Community v2 implementation audit
+# Community v2 engineering notes
 
-Baseline `8e510c47fdba37e61154bee59e42e579c9bb9bbc` from `community-alpha`. At the time of inspection, `main` contained the starter lab, PR #1 was open, and the v0.1.0 release was a draft. [PR #1](https://github.com/Aventador-LP700/ThreatHuntX/pull/1)
+Community v2 builds on the `community-alpha` baseline at commit `8e510c47fdba37e61154bee59e42e579c9bb9bbc`. That baseline contained the first Compose deployment and guided replay. [Community alpha PR](https://github.com/Aventador-LP700/ThreatHuntX/pull/1) · [Community v2 PR](https://github.com/Aventador-LP700/ThreatHuntX/pull/2)
 
-| Priority | Inspected baseline | Upgrade target |
+| Area | Community alpha | Community v2 |
 | --- | --- | --- |
-| Infographic | The README linked to a screenshot of the running site's ATT&CK view. The initial attachment contained the specification. | Feature the supplied infographic as a lossless preview linked to the original PNG. Provide SVG and PDF downloads. |
-| Catalog | Forty manifests, curated baselines, positive and noisy samples, and pinned ATT&CK 20.1 metadata. | Align display names and the eight sections with the specification, and export a generated matrix and per-lesson fixture results. |
-| Learning | Vue lessons, five worked cases, ten hunts, browser progress, replays and evidence timelines. | Add an interactive technique map, fifteen evidence-backed hunts, and clearer checkpoints. |
-| Analyst tools | Read-only rule views, recent-run filtering and JSON/CSV evidence exports. | Add isolated rule trials, exact evidence pivots, browser-local case notes and safe printable reports. |
-| Deployment | Docker Compose and a static build with recorded Linux and CI evidence. GitHub's Pages endpoint returned 404. | Rehearse both surfaces, add the Pages workflow and settings instructions, and verify documentation and artifact boundaries. |
-| Analyst integrations | Wazuh projections passed static checks. The prior manager image extraction exceeded local disk. The vendor and sensor integrations remain pending. | Add safe fixture-shaped adapters and try a bounded manager log test. Distinguish engine validation from deployment and live collector evidence. |
+| Framework and diagrams | The README linked to a screenshot of the ATT&CK view. | The README links a lossless framework preview to the full-size PNG. The gallery includes SVG and PDF downloads. |
+| Catalog | Forty manifests, clean and noisy controls, positive samples, and pinned ATT&CK 20.1 metadata. | Eight domains with a generated coverage matrix and fixture results for each lesson. |
+| Learning | Vue lessons, five worked cases, ten hunts, browser progress, replays, and evidence timelines. | An interactive Technique Map, fifteen hunt hypotheses, and learning checkpoints. |
+| Analyst tools | Read-only rule views, recent-run filtering, and JSON and CSV evidence exports. | Temporary rule trials, evidence pivots, browser-local case notes, and printable reports. |
+| Deployment | Docker Compose and a static build with recorded Linux and CI results. | Rehearsed Compose and static builds, a Pages workflow, and deployment instructions. Hosted Pages requires repository configuration. |
+| Analyst integrations | Wazuh rule projections passed static checks. | The Wazuh 4.14.10 engine evaluated bundled synthetic records. Live collection and full manager deployment require separate verification. |
 
-The product catalog uses the specification for scenario names and pinned MITRE data for technique and tactic claims. Links to prior release evidence stay traceable from the [validation report](../reports/validation-summary.md).
-
-## Review candidate status
-
-The v2 implementation adds the grouped catalog, portable case reports, fixture-backed tuning, vendor samples, and an isolated Wazuh engine check. The lab map shows all 40 scenario and countermeasure pairs, and the CLI reports the underlying evidence and detection results. The README features the exact framework infographic from the supplied PNG and labels the application screenshot in the Scenario lab section. [Diagram downloads](diagrams/README.md) · [Validation summary](../reports/validation-summary.md)
+The catalog maps each scenario to the pinned ATT&CK release. The Technique Map links the forty scenario and countermeasure pairs, and the CLI reports the underlying fixture evidence and detection results. [Evidence matrix](evidence-matrix.md) · [Diagram downloads](diagrams/README.md) · [Validation summary](../reports/validation-summary.md) · [Integration status](INTEGRATION_ACCEPTANCE.md)
